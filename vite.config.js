@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   root: '.',
   publicDir: 'public',
+  plugins: [vue()],
   css: {
     devSourcemap: true,
     preprocessorOptions: {
