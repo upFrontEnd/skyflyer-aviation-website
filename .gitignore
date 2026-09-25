@@ -3,7 +3,3 @@ dist
 .DS_Store
 *.log
 .vite
-
-# Raw, unoptimized screenshot sources (multi-MB originals).
-# Optimized copies used by the site live in src/assets/screenshots.
-src/screenshots

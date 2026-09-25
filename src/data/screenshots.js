@@ -1,4 +1,4 @@
-const modules = import.meta.glob('../assets/screenshots/*.jpg', {
+const modules = import.meta.glob('../screenshots/*.jpg', {
   eager: true,
   import: 'default'
 })

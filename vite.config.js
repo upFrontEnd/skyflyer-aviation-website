@@ -4,6 +4,7 @@ export default defineConfig({
   root: '.',
   publicDir: 'public',
   css: {
+    devSourcemap: true,
     preprocessorOptions: {
       scss: {
         api: 'modern-compiler'

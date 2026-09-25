@@ -5,19 +5,11 @@
 
   &__hero {
     position: relative;
-    background: linear-gradient(180deg, $color-navy 0%, #3a2a1a 55%, $color-orange-dark 100%);
+    background: var(--header-hero-bg) no-repeat 0 0/cover;
     padding-bottom: 40px;
 
     @media (min-width: $bp-tablet) {
-      padding-bottom: 70px;
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 120%, rgba(255, 170, 90, 0.35), transparent 60%);
-      pointer-events: none;
+      padding-bottom: 160px;
     }
   }
 

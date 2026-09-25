@@ -81,12 +81,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding: 10px 16px;
+    padding: 5px 10px;
     background-color: $color-purple;
   }
 
-  &__badge {
-    height: 28px;
-    width: auto;
-  }
 }

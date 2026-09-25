@@ -1,6 +1,7 @@
 import { navigation } from '../data/navigation.js'
 import logoUrl from '../assets/logo.png'
 import waveUrl from '../assets/bg-header.png'
+import heroBgUrl from '../screenshots/01.jpg'
 
 export function renderHeader() {
   const links = navigation
@@ -9,7 +10,7 @@ export function renderHeader() {
 
   return `
     <header class="header" id="accueil">
-      <div class="header__hero">
+      <div class="header__hero" style="--header-hero-bg: url(${heroBgUrl})">
         <div class="container header__bar">
           <a class="header__logo" href="#accueil" aria-label="Skyflyer Aviation - accueil">
             <img class="header__logo-img" src="${logoUrl}" alt="Skyflyer Aviation" />

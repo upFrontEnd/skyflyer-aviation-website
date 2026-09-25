@@ -19,7 +19,7 @@ export function renderFooter() {
         <div class="footer__social">
           ${links}
         </div>
-        <p class="footer__copy">Skyflyer Aviation © ${year} - Ensemble vers plus réalisme !</p>
+        <p class="footer__copy">Skyflyer Aviation © ${year}</p>
       </div>
     </footer>
   `
