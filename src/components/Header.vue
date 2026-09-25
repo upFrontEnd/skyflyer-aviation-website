@@ -100,8 +100,19 @@ watchEffect(() => {
             Bouton à deux états (thème clair / thème sombre) : on utilise
             aria-pressed (pas aria-expanded, réservé aux widgets qui
             déplient/replient du contenu, comme le hamburger juste en
-            dessous). {{ }} choisit l'emoji affiché selon isDark, comme un
-            simple ternaire JS dans le template.
+            dessous).
+
+            Piège classique évité ici : {{ }} (interpolation de texte)
+            affiche toujours une chaîne échappée telle quelle — écrire
+            {{ '<svg>...</svg>' }} affiche le texte "<svg>...</svg>", pas une
+            icône. Pour du VRAI HTML/SVG dynamique, soit on écrit le
+            balisage directement dans le template avec v-if/v-else (ce qu'on
+            fait ici, comme pour partner.logo dans Partners.vue), soit on
+            utilise la directive v-html (à réserver à du contenu qu'on
+            maîtrise, jamais à de la saisie utilisateur, sous peine de faille
+            XSS). fill="currentColor" fait hériter le blanc défini sur
+            .header__theme-toggle (color: $color-text-light) au lieu de
+            coder une couleur en dur dans le SVG.
           -->
           <button
             type="button"
@@ -109,7 +120,20 @@ watchEffect(() => {
             :aria-pressed="isDark"
             :aria-label="isDark ? 'Activer le thème clair' : 'Activer le thème sombre'"
             @click="isDark = !isDark"
-          >{{ isDark ? '☀️' : '🌙' }}</button>
+          >
+            <svg v-if="isDark" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M12 0a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V1a1 1 0 0 1 1-1M4.929 3.515a1 1 0 0 0-1.414 1.414l2.828 2.828a1 1 0 0 0 1.414-1.414L4.93 3.515ZM1 11a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2zm17 1a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2h-4a1 1 0 0 1-1-1m-.343 4.243a1 1 0 0 0-1.414 1.414l2.828 2.828a1 1 0 1 0 1.414-1.414zm-9.9 1.414a1 1 0 1 0-1.414-1.414L3.515 19.07a1 1 0 1 0 1.414 1.414l2.828-2.828ZM20.485 4.929a1 1 0 0 0-1.414-1.414l-2.828 2.828a1 1 0 1 0 1.414 1.414zM13 19a1 1 0 1 0-2 0v4a1 1 0 1 0 2 0zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10"
+              />
+            </svg>
+            <svg v-else width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M12 22c5.5228 0 10-4.4772 10-10 0-.4627-.6935-.5392-.9328-.1432C19.9289 13.7406 17.8615 15 15.5 15 11.9101 15 9 12.0899 9 8.5c0-2.36155 1.2594-4.42895 3.1432-5.56724C12.5392 2.69347 12.4627 2 12 2 6.47715 2 2 6.47715 2 12c0 5.5228 4.47715 10 10 10"
+              />
+            </svg>
+          </button>
 
           <!--
             Un commentaire ne peut pas s'insérer entre les attributs d'une balise
