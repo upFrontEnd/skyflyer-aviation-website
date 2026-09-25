@@ -4,6 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Skyflyer Aviation</title>
+    <!--
+      Script synchrone, exécuté avant le CSS et avant Vue : pose data-theme
+      sur <html> dès que possible pour éviter un flash du thème clair avant
+      que main.js (chargé en module, donc différé) ne monte l'app et que
+      Header.vue applique le thème persisté. Header.vue reprend ensuite la
+      main pour les changements suivants (clic sur le bouton, sauvegarde).
+    -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme')
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+      })()
+    </script>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />

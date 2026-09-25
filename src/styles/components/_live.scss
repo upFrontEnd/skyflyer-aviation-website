@@ -4,7 +4,7 @@
   padding-block: 32px;
 
   &__panel {
-    background-color: $color-bg-alt;
+    background-color: var(--color-bg-alt);
     border-radius: $radius;
     overflow: hidden;
     box-shadow: $shadow-card;
@@ -74,7 +74,7 @@
   &__text {
     font-size: 0.85rem;
     font-weight: 600;
-    color: $color-text;
+    color: var(--color-text);
   }
 
   &__footer {

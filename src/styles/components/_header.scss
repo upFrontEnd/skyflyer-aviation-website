@@ -5,11 +5,42 @@
 
   &__hero {
     position: relative;
-    background: var(--header-hero-bg) no-repeat 0 0/cover;
     padding-bottom: 40px;
 
     @media (min-width: $bp-tablet) {
-      padding-bottom: 160px;
+      padding-bottom: 260px;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--header-hero-bg) no-repeat 0 0/cover;
+      clip-path: polygon(
+        0% 0%,
+        100% 0%,
+        100.0% calc(100% - 4.86vw),
+        95.0% calc(100% - 3.92vw),
+        90.0% calc(100% - 3.07vw),
+        85.0% calc(100% - 2.33vw),
+        80.0% calc(100% - 1.69vw),
+        75.0% calc(100% - 1.14vw),
+        70.0% calc(100% - 0.69vw),
+        65.0% calc(100% - 0.35vw),
+        60.0% calc(100% - 0.10vw),
+        55.0% 100%,
+        50.0% 100%,
+        45.0% 100%,
+        40.0% calc(100% - 0.10vw),
+        35.0% calc(100% - 0.35vw),
+        30.0% calc(100% - 0.69vw),
+        25.0% calc(100% - 1.14vw),
+        20.0% calc(100% - 1.69vw),
+        15.0% calc(100% - 2.33vw),
+        10.0% calc(100% - 3.07vw),
+        5.0% calc(100% - 3.92vw),
+        0.0% calc(100% - 4.86vw)
+      );
     }
   }
 
@@ -38,6 +69,37 @@
     @media (min-width: $bp-desktop) {
       height: 52px;
     }
+  }
+
+  // Regroupe <nav>, le bouton thème et le hamburger. Sans ce wrapper,
+  // &__bar aurait 3 enfants "en flux" en même temps sur certaines tailles
+  // d'écran, et `justify-content: space-between` les répartirait de façon
+  // égale au lieu de les coller à droite ensemble. En les regroupant ici,
+  // &__bar retrouve exactement 2 enfants (le logo, ce wrapper) à toute
+  // taille d'écran, donc `space-between` continue de fonctionner comme avant.
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+    line-height: 1;
+    background: none;
+    border: 0;
+    cursor: pointer;
+
+    // Le bouton est toujours au-dessus de la photo du hero (sombre, fixe,
+    // voir &__hero plus haut), quel que soit le thème actif : sa couleur
+    // reste donc constante ($color-text-light), et n'utilise pas
+    // var(--color-text) comme le reste du contenu thémable de la page.
+    color: $color-text-light;
   }
 
   &__toggle {
@@ -85,8 +147,8 @@
     z-index: 20;
     max-height: 0;
     overflow: hidden;
-    background-color: $color-bg;
-    border-bottom: 1px solid $color-border;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
     box-shadow: $shadow-panel;
     transition: max-height 0.25s ease;
 
@@ -120,9 +182,9 @@
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.03em;
-    color: $color-text;
+    color: var(--color-text);
     text-transform: uppercase;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid var(--color-border);
     transition: color 0.15s ease;
 
     &:hover {

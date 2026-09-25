@@ -2,7 +2,7 @@
 
 .video {
   padding-block: 32px;
-  background-color: $color-bg-alt;
+  background-color: var(--color-bg-alt);
 
   &__head {
     display: flex;

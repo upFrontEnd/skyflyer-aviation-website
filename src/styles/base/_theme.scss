@@ -1,0 +1,26 @@
+// Palette "de surface" (fond, texte, bordures) exposée en custom properties
+// CSS plutôt qu'en variables SCSS : contrairement aux variables SCSS (qui se
+// figent en valeurs fixes au moment du build), les custom properties CSS
+// vivent dans le navigateur et peuvent être changées à l'exécution — c'est
+// ce qui permet à Header.vue de basculer le thème juste en posant un
+// attribut `data-theme` sur <html> (voir la règle :root[data-theme='dark']
+// ci-dessous, et le composant Header.vue pour la logique JS).
+:root {
+  --color-bg: #ffffff;
+  --color-bg-alt: #eef1f3;
+  --color-text: #1c1f26;
+  --color-text-muted: #6b7280;
+  --color-border: #e2e5e9;
+}
+
+// Cette règle a une spécificité plus forte que ":root" seul (grâce au
+// sélecteur d'attribut [data-theme='dark']), donc ses valeurs l'emportent
+// dès que l'attribut est présent, quel que soit l'ordre des @use dans
+// main.scss.
+:root[data-theme='dark'] {
+  --color-bg: #1e2540;
+  --color-bg-alt: #141826;
+  --color-text: #e9ebf1;
+  --color-text-muted: #9aa2b8;
+  --color-border: #323a5c;
+}

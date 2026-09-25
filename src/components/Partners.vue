@@ -5,19 +5,19 @@ import { partners } from '../data/partners.js'
 <template>
   <section class="partners" id="partenaires" aria-labelledby="partners-title">
     <div class="container">
-      <h2 class="partners__title" id="partners-title">Partenaires</h2>
+      <h2 class="partners__title" id="partners-title">Partenariats & Affiliations</h2>
       <ul class="partners__grid">
         <!--
-          Même pattern v-for + :key que les autres listes du projet. Ici le badge
-          affiché ("100 KTS FLIGHTSIM CLUB") est codé en dur dans le template :
-          seuls partner.href et partner.name sont réellement utilisés (via les
-          bindings :href/:aria-label). C'est volontaire, hérité du contenu
-          d'origine — un exemple concret que "boucler sur des données" ne veut
-          pas forcément dire "tout afficher dynamiquement".
+          v-for + :key comme dans le reste du projet. `partner.logo` est soit
+          l'URL d'un logo importé (voir data/partners.js), soit `null` pour les
+          partenaires qui n'en ont pas encore. v-if/v-else bascule entre les
+          deux rendus : c'est la façon Vue de faire du rendu conditionnel,
+          équivalent déclaratif d'un `if/else` en JS classique.
         -->
         <li v-for="partner in partners" :key="partner.id" class="partners__item">
           <a :href="partner.href" :aria-label="partner.name">
-            <span class="partners__badge">100 KTS<br />FLIGHTSIM CLUB</span>
+            <img v-if="partner.logo" class="partners__logo" :src="partner.logo" :alt="partner.name" />
+            <span v-else class="partners__badge"></span>
           </a>
         </li>
       </ul>

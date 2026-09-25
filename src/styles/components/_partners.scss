@@ -23,7 +23,11 @@
       align-items: center;
       justify-content: center;
       aspect-ratio: 3 / 2;
-      border: 1px solid $color-border;
+      // Fond blanc constant (pas var(--color-bg)) : les logos partenaires
+      // (comme Instant Gaming, en tons sombres) ne sont pas prévus pour un
+      // fond thémable — une tuile blanche fixe garantit qu'ils restent
+      // lisibles dans les deux thèmes, sans dépendre de variantes du logo.
+      border: 1px solid var(--color-border);
       border-radius: $radius;
       transition: border-color 0.15s ease;
 
@@ -31,6 +35,12 @@
         border-color: $color-orange;
       }
     }
+  }
+
+  &__logo {
+    max-width: 70%;
+    max-height: 60%;
+    object-fit: contain;
   }
 
   &__badge {
