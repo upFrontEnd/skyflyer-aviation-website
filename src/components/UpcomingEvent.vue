@@ -5,7 +5,7 @@
   "faire semblant" d'avoir un script vide.
 -->
 <template>
-  <section class="event" aria-labelledby="event-title">
+  <section id="event" class="event" aria-labelledby="event-title">
     <div class="container">
       <div class="event__panel">
         <div class="event__glow" aria-hidden="true"></div>

@@ -12,7 +12,6 @@ import { news } from '../data/news.js'
     <div class="container">
       <div class="news__head">
         <h2 class="news__title" id="news-title">Actualités</h2>
-        <a class="btn btn--blue" href="#">Voir toutes les actu <span aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="news__grid">
         <!--

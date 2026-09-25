@@ -29,34 +29,10 @@
   }
 
   &__player {
-    position: relative;
+    width: 100%;
     aspect-ratio: 16 / 9;
-    background: linear-gradient(135deg, $color-navy, #24314f);
+    border: 0;
     border-radius: $radius;
-  }
-
-  &__player-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 3px 8px;
-    background-color: #e02424;
-    color: $color-text-light;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    border-radius: 3px;
-  }
-
-  &__cam {
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
-    width: 30%;
-    aspect-ratio: 4 / 3;
-    background-color: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
   }
 
   &__info {
@@ -65,8 +41,16 @@
     gap: 12px;
   }
 
+  // aspect-ratio 3/4 : proportions réelles d'une jaquette de jeu Twitch
+  // (box_art_url renvoie des images ~188x250), pas une valeur arbitraire —
+  // sert aussi bien à l'<img> (voir object-fit) qu'au <div> de repli
+  // (chargement / hors ligne), pour que la mise en page ne saute pas selon
+  // l'état.
   &__thumb {
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 3 / 4;
+    width: 100%;
+    max-width: 140px;
+    object-fit: cover;
     background: linear-gradient(135deg, $color-blue, $color-navy);
     border-radius: $radius;
   }

@@ -1,0 +1,41 @@
+@use '../base/variables' as *;
+
+.contributions {
+  padding-block: 32px;
+  background-color: var(--color-bg-alt);
+
+  &__title {
+    margin-bottom: 16px;
+  }
+
+  &__grid {
+    display: grid;
+    gap: 16px;
+
+    @media (min-width: $bp-tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    background-color: var(--color-bg);
+    border-radius: $radius;
+    padding: 20px;
+    box-shadow: $shadow-card;
+  }
+
+  &__platform {
+    font-family: $font-heading;
+    font-size: 1.1rem;
+  }
+
+  &__description {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    flex-grow: 1;
+  }
+}

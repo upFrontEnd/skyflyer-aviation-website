@@ -12,7 +12,7 @@ const items = screenshots.slice(0, PREVIEW_COUNT)
 </script>
 
 <template>
-  <section class="gallery" id="realisation" aria-labelledby="gallery-title">
+  <section class="gallery" id="screen" aria-labelledby="gallery-title">
     <div class="container">
       <h2 class="gallery__title" id="gallery-title">Screenshots</h2>
       <ul class="gallery__grid">

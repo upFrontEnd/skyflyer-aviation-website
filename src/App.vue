@@ -10,6 +10,7 @@ import NewsList from './components/NewsList.vue'
 import Gallery from './components/Gallery.vue'
 import LatestVideo from './components/LatestVideo.vue'
 import Partners from './components/Partners.vue'
+import Contributions from './components/Contributions.vue'
 import Footer from './components/Footer.vue'
 </script>
 
@@ -32,6 +33,7 @@ import Footer from './components/Footer.vue'
     <Gallery />
     <LatestVideo />
     <Partners />
+    <Contributions />
   </main>
   <Footer />
 </template>

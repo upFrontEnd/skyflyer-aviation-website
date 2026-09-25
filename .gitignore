@@ -3,3 +3,8 @@ dist
 .DS_Store
 *.log
 .vite
+
+# Identifiants Twitch (voir .env.example) : jamais commités.
+.env
+.env.local
+.env.*.local

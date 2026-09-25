@@ -1,9 +1,24 @@
 <script setup>
-// Aucune donnée de data/*.js ici, juste un asset importé : Vite transforme
-// cet import en une URL vers l'image buildée (avec un hash dans son nom en
-// production). C'est le seul "dynamique" du composant, tout le reste du
-// template est du HTML statique.
 import liveUrl from '../assets/live.png'
+import { useTwitchStream } from '../composables/useTwitchStream.js'
+
+// Chaîne de test pendant le développement (voir README) : à remplacer par
+// la vraie chaîne Skyflyer Aviation avant la mise en production.
+const TWITCH_CHANNEL = 'zerator'
+
+// window.location n'est PAS accessible directement dans un <template> Vue
+// (seule une petite liste de globaux comme Math/Date est autorisée) : il
+// faut l'exposer explicitement ici pour pouvoir l'utiliser plus bas.
+const hostname = window.location.hostname
+
+// Le paramètre parent est exigé par le lecteur Twitch : il doit correspondre
+// au domaine qui affiche la page, sinon Twitch refuse d'afficher le stream
+// (protection contre l'intégration sur des sites tiers non autorisés).
+// hostname s'adapte tout seul : "localhost" en dev, le vrai domaine une fois
+// déployé.
+const twitchEmbedUrl = `https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&parent=${hostname}&muted=true`
+
+const { stream, loading, error } = useTwitchStream(TWITCH_CHANNEL)
 </script>
 
 <template>
@@ -15,15 +30,27 @@ import liveUrl from '../assets/live.png'
         </div>
 
         <div class="live__content">
-          <div class="live__player" role="img" aria-label="Aperçu du stream en direct">
-            <span class="live__player-badge">LIVE</span>
-          </div>
+          <iframe
+            class="live__player"
+            :src="twitchEmbedUrl"
+            title="Lecteur Twitch"
+            allowfullscreen
+          ></iframe>
           <div class="live__info">
-            <div class="live__thumb" role="img" aria-label="Miniature de la vidéo en direct"></div>
-            <p class="live__text">
-              [FR/EN] [FlightFactor February Fly-In] Easyjet - Airbus A-319 Toliss - Paris LFPG ->
-              Copenhagen EKCH
-            </p>
+            <!-- stream?.boxArtUrl : l'optional chaining évite une erreur si
+                 stream est encore null (chargement en cours, ou hors ligne). -->
+            <img
+              v-if="stream?.boxArtUrl"
+              class="live__thumb"
+              :src="stream.boxArtUrl"
+              :alt="`Jaquette du jeu ${stream.gameName}`"
+            />
+            <div v-else class="live__thumb" role="img" aria-label="Jeu actuellement joué"></div>
+
+            <p v-if="loading" class="live__text">Chargement du live…</p>
+            <p v-else-if="error" class="live__text">Infos du live indisponibles ({{ error }})</p>
+            <p v-else-if="stream" class="live__text">{{ stream.title }}</p>
+            <p v-else class="live__text">Actuellement hors ligne</p>
           </div>
         </div>
         <div class="live__footer">
