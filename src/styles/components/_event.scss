@@ -1,0 +1,116 @@
+@use '../base/variables' as *;
+
+.event {
+  padding-bottom: 32px;
+
+  &__panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: $radius;
+    padding: 24px;
+    background: linear-gradient(120deg, $color-navy 0%, #1e2c4a 55%, #2c3a5a 100%);
+    color: $color-text-light;
+
+    @media (min-width: $bp-tablet) {
+      padding: 40px;
+    }
+  }
+
+  &__glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 80% 30%, rgba(90, 130, 200, 0.35), transparent 60%);
+    pointer-events: none;
+  }
+
+  &__kicker {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: $color-orange;
+    text-transform: uppercase;
+
+    &::after {
+      content: '';
+      width: 60px;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  &__body {
+    position: relative;
+    display: grid;
+    gap: 24px;
+    margin-top: 16px;
+
+    @media (min-width: $bp-desktop) {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+  }
+
+  &__title {
+    color: $color-text-light;
+    font-size: 1.75rem;
+    margin-bottom: 12px;
+
+    @media (min-width: $bp-tablet) {
+      font-size: 2.25rem;
+    }
+  }
+
+  &__description {
+    max-width: 420px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 20px;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  &__detail {
+    padding-left: 12px;
+    border-left: 3px solid $color-orange;
+
+    dt {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 2px;
+    }
+
+    dd {
+      margin: 0;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+  }
+
+  &__visual {
+    display: none;
+
+    @media (min-width: $bp-desktop) {
+      display: block;
+      text-align: right;
+    }
+  }
+
+  &__visual-text {
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: 3.5rem;
+    line-height: 0.95;
+    color: rgba(255, 255, 255, 0.12);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
+  }
+}

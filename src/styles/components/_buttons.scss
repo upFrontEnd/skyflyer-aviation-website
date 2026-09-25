@@ -1,0 +1,26 @@
+@use '../base/variables' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: $color-text-light;
+  white-space: nowrap;
+  transition: filter 0.15s ease;
+
+  &:hover {
+    filter: brightness(1.08);
+  }
+
+  &--purple {
+    background-color: $color-purple;
+  }
+
+  &--blue {
+    background-color: $color-blue;
+  }
+}

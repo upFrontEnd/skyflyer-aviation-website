@@ -1,0 +1,20 @@
+@use '../base/variables' as *;
+
+.video {
+  padding-block: 32px;
+  background-color: $color-bg-alt;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  &__frame {
+    aspect-ratio: 16 / 9;
+    background-color: #000000;
+    border-radius: $radius;
+  }
+}

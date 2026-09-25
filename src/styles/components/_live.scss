@@ -1,0 +1,124 @@
+@use '../base/variables' as *;
+
+.live {
+  padding-block: 32px;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  &__panel {
+    background-color: $color-bg-alt;
+    border-radius: $radius;
+    overflow: hidden;
+    box-shadow: $shadow-card;
+  }
+
+  &__content {
+    display: grid;
+    gap: 16px;
+    padding: 16px;
+
+    @media (min-width: $bp-tablet) {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  &__player {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, $color-navy, #24314f);
+    border-radius: $radius;
+  }
+
+  &__player-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 3px 8px;
+    background-color: #e02424;
+    color: $color-text-light;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border-radius: 3px;
+  }
+
+  &__cam {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    width: 30%;
+    aspect-ratio: 4 / 3;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__thumb {
+    aspect-ratio: 3 / 2;
+    background: linear-gradient(135deg, $color-blue, $color-navy);
+    border-radius: $radius;
+  }
+
+  &__text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $color-text;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background-color: $color-purple;
+    color: $color-text-light;
+  }
+
+  &__status {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+
+  &__status-label {
+    font-family: $font-heading;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1rem;
+  }
+
+  &__status-sub {
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+  }
+
+  &__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 2px solid #e02424;
+  }
+
+  &__cta {
+    margin-left: auto;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

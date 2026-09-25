@@ -1,0 +1,35 @@
+@use '../base/variables' as *;
+
+.gallery {
+  padding-block: 32px;
+
+  &__title {
+    margin-bottom: 16px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+
+    @media (min-width: $bp-tablet) {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  &__item {
+    aspect-ratio: 1 / 1;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #{$color-blue}, #{$color-navy});
+    cursor: pointer;
+    transition: transform 0.15s ease;
+
+    &:nth-child(odd) {
+      background: linear-gradient(135deg, #{$color-navy-light}, #{$color-navy});
+    }
+
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+}
