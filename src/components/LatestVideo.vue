@@ -1,3 +1,5 @@
+<!-- Composant 100% statique, comme UpcomingEvent.vue : pas de <script setup>
+     nécessaire quand il n'y a rien à importer ni à rendre réactif. -->
 <template>
   <section class="video" aria-labelledby="video-title">
     <div class="container">

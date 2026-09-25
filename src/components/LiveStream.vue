@@ -1,4 +1,8 @@
 <script setup>
+// Aucune donnée de data/*.js ici, juste un asset importé : Vite transforme
+// cet import en une URL vers l'image buildée (avec un hash dans son nom en
+// production). C'est le seul "dynamique" du composant, tout le reste du
+// template est du HTML statique.
 import liveUrl from '../assets/live.png'
 </script>
 

@@ -1,3 +1,9 @@
+<!--
+  Une SFC (Single File Component) Vue peut n'avoir qu'un <template>, sans
+  <script setup> du tout : c'est valable dès qu'il n'y a ni donnée, ni état,
+  ni logique JS à exécuter — uniquement du HTML statique. Pas besoin de
+  "faire semblant" d'avoir un script vide.
+-->
 <template>
   <section class="event" aria-labelledby="event-title">
     <div class="container">
