@@ -1,5 +1,12 @@
-export const screenshots = Array.from({ length: 12 }, (_, i) => ({
-  id: i + 1,
-  src: null,
-  alt: `Capture d'écran simulation de vol ${i + 1}`
-}))
+const modules = import.meta.glob('../assets/screenshots/*.jpg', {
+  eager: true,
+  import: 'default'
+})
+
+export const screenshots = Object.entries(modules)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([path, src], index) => ({
+    id: index + 1,
+    src,
+    alt: `Capture d'écran simulation de vol ${index + 1}`
+  }))

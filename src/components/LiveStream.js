@@ -1,13 +1,15 @@
+import liveUrl from '../assets/live.png'
+
 export function renderLiveStream() {
   return `
     <section class="live" aria-labelledby="live-title">
       <div class="container">
-        <div class="live__head">
-          <h2 class="live__title" id="live-title">Live en cours</h2>
-          <a class="btn btn--purple" href="#">Voir tous les lives <span aria-hidden="true">&rarr;</span></a>
-        </div>
-
         <div class="live__panel">
+          <div class="live__head">
+            <h2 class="live__title" id="live-title">Live en cours</h2>
+            <a class="btn btn--purple" href="#">Voir tous les lives <span aria-hidden="true">&rarr;</span></a>
+          </div>
+
           <div class="live__content">
             <div class="live__player" role="img" aria-label="Aperçu du stream en direct">
               <span class="live__player-badge">LIVE</span>
@@ -22,12 +24,7 @@ export function renderLiveStream() {
             </div>
           </div>
           <div class="live__footer">
-            <div class="live__status">
-              <span class="live__status-label">LIVE</span>
-              <span class="live__status-sub">STREAMING</span>
-            </div>
-            <span class="live__dot" aria-hidden="true"></span>
-            <a class="live__cta" href="#" target="_blank" rel="noopener">Rejoignez-nous sur Twitch</a>
+            <img class="live__badge" src="${liveUrl}" alt="Live streaming - Rejoignez-nous sur Twitch" />
           </div>
         </div>
       </div>

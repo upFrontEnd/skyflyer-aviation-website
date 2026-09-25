@@ -3,19 +3,19 @@
 .live {
   padding-block: 32px;
 
-  &__head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-
   &__panel {
     background-color: $color-bg-alt;
     border-radius: $radius;
     overflow: hidden;
     box-shadow: $shadow-card;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 16px 0;
   }
 
   &__content {
@@ -80,45 +80,13 @@
   &__footer {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
+    justify-content: flex-end;
+    padding: 10px 16px;
     background-color: $color-purple;
-    color: $color-text-light;
   }
 
-  &__status {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.1;
-  }
-
-  &__status-label {
-    font-family: $font-heading;
-    font-weight: 700;
-    font-style: italic;
-    font-size: 1rem;
-  }
-
-  &__status-sub {
-    font-size: 0.55rem;
-    letter-spacing: 0.1em;
-  }
-
-  &__dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #ffffff;
-    border: 2px solid #e02424;
-  }
-
-  &__cta {
-    margin-left: auto;
-    font-size: 0.85rem;
-    font-weight: 600;
-
-    &:hover {
-      text-decoration: underline;
-    }
+  &__badge {
+    height: 28px;
+    width: auto;
   }
 }

@@ -1,4 +1,6 @@
 import { navigation } from '../data/navigation.js'
+import logoUrl from '../assets/logo.png'
+import waveUrl from '../assets/bg-header.png'
 
 export function renderHeader() {
   const links = navigation
@@ -7,14 +9,10 @@ export function renderHeader() {
 
   return `
     <header class="header" id="accueil">
-      <div class="header__bar">
-        <div class="container header__bar-inner">
+      <div class="header__hero">
+        <div class="container header__bar">
           <a class="header__logo" href="#accueil" aria-label="Skyflyer Aviation - accueil">
-            <span class="header__logo-icon" aria-hidden="true"></span>
-            <span class="header__logo-text">
-              <span class="header__logo-title">SKYFLYER</span>
-              <span class="header__logo-subtitle">AVIATION</span>
-            </span>
+            <img class="header__logo-img" src="${logoUrl}" alt="Skyflyer Aviation" />
           </a>
 
           <button
@@ -35,8 +33,8 @@ export function renderHeader() {
             </ul>
           </nav>
         </div>
+        <img class="header__wave" src="${waveUrl}" alt="" aria-hidden="true" />
       </div>
-      <div class="header__hero" aria-hidden="true"></div>
     </header>
   `
 }
