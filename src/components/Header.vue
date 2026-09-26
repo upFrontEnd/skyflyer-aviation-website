@@ -123,14 +123,14 @@ const { isDark } = useTheme()
             Piège classique évité ici : {{ }} (interpolation de texte)
             affiche toujours une chaîne échappée telle quelle — écrire
             {{ '<svg>...</svg>' }} affiche le texte "<svg>...</svg>", pas une
-            icône. Pour du VRAI HTML/SVG dynamique, soit on écrit le
+            icône. 
+            
+            Pour du VRAI HTML/SVG dynamique, soit on écrit le
             balisage directement dans le template avec v-if/v-else (ce qu'on
             fait ici, comme pour partner.logo dans Partners.vue), soit on
             utilise la directive v-html (à réserver à du contenu qu'on
             maîtrise, jamais à de la saisie utilisateur, sous peine de faille
-            XSS). fill="currentColor" fait hériter le blanc défini sur
-            .header__theme-toggle (color: $color-text-light) au lieu de
-            coder une couleur en dur dans le SVG.
+            XSS).
           -->
           <button
             type="button"

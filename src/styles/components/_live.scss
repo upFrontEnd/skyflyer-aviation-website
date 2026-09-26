@@ -1,10 +1,10 @@
 @use '../base/variables' as *;
 
 .live {
-  padding-block: 32px;
-
+  padding-block: 1.9rem;
   &__panel {
-    background-color: var(--color-bg-alt);
+    background: linear-gradient(120deg, rgba(88, 101, 242, .2), var(--color-bg-alt) 58%);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
     border: 1px solid #6441a5;
     border-radius: $radius;
     overflow: hidden;
@@ -14,18 +14,13 @@
   &__head {
     display: flex;
     align-items: center;
-    // flex-start (pas space-between) : le badge animé doit coller au titre,
-    // pas être écarté aux deux extrémités de la ligne comme quand &__head
-    // n'avait qu'un seul enfant.
     justify-content: flex-start;
-    padding: 16px 16px 0;
+    padding: 1rem 1rem 0;
   }
 
-  // Carré (1040x1040 dans le fichier source) : on fixe une taille fixe et
-  // flex-shrink: 0 pour qu'il ne soit jamais écrasé par le titre sur une
-  // ligne étroite.
+
   &__badge-anim {
-    width: 45px;
+    width: 2.8rem;
     flex-shrink: 0;
   }
 
@@ -39,12 +34,6 @@
     }
   }
 
-  &__main {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
   &__player {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -52,22 +41,12 @@
     border-radius: $radius;
   }
 
-  // Rangée horizontale (jaquette + titre côte à côte) : sous un lecteur
-  // large, une colonne étroite comme avant aurait laissé beaucoup de place
-  // inutilisée à droite du texte.
   &__info {
     display: flex;
     align-items: center;
     gap: 12px;
   }
 
-  // aspect-ratio 3/4 : proportions réelles d'une jaquette de jeu Twitch
-  // (box_art_url renvoie des images ~188x250), pas une valeur arbitraire —
-  // sert aussi bien à l'<img> (voir object-fit) qu'au <div> de repli
-  // (chargement / hors ligne). max-width réduit par rapport à avant (c'est
-  // maintenant une petite icône à côté du texte, plus un bloc autonome dans
-  // une colonne étroite) ; flex-shrink: 0 l'empêche de se faire écraser par
-  // le texte à côté.
   &__thumb {
     aspect-ratio: 3 / 4;
     width: 100%;
@@ -84,16 +63,9 @@
     color: var(--color-text);
   }
 
-  // Plus de flex: 1 ici (nécessaire avant car &__chat vivait dans le flex
-  // column &__info) : &__chat est maintenant un item direct de la grille
-  // &__content, donc étiré sur toute la hauteur de la ligne (comportement
-  // grid par défaut, align-items: stretch) — height: 100% le confirme
-  // explicitement. min-height reste le plancher pour le cas mobile, où
-  // &__content redevient une simple colonne sans hauteur de ligne imposée.
   &__chat {
     width: 100%;
     height: 100%;
-    min-height: 300px;
     border: 0;
     border-radius: $radius;
   }
@@ -102,7 +74,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding: 5px 10px;
+    padding: .2rem 1rem 0 0;
     background-color: $color-purple;
   }
 

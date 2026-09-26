@@ -1,16 +1,16 @@
 @use '../base/variables' as *;
 
 .gallery {
-  padding-block: 32px;
+  padding-block: 2rem;
 
   &__title {
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
   }
 
   &__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: .7rem;
 
     @media (min-width: $bp-tablet) {
       grid-template-columns: repeat(6, 1fr);
@@ -20,7 +20,7 @@
   &__item {
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    border-radius: 4px;
+    border-radius: .2rem;
     background-color: $color-navy;
     cursor: pointer;
   }

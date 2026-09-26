@@ -29,11 +29,10 @@ import Footer from './components/Footer.vue'
   <main>
     <LiveStream />
     <UpcomingEvent />
-    <NewsList />
-    <Gallery />
-    <LatestVideo />
     <Partners />
     <Contributions />
+    <Gallery />
+    <LatestVideo />
   </main>
   <Footer />
 </template>

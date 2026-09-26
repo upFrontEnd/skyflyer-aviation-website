@@ -1,16 +1,16 @@
 @use '../base/variables' as *;
 
 .contributions {
-  padding-block: 32px;
+  padding-block: 2rem;
   background-color: var(--color-bg-alt);
 
   &__title {
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
   }
 
   &__grid {
     display: grid;
-    gap: 16px;
+    gap: 1rem;
 
     @media (min-width: $bp-tablet) {
       grid-template-columns: repeat(2, 1fr);
@@ -21,10 +21,10 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: .5rem;
     background-color: var(--color-bg);
     border-radius: $radius;
-    padding: 20px;
+    padding: 1rem;
     box-shadow: $shadow-card;
   }
 

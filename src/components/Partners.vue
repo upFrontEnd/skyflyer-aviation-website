@@ -15,7 +15,7 @@ import { partners } from '../data/partners.js'
           équivalent déclaratif d'un `if/else` en JS classique.
         -->
         <li v-for="partner in partners" :key="partner.id" class="partners__item">
-          <a :href="partner.href" :aria-label="partner.name">
+          <a :href="partner.href" :aria-label="partner.name" target="_blank">
             <img v-if="partner.logo" class="partners__logo" :src="partner.logo" :alt="partner.name" />
             <span v-else class="partners__badge"></span>
           </a>

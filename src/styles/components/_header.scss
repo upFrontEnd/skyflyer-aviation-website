@@ -5,10 +5,10 @@
 
   &__hero {
     position: relative;
-    padding-bottom: 40px;
+    padding-bottom: 2.3rem;
 
     @media (min-width: $bp-tablet) {
-      padding-bottom: 260px;
+      padding-bottom: 16.3rem;
     }
 
     &::before {
@@ -51,11 +51,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px;
+    height: 4rem;
     padding: 0 2rem;
 
     @media (min-width: $bp-desktop) {
-      height: 84px;
+      height: 4.5rem;
     }
   }
 
@@ -65,35 +65,26 @@
   }
 
   &__logo-img {
-    height: 40px;
+    height: 2.5rem;
     width: auto;
 
     @media (min-width: $bp-desktop) {
-      height: 52px;
+      height: 2.5rem;
     }
   }
 
-  // Regroupe <nav>, le bouton thème et le hamburger. Sans ce wrapper,
-  // &__bar aurait 3 enfants "en flux" en même temps sur certaines tailles
-  // d'écran, et `justify-content: space-between` les répartirait de façon
-  // égale au lieu de les coller à droite ensemble. En les regroupant ici,
-  // &__bar retrouve exactement 2 enfants (le logo, ce wrapper) à toute
-  // taille d'écran, donc `space-between` continue de fonctionner comme avant.
   &__actions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 1rem;
   }
 
-  // Même gabarit que &__theme-toggle juste en dessous (mêmes raisons :
-  // toujours sur la photo sombre du hero, donc couleur blanche constante,
-  // jamais var(--color-text)).
   &__social-link {
+    aspect-ratio: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 2rem;
     color: $color-text-light;
     transition: color 0.15s ease;
 
@@ -103,39 +94,34 @@
   }
 
   &__theme-toggle {
+    aspect-ratio: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 2rem;
     font-size: 1.1rem;
     line-height: 1;
     background: none;
     border: 0;
     cursor: pointer;
-
-    // Le bouton est toujours au-dessus de la photo du hero (sombre, fixe,
-    // voir &__hero plus haut), quel que soit le thème actif : sa couleur
-    // reste donc constante ($color-text-light), et n'utilise pas
-    // var(--color-text) comme le reste du contenu thémable de la page.
     color: $color-text-light;
   }
 
   &__toggle {
+    aspect-ratio: 1;
     position: relative;
     z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 5px;
-    width: 32px;
-    height: 32px;
+    gap: .4rem;
+    width: 2rem;
 
     span {
       display: block;
-      height: 2px;
+      height: .1rem;
       background-color: $color-text-light;
-      border-radius: 1px;
+      border-radius: .2rem;
       transition: transform 0.2s ease, opacity 0.2s ease;
     }
 
@@ -182,7 +168,7 @@
   }
 
   &__nav--open {
-    max-height: 400px;
+    max-height: 12rem;
   }
 
   &__list {
@@ -191,7 +177,6 @@
 
     @media (min-width: $bp-desktop) {
       flex-direction: row;
-      gap: 4px;
     }
   }
 
@@ -211,7 +196,7 @@
     }
 
     @media (min-width: $bp-desktop) {
-      padding: 10px 12px;
+      padding: .1rem 1rem;
       color: $color-text-light;
       border-bottom: 0;
 
@@ -225,7 +210,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 2px;
+    bottom: .1rem;
     width: 100%;
     height: auto;
     display: block;
