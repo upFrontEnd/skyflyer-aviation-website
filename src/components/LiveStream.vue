@@ -71,9 +71,6 @@ onUnmounted(() => {
     <div class="container">
       <div class="live__panel">
         <div class="live__head">
-          <!-- ref="lottieContainer" : lottie-web dessine son SVG à l'intérieur
-               de ce <div>, qui reste sinon vide (le rendu n'est pas piloté
-               par le template Vue, juste hébergé dedans). -->
           <div class="live__badge-anim" ref="lottieContainer" aria-hidden="true"></div>
           <h2 class="live__title" id="live-title">Live en cours</h2>
         </div>

@@ -1,14 +1,14 @@
 @use '../base/variables' as *;
 
 .video {
-  padding-block: 32px;
   background-color: var(--color-bg-alt);
+  padding-block: 32px;
 
   &__head {
-    display: flex;
     align-items: center;
-    justify-content: space-between;
+    display: flex;
     gap: 12px;
+    justify-content: space-between;
     margin-bottom: 16px;
   }
 

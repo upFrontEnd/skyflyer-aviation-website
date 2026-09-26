@@ -1,12 +1,12 @@
 @use '../base/variables' as *;
 
 .footer {
-  padding-block: 1rem;
   background-color: $color-footer-bg;
   color: $color-footer-text;
+  padding-block: 1rem;
 
   &__copy {
-    font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
   }
 }

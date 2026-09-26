@@ -1,13 +1,13 @@
 @use '../base/variables' as *;
 
 .btn {
-  display: inline-flex;
   align-items: center;
+  color: $color-text-light;
+  display: inline-flex;
   font-size: 0.8rem;
   font-weight: 600;
-  color: $color-text-light;
-  white-space: nowrap;
   transition: filter 0.15s ease;
+  white-space: nowrap;
 
   &:hover {
     filter: brightness(1.08);
@@ -16,7 +16,7 @@
   &--purple {
     background-color: $color-purple;
   }
-
+  
   &--blue {
     background-color: $color-blue;
   }

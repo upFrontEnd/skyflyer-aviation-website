@@ -12,8 +12,6 @@ const year = new Date().getFullYear()
 <template>
   <footer class="footer">
     <div class="container">
-      <!-- {{ year }} : interpolation de texte, réévaluée si `year` changeait
-           (ce qui n'arrive pas ici, voir la remarque sur ref() ci-dessus). -->
       <p class="footer__copy">Skyflyer Aviation © {{ year }}</p>
     </div>
   </footer>

@@ -2,12 +2,12 @@
 
 .event {
   &__panel {
-    position: relative;
-    overflow: hidden;
-    border-radius: $radius;
-    padding: 1.5rem;
     background: linear-gradient(120deg, $color-navy 0%, #1e2c4a 55%, #2c3a5a 100%);
+    border-radius: $radius;
     color: $color-text-light;
+    overflow: hidden;
+    padding: 1.5rem;
+    position: relative;
 
     @media (min-width: $bp-tablet) {
       padding: 2rem;
@@ -15,37 +15,35 @@
   }
 
   &__glow {
-    position: absolute;
-    inset: 0;
     background: radial-gradient(circle at 80% 30%, rgba(90, 130, 200, 0.35), transparent 60%);
+    position: absolute; inset: 0;
     pointer-events: none;
   }
 
   &__kicker {
-    position: relative;
-    display: inline-flex;
     align-items: center;
-    gap: .5rem;
+    color: $color-orange;
+    display: inline-flex;
     font-size: 0.75rem;
     font-weight: 700;
+    gap: .5rem;
     letter-spacing: 0.1em;
-    color: $color-orange;
+    position: relative;
     text-transform: uppercase;
 
     &::after {
       content: '';
-      width: 2rem;
-      height: .2rem;
+      width: 2rem; height: .2rem;
       background-color: rgba(255, 255, 255, 0.3);
     }
   }
 
   &__body {
-    position: relative;
     display: grid;
+    position: relative;
     @media (min-width: $bp-desktop) {
-      grid-template-columns: 1fr 1fr;
       align-items: center;
+      grid-template-columns: 1fr 1fr;
     }
   }
 
@@ -72,14 +70,14 @@
   }
 
   &__detail {
-    padding-left: 1rem;
     border-left: 3px solid $color-orange;
+    padding-left: 1rem;
 
     dt {
+      color: rgba(255, 255, 255, 0.6);
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: rgba(255, 255, 255, 0.6);
     }
 
     dd {

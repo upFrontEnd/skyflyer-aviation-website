@@ -1,24 +1,24 @@
 @use 'variables' as *;
 
 body {
-  font-family: $font-body;
+  background-color: var(--color-bg);
   color: var(--color-text);
+  font-family: $font-body;
   font-size: 16px;
   line-height: 1.5;
-  background-color: var(--color-bg);
 }
 
 h1,
 h2,
 h3 {
+  color: var(--color-text);
   font-family: $font-heading;
   font-weight: 600;
-  color: var(--color-text);
 }
 
 h2 {
   font-size: 1.5rem;
-
+  
   @media (min-width: $bp-tablet) {
     font-size: 1.75rem;
   }

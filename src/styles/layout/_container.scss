@@ -1,8 +1,8 @@
 @use '../base/variables' as *;
 
 .container {
-  width: 100%;
-  max-width: $container-width;
   margin-inline: auto;
+  max-width: $container-width;
   padding-inline: $gutter;
+  width: 100%;
 }
