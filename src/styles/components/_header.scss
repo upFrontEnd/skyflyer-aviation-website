@@ -1,11 +1,14 @@
 @use '../base/variables' as *;
 
 .header {
-  position: relative;
-
   &__hero {
     position: relative;
+    margin-top: -4rem;
     padding-bottom: 2.3rem;
+
+    @media (min-width: $bp-desktop) {
+      margin-top: -4.5rem;
+    }
 
     @media (min-width: $bp-tablet) {
       padding-bottom: 35rem;
@@ -50,8 +53,9 @@
     height: 4rem;
     justify-content: space-between;
     padding: 0 2rem;
-    position: relative;
-    z-index: 2;
+    position: sticky;
+    top: 0;
+    z-index: 50;
 
     @media (min-width: $bp-desktop) {
       height: 4.5rem;

@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 *,
 *::before,
 *::after {
@@ -19,6 +21,11 @@ figure {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+
+  @media (min-width: $bp-desktop) {
+    scroll-padding-top: 4.5rem;
+  }
 }
 
 body {
