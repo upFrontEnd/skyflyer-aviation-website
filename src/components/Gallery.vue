@@ -2,7 +2,9 @@
 // `screenshots` vient de data/screenshots.js, qui utilise import.meta.glob
 // pour importer dynamiquement tous les fichiers .jpg du dossier (fonctionnalité
 // de Vite, pas de Vue) et en fait un tableau [{ id, src, alt }, ...].
+import { ref } from 'vue'
 import { screenshots } from '../data/screenshots.js'
+import Lightbox from './Lightbox.vue'
 
 // Mélange Fisher-Yates : on tire un ordre aléatoire différent à chaque
 // chargement de la page, en travaillant sur une COPIE ([...array]) plutôt
@@ -23,6 +25,10 @@ function shuffle(array) {
 // une seule fois au chargement du composant, pas à chaque re-render.
 const PREVIEW_COUNT = 18
 const items = shuffle(screenshots).slice(0, PREVIEW_COUNT)
+
+// null = lightbox fermée. Un index (pas un booléen) : la lightbox a besoin
+// de savoir QUELLE image afficher, pas juste si elle est ouverte.
+const activeIndex = ref(null)
 </script>
 
 <template>
@@ -30,10 +36,17 @@ const items = shuffle(screenshots).slice(0, PREVIEW_COUNT)
     <div class="container">
       <h2 class="gallery__title" id="gallery-title">Screenshots</h2>
       <ul class="gallery__grid">
-        <li v-for="shot in items" :key="shot.id" class="gallery__item">
-          <img class="gallery__img" :src="shot.src" :alt="shot.alt" loading="lazy" />
+        <li v-for="(shot, index) in items" :key="shot.id" class="gallery__item">
+          <img
+            class="gallery__img"
+            :src="shot.src"
+            :alt="shot.alt"
+            loading="lazy"
+            @click="activeIndex = index"
+          />
         </li>
       </ul>
     </div>
+    <Lightbox :items="items" v-model="activeIndex" />
   </section>
 </template>
