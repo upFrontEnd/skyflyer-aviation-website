@@ -14,6 +14,8 @@
   &__frame {
     aspect-ratio: 16 / 9;
     background-color: #000000;
+    border: 0;
     border-radius: $radius;
+    width: 100%;
   }
 }
