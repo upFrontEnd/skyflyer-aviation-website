@@ -7,11 +7,11 @@ $color-purple: #6c4fd6;
 $color-blue: #2f8fe0;
 $color-green: #3ab54a;
 
-// $color-text, $color-text-muted, $color-bg, $color-bg-alt et $color-border
-// vivent maintenant dans base/_theme.scss sous forme de custom properties CSS
-// (--color-text, --color-bg, ...), pour pouvoir être changées à l'exécution
-// par le switch de thème clair/sombre (voir Header.vue). Une variable SCSS
-// classique se fige en valeur fixe au moment du build — inadaptée ici.
+$color-bg: #1e2540;
+$color-bg-alt: #141826;
+$color-text: #e9ebf1;
+$color-text-muted: #9aa2b8;
+$color-border: #323a5c;
 $color-text-light: #ffffff;
 
 $color-footer-bg: #1a1a1a;

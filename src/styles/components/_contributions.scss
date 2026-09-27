@@ -2,7 +2,7 @@
 
 .contributions {
   padding-block: 2rem;
-  background-color: var(--color-bg-alt);
+  background-color: $color-bg-alt;
 
   &__title {
     margin-bottom: 1rem;
@@ -17,7 +17,7 @@
   }
 
   &__card {
-    background-color: var(--color-bg);
+    background-color: $color-bg;
     border-radius: $radius;
     box-shadow: $shadow-card;
     display: flex;
@@ -33,7 +33,7 @@
   }
 
   &__description {
-    color: var(--color-text-muted);
+    color: $color-text-muted;
     font-size: 0.85rem;
     flex-grow: 1;
   }

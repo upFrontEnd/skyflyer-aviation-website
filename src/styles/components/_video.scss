@@ -1,7 +1,7 @@
 @use '../base/variables' as *;
 
 .video {
-  background-color: var(--color-bg-alt);
+  background-color: $color-bg-alt;
   padding-block: 32px;
 
   &__head {

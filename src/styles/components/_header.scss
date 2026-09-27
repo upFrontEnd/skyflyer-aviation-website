@@ -91,20 +91,6 @@
     }
   }
 
-  &__theme-toggle {
-    align-items: center;
-    aspect-ratio: 1;
-    background: none;
-    border: 0;
-    color: $color-text-light;
-    cursor: pointer;
-    display: flex;
-    font-size: 1.1rem;
-    justify-content: center;
-    line-height: 1;
-    width: 2rem;
-}
-
   &__toggle {
     aspect-ratio: 1;
     display: flex;
@@ -143,8 +129,8 @@
   }
 
   &__nav {
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
+    background-color: $color-bg;
+    border-bottom: 1px solid $color-border;
     box-shadow: $shadow-panel;
     left: 0;
     max-height: 0;
@@ -177,7 +163,7 @@
   }
 
   &__link {
-    color: var(--color-text);
+    color: $color-text;
     display: block;
     font-size: 0.75rem;
     font-weight: 600;

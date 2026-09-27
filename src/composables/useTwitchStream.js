@@ -11,8 +11,7 @@ import { ref, onMounted } from 'vue'
 const TWITCH_CLIENT_ID = import.meta.env.VITE_TWITCH_CLIENT_ID
 const TWITCH_ACCESS_TOKEN = import.meta.env.VITE_TWITCH_ACCESS_TOKEN
 
-// Composable dédié à UNE chaîne : contrairement à useTheme.js (un seul état
-// partagé par toute l'app), ici chaque composant appelant useTwitchStream()
+// Composable dédié à UNE chaîne : chaque composant appelant useTwitchStream()
 // avec un channelLogin obtient son PROPRE état (stream/loading/error) — la
 // ref est créée à l'intérieur de la fonction, pas au niveau du module.
 export function useTwitchStream(channelLogin) {

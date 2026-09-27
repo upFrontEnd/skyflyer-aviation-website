@@ -8,6 +8,7 @@ import LiveStream from './components/LiveStream.vue'
 import UpcomingEvent from './components/UpcomingEvent.vue'
 import NewsList from './components/NewsList.vue'
 import Gallery from './components/Gallery.vue'
+import Volanta from './components/Volanta.vue'
 import LatestVideo from './components/LatestVideo.vue'
 import Partners from './components/Partners.vue'
 import Contributions from './components/Contributions.vue'
@@ -32,6 +33,7 @@ import Footer from './components/Footer.vue'
     <Partners />
     <Contributions />
     <Gallery />
+    <Volanta />
     <LatestVideo />
   </main>
   <Footer />

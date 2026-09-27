@@ -2,9 +2,9 @@
 
 .event {
   &__panel {
-    background: linear-gradient(120deg, $color-navy 0%, #1e2c4a 55%, #2c3a5a 100%);
+    background: linear-gradient(120deg, rgba(255, 147, 0, .2), $color-bg-alt 58%);
     border-radius: $radius;
-    color: $color-text-light;
+    border: 1px solid #f57c20;
     overflow: hidden;
     padding: 1.5rem;
     position: relative;
@@ -15,7 +15,6 @@
   }
 
   &__glow {
-    background: radial-gradient(circle at 80% 30%, rgba(90, 130, 200, 0.35), transparent 60%);
     position: absolute; inset: 0;
     pointer-events: none;
   }
@@ -24,7 +23,7 @@
     align-items: center;
     color: $color-orange;
     display: inline-flex;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 700;
     gap: .5rem;
     letter-spacing: 0.1em;
@@ -34,7 +33,7 @@
     &::after {
       content: '';
       width: 2rem; height: .2rem;
-      background-color: rgba(255, 255, 255, 0.3);
+      background-color: currentColor;
     }
   }
 
@@ -48,7 +47,6 @@
   }
 
   &__title {
-    color: $color-text-light;
     font-size: 1.75rem;
     margin-bottom: .5rem;
 
@@ -59,8 +57,8 @@
 
   &__description {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.75);
     margin-bottom: .7rem;
+    padding-right: 1rem;
   }
 
   &__details {
@@ -74,7 +72,6 @@
     padding-left: 1rem;
 
     dt {
-      color: rgba(255, 255, 255, 0.6);
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -88,20 +85,10 @@
   }
 
   &__visual {
-    display: none;
 
     @media (min-width: $bp-desktop) {
       display: block;
       text-align: right;
     }
-  }
-
-  &__visual-text {
-    font-family: $font-heading;
-    font-weight: 700;
-    font-size: 3.5rem;
-    line-height: 0.95;
-    color: rgba(255, 255, 255, 0.12);
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
   }
 }
