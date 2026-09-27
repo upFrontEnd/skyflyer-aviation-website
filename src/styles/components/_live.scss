@@ -4,15 +4,11 @@
   padding-block: 1.9rem;
 
   &__panel {
-    background: linear-gradient(
-      120deg,
-      rgba(88, 101, 242, 0.2),
-      color-mix(in srgb, $color-bg-alt 96%, transparent) 58%
-    );
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, .14);
     border-left: 4px solid #5865f2;
     border-radius: 12px;
-    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+    background: linear-gradient(120deg, rgba(88, 101, 242, .2), rgba(42, 40, 41, .96) 58%);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
     overflow: hidden;
   }
 
@@ -61,7 +57,6 @@
 
   &__thumb {
     aspect-ratio: 3 / 4;
-    background: linear-gradient(135deg, $color-blue, $color-navy);
     border-radius: $radius;
     flex-shrink: 0;
     max-width: 60px;
@@ -82,11 +77,4 @@
     width: 100%;
   }
 
-  &__footer {
-    align-items: center;
-    background-color: $color-purple;
-    display: flex;
-    justify-content: flex-end;
-    padding: .2rem 1rem 0 0;
-  }
 }

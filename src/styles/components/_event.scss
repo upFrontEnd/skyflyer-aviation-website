@@ -2,9 +2,11 @@
 
 .event {
   &__panel {
-    background: linear-gradient(120deg, rgba(255, 147, 0, .2), $color-bg-alt 58%);
-    border-radius: $radius;
-    border: 1px solid #f57c20;
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-left: 4px solid #f57c20;
+    border-radius: 12px;
+    background: linear-gradient(120deg, rgba(242, 165, 88, 0.2), rgba(42, 40, 41, .96) 58%);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
     overflow: hidden;
     padding: 1.5rem;
     position: relative;

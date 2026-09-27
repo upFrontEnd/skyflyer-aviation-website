@@ -5,9 +5,14 @@
 // comme dans l'ancienne syntaxe `export default { setup() {...} }`.
 import { ref } from 'vue'
 import { navigation } from '../data/navigation.js'
+import { headerScreenshots } from '../data/screenshots.js'
 import logoUrl from '../assets/logo.png'
 import waveUrl from '../assets/bg-header.png'
-import heroBgUrl from '../screenshots/01.jpg'
+
+// Une capture au hasard parmi celles marquées "_head" (voir data/screenshots.js),
+// tirée une seule fois au chargement de la page (pas une ref : elle n'a pas
+// besoin de changer après).
+const heroBgUrl = headerScreenshots[Math.floor(Math.random() * headerScreenshots.length)]
 
 // ref() crée une valeur "réactive" : Vue surveille les changements de
 // isNavOpen.value et re-render automatiquement le template concerné dès

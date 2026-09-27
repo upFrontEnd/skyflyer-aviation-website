@@ -2,10 +2,20 @@
 
 .contributions {
   padding-block: 2rem;
-  background-color: $color-bg-alt;
 
   &__title {
     margin-bottom: 1rem;
+  }
+
+  &__panel {
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-left: 4px solid #009fe3;
+    border-radius: 12px;
+    background: linear-gradient(120deg, rgba(88, 152, 242, 0.2), rgba(42, 40, 41, .96) 58%);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
+    overflow: hidden;
+    padding: 1.5rem;
+    position: relative;
   }
 
   &__grid {
@@ -17,14 +27,10 @@
   }
 
   &__card {
-    background-color: $color-bg;
     border-radius: $radius;
-    box-shadow: $shadow-card;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: .5rem;
-    padding: 1rem;
+    align-items: center;
   }
 
   &__platform {
@@ -32,9 +38,8 @@
     font-size: 1.1rem;
   }
 
-  &__description {
-    color: $color-text-muted;
-    font-size: 0.85rem;
-    flex-grow: 1;
+  &__logo {
+    max-width: 20rem;
   }
+
 }

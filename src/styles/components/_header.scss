@@ -8,12 +8,12 @@
     padding-bottom: 2.3rem;
 
     @media (min-width: $bp-tablet) {
-      padding-bottom: 16.3rem;
+      padding-bottom: 35rem;
     }
 
     &::before {
       content: '';
-      background: var(--header-hero-bg) no-repeat 0 0/cover;
+      background: var(--header-hero-bg) no-repeat center/cover;
       position: absolute; inset: 0;
       clip-path: polygon(
         0% 0%,
@@ -45,7 +45,7 @@
 
   &__bar {
     align-items: center;
-    background-color: rgba(255, 255, 255, .1);
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     height: 4rem;
     justify-content: space-between;
@@ -79,7 +79,7 @@
 
   &__social-link {
     aspect-ratio: 1;
-    color: $color-text-light;
+    color: $color-text;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -102,7 +102,7 @@
     z-index: 2;
 
     span {
-    background-color: $color-text-light;
+    background-color: $color-text;
     border-radius: .2rem;
     display: block;
     height: .1rem;
@@ -130,8 +130,7 @@
 
   &__nav {
     background-color: $color-bg;
-    border-bottom: 1px solid $color-border;
-    box-shadow: $shadow-panel;
+
     left: 0;
     max-height: 0;
     overflow: hidden;
@@ -177,7 +176,7 @@
 
     @media (min-width: $bp-desktop) {
       padding: .1rem 1rem;
-      color: $color-text-light;
+      color: $color-text;
       &:hover {
         color: $color-orange;
       }

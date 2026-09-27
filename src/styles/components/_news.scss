@@ -1,7 +1,6 @@
 @use '../base/variables' as *;
 
 .news {
-  background-color: $color-bg-alt;
   padding-block: 32px;
 
   &__head {
@@ -25,14 +24,12 @@
 .news-card {
   background-color: $color-bg;
   border-radius: $radius;
-  box-shadow: $shadow-card;
   display: flex;
   gap: 12px;
   padding: 10px;
 
   &__thumb {
     aspect-ratio: 4 / 3;
-    background: linear-gradient(135deg, $color-navy, #2b3a5c);
     border-radius: 4px;
     flex-shrink: 0;
     position: relative;
@@ -41,7 +38,7 @@
 
   &__tag {
     border-radius: 3px;
-    color: $color-text-light;
+    color: $color-text;
     font-size: 0.6rem;
     font-weight: 700;
     left: 6px;
@@ -49,22 +46,6 @@
     padding: 2px 6px;
     position: absolute;
     top: 6px;
-
-    &--orange {
-      background-color: $color-orange;
-    }
-
-    &--blue {
-      background-color: $color-blue;
-    }
-
-    &--purple {
-      background-color: $color-purple;
-    }
-
-    &--green {
-      background-color: $color-green;
-    }
   }
 
   &__body {
@@ -83,12 +64,10 @@
 
   &__date {
     align-items: center;
-    color: $color-text-muted;
     display: flex;
     font-size: 0.7rem;
 
     &::before {
-      border: 1px solid $color-text-muted;
       border-radius: 50%;
       content: '';
       display: inline-block;
