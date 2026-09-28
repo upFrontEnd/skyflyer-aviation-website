@@ -6,12 +6,12 @@
   &__titleContainer {
     display: flex;
     align-items: center;
-    background-color: orange;
   }
 
   &__citation {
     margin-left: auto;
-    background: dodgerblue;
     max-width: 20rem;
+    font-family: 'Cormorant Garamond', $font-body;
+    font-style: italic;
   }
 }
