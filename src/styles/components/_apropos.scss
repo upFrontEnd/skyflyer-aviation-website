@@ -1,0 +1,17 @@
+@use '../base/variables' as *;
+
+.apropos {
+  padding-block: 3rem;
+
+  &__titleContainer {
+    display: flex;
+    align-items: center;
+    background-color: orange;
+  }
+
+  &__citation {
+    margin-left: auto;
+    background: dodgerblue;
+    max-width: 20rem;
+  }
+}

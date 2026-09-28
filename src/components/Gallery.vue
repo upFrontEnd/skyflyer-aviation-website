@@ -1,7 +1,5 @@
 <script setup>
-// `screenshots` vient de data/screenshots.js, qui utilise import.meta.glob
-// pour importer dynamiquement tous les fichiers .jpg du dossier (fonctionnalité
-// de Vite, pas de Vue) et en fait un tableau [{ id, src, alt }, ...].
+
 import { ref } from 'vue'
 import { screenshots } from '../data/screenshots.js'
 import Lightbox from './Lightbox.vue'

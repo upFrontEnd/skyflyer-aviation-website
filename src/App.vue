@@ -10,6 +10,7 @@ import LatestVideo from './components/LatestVideo.vue'
 import Partners from './components/Partners.vue'
 import Contributions from './components/Contributions.vue'
 import Footer from './components/Footer.vue'
+import AboutMe from './components/AboutMe.vue'
 </script>
 
 <template>
@@ -17,6 +18,7 @@ import Footer from './components/Footer.vue'
   <main>
     <LiveStream />
     <UpcomingEvent />
+    <AboutMe />
     <Contributions />
     <Gallery />
     <Volanta />

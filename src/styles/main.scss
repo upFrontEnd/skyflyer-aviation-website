@@ -1,3 +1,4 @@
+@use 'base/fonts';
 @use 'base/reset';
 @use 'base/typography';
 @use 'layout/container';
@@ -13,3 +14,4 @@
 @use 'components/partners';
 @use 'components/contributions';
 @use 'components/footer';
+@use 'components/apropos';
