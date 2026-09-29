@@ -11,6 +11,7 @@ import Partners from './components/Partners.vue'
 import Contributions from './components/Contributions.vue'
 import Footer from './components/Footer.vue'
 import AboutMe from './components/AboutMe.vue'
+import Contact from './components/Contact.vue'
 </script>
 
 <template>
@@ -26,4 +27,5 @@ import AboutMe from './components/AboutMe.vue'
     <Partners />
   </main>
   <Footer />
+  <Contact />
 </template>

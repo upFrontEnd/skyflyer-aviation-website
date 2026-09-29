@@ -3,8 +3,14 @@
 import { ref } from 'vue'
 import { navigation } from '../data/navigation.js'
 import { headerScreenshots } from '../data/screenshots.js'
+import { useContactModal } from '../composables/useContactModal.js'
 import logoUrl from '../assets/logo.png'
 import waveUrl from '../assets/bg-header.png'
+
+// Partagée avec Contact.vue via le composable (même principe que useTheme.js
+// pour le thème clair/sombre) : ouvrir la popup depuis ici n'a pas besoin de
+// props/emit, les deux composants lisent/écrivent la même ref partagée.
+const { open: openContact } = useContactModal()
 
 // Une capture au hasard parmi celles marquées "_head" (voir data/screenshots.js),
 // tirée une seule fois au chargement de la page (pas une ref : elle n'a pas
@@ -39,8 +45,19 @@ function closeNav() {
     <div class="header__actions">
       <nav class="header__nav" :class="{ 'header__nav--open': isNavOpen }">
         <ul class="header__list">
-          <li v-for="item in navigation" :key="item.href">
-            <a class="header__link" :href="item.href" @click="closeNav">{{ item.label }}</a>
+          <li v-for="item in navigation" :key="item.label">
+            <!--
+              item.modal (voir data/navigation.js) distingue l'entrée
+              "Contact" des autres liens : au lieu d'un <a href="#..."> qui
+              scrolle vers une section, un <button> qui ouvre la popup
+              (openContact, partagé via useContactModal.js) — pas de section
+              #contact dans la page, donc pas de href qui aurait pointé nulle
+              part.
+            -->
+            <button v-if="item.modal" type="button" class="header__link" @click="openContact(); closeNav()">
+              {{ item.label }}
+            </button>
+            <a v-else class="header__link" :href="item.href" @click="closeNav">{{ item.label }}</a>
           </li>
         </ul>
       </nav>

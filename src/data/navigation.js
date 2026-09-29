@@ -7,5 +7,5 @@ export const navigation = [
   { label: 'Setup', href: '#setup' },
   { label: 'Shop', href: '#shop' },
   // { label: 'Partenaires', href: '#partenaires' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', modal: true },
 ]
