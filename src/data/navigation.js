@@ -3,7 +3,9 @@ export const navigation = [
   { label: 'Event', href: '#event' },
   { label: 'À propos', href: '#apropos' },
   { label: 'Réalisations', href: '#contributions' },
-  { label: 'Screenshots', href: '#gallery-title' },
+  // { label: 'Screenshots', href: '#gallery-title' },
   { label: 'Setup', href: '#setup' },
-  { label: 'Partenaires', href: '#partenaires' },
+  { label: 'Shop', href: '#shop' },
+  // { label: 'Partenaires', href: '#partenaires' },
+  { label: 'Contact', href: '#contact' },
 ]

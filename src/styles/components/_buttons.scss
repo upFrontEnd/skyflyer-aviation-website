@@ -1,12 +1,14 @@
 @use '../base/variables' as *;
 
 .btn {
-  align-items: center;
-  display: inline-flex;
-  font-size: 0.8rem;
+  border-radius: 5px;
+  display: block;
+  font-size: 1rem;
   font-weight: 600;
+  margin: 0 auto;
+  padding: 0.5rem;
   transition: filter 0.15s ease;
-  white-space: nowrap;
+  width: max-content;
 
   &:hover {
     filter: brightness(1.08);
