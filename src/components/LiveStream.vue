@@ -5,7 +5,7 @@ import liveNowAnimation from '../assets/Live now animation.json'
 import { useTwitchStream } from '../composables/useTwitchStream.js'
 
 // const TWITCH_CHANNEL = 'airlinerslive'
-const TWITCH_CHANNEL = 'londoncontroller'
+const TWITCH_CHANNEL = 'bigmoussegaming'
 const hostname = window.location.hostname
 const twitchEmbedUrl = `https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&parent=${hostname}&muted=true`
 const twitchChatUrl = `https://www.twitch.tv/embed/${TWITCH_CHANNEL}/chat?parent=${hostname}&darkpopout`

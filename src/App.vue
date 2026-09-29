@@ -3,7 +3,6 @@
 import Header from './components/Header.vue'
 import LiveStream from './components/LiveStream.vue'
 import UpcomingEvent from './components/UpcomingEvent.vue'
-import NewsList from './components/NewsList.vue'
 import Gallery from './components/Gallery.vue'
 import Volanta from './components/Volanta.vue'
 import LatestVideo from './components/LatestVideo.vue'

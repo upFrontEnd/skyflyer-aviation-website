@@ -109,6 +109,13 @@
     display: none;
   }
 
+  &__captcha {
+    // Google impose la taille de son iframe interne (non stylable) ; le choix
+    // normal/compact selon la largeur d'écran se fait au rendu, en JS (voir
+    // renderRecaptcha() dans Contact.vue).
+    margin: -0.25rem 0;
+  }
+
   &__feedback {
     font-size: 0.85rem;
 
