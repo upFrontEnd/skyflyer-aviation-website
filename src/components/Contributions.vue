@@ -36,9 +36,6 @@ function formatDate(iso) {
                     </div>
                   </a>
                 </div>
-                <a class="btn" href="https://flightsim.to/profile/SkyflyerAviation" target="_blank">  
-                 Voir toutes les réalisations pour MSFS
-                </a>
               </div>
           </div>
 
@@ -63,9 +60,6 @@ function formatDate(iso) {
                     </div>
                   </a>
                 </div>
-                 <a class="btn" href="https://forums.x-plane.org/profile/992473-skyflyer-aviation/" target="_blank">  
-                 Voir toutes les réalisations pour Xplane
-                </a>
               </div>
              
           </div>
