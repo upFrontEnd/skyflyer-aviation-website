@@ -1,11 +1,11 @@
 <script setup>
 
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { navigation } from '../data/navigation.js'
 import { headerScreenshots } from '../data/screenshots.js'
 import { useContactModal } from '../composables/useContactModal.js'
-import logoUrl from '../assets/logo.png'
-import waveUrl from '../assets/bg-header.png'
+import logoUrl from '../assets/logo.webp'
+import waveUrl from '../assets/bg-header.webp'
 
 // Partagée avec Contact.vue via le composable (même principe que useTheme.js
 // pour le thème clair/sombre) : ouvrir la popup depuis ici n'a pas besoin de
@@ -34,6 +34,29 @@ function toggleNav() {
 function closeNav() {
   isNavOpen.value = false
 }
+
+// Heure Zulu (UTC) — repère universel utilisé par les pilotes/contrôleurs,
+// indépendant du fuseau horaire du visiteur. setInterval déclenche
+// updateZuluTime toutes les secondes ; onUnmounted annule cette répétition
+// si le composant disparaît, sinon l'intervalle continuerait de tourner
+// indéfiniment en arrière-plan (fuite mémoire).
+const zuluTime = ref('')
+let zuluIntervalId = null
+
+function updateZuluTime() {
+  const now = new Date()
+  const hours = String(now.getUTCHours()).padStart(2, '0')
+  const minutes = String(now.getUTCMinutes()).padStart(2, '0')
+  const seconds = String(now.getUTCSeconds()).padStart(2, '0')
+  zuluTime.value = `${hours}:${minutes}:${seconds} ZULU`
+}
+
+onMounted(() => {
+  updateZuluTime()
+  zuluIntervalId = setInterval(updateZuluTime, 1000)
+})
+
+onUnmounted(() => clearInterval(zuluIntervalId))
 </script>
 
 <template>
@@ -90,6 +113,7 @@ function closeNav() {
           />
         </svg>
       </a>
+      <span class="header__zulu" title="Heure Zulu (UTC)">{{ zuluTime }}</span>
 
       <button
         class="header__toggle"

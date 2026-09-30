@@ -28,7 +28,7 @@
                 </div>
               </dl>
             </div>
-             <img src="../assets/event.png" alt="">
+             <img src="../assets/event.webp" alt="">
           </div>
       </div>
     </div>

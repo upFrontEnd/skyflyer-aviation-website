@@ -24,12 +24,12 @@
 
           <div class="apropos__photos">
             <figure class="apropos__photos--photo photo-01">
-              <img src="../assets/piper.jpg" alt="Mon premier vol en Piper">
+              <img src="../assets/piper.webp" alt="Mon premier vol en Piper">
               <figcaption>Mon premier vol en Piper</figcaption>
             </figure>
 
             <figure class="apropos__photos--photo photo-02">
-              <img src="../assets/a320.jpg" alt="Aux commande d'un simulateur A320">
+              <img src="../assets/a320.webp" alt="Aux commande d'un simulateur A320">
               <figcaption>Aux commande d'un simulateur A32</figcaption>
             </figure>
             

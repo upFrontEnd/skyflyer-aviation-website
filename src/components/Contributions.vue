@@ -1,8 +1,8 @@
 <script setup>
 import flightsimContributions from '../data/flightsim-contributions.json'
 import { xplaneContributions } from '../data/xplane-contributions.js'
-import msfsLogo from '../logo/msfs.png'
-import xplaneLogo from '../logo/xplane.png'
+import msfsLogo from '../logo/msfs.webp'
+import xplaneLogo from '../logo/xplane.webp'
 
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })

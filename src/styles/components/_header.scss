@@ -138,6 +138,15 @@
     }
   }
 
+  &__zulu {
+    color: $color-text;
+    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
   &__toggle {
     aspect-ratio: 1;
     display: flex;
