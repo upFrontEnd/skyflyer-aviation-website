@@ -4,6 +4,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { navigation } from '../data/navigation.js'
 import { headerScreenshots } from '../data/screenshots.js'
 import { useContactModal } from '../composables/useContactModal.js'
+import { useLocale } from '../composables/useLocale.js'
 import logoUrl from '../assets/logo.webp'
 import waveUrl from '../assets/bg-header.webp'
 
@@ -11,6 +12,10 @@ import waveUrl from '../assets/bg-header.webp'
 // pour le thème clair/sombre) : ouvrir la popup depuis ici n'a pas besoin de
 // props/emit, les deux composants lisent/écrivent la même ref partagée.
 const { open: openContact } = useContactModal()
+
+// Même principe, partagé avec tous les composants traduits (AboutMe,
+// UpcomingEvent, Contact) : une seule détection de langue pour tout le site.
+const { locale } = useLocale()
 
 // Une capture au hasard parmi celles marquées "_head" (voir data/screenshots.js),
 // tirée une seule fois au chargement de la page (pas une ref : elle n'a pas
@@ -61,14 +66,14 @@ onUnmounted(() => clearInterval(zuluIntervalId))
 
 <template>
   <header class="header__bar">
-    <a class="header__logo" href="#accueil" aria-label="Skyflyer Aviation - accueil">
+    <a class="header__logo" href="#accueil" :aria-label="locale === 'fr' ? 'Skyflyer Aviation - accueil' : 'Skyflyer Aviation - home'">
       <img class="header__logo-img" :src="logoUrl" alt="Skyflyer Aviation" />
     </a>
 
     <div class="header__actions">
       <nav class="header__nav" :class="{ 'header__nav--open': isNavOpen }">
         <ul class="header__list">
-          <li v-for="item in navigation" :key="item.label">
+          <li v-for="item in navigation" :key="item.label.fr">
             <!--
               item.modal (voir data/navigation.js) distingue l'entrée
               "Contact" des autres liens : au lieu d'un <a href="#..."> qui
@@ -78,9 +83,9 @@ onUnmounted(() => clearInterval(zuluIntervalId))
               part.
             -->
             <button v-if="item.modal" type="button" class="header__link" @click="openContact(); closeNav()">
-              {{ item.label }}
+              {{ item.label[locale] }}
             </button>
-            <a v-else class="header__link" :href="item.href" @click="closeNav">{{ item.label }}</a>
+            <a v-else class="header__link" :href="item.href" @click="closeNav">{{ item.label[locale] }}</a>
           </li>
         </ul>
       </nav>
@@ -90,7 +95,7 @@ onUnmounted(() => clearInterval(zuluIntervalId))
         href="https://discord.com/invite/7b8kKh55sG"
         target="_blank"
         rel="noopener"
-        aria-label="Rejoindre notre Discord"
+        :aria-label="locale === 'fr' ? 'Rejoindre notre Discord' : 'Join our Discord'"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
           <path
@@ -104,7 +109,7 @@ onUnmounted(() => clearInterval(zuluIntervalId))
         href="https://www.youtube.com/@Skyflyer"
         target="_blank"
         rel="noopener"
-        aria-label="Notre chaîne YouTube"
+        :aria-label="locale === 'fr' ? 'Notre chaîne YouTube' : 'Our YouTube channel'"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
           <path
@@ -113,13 +118,13 @@ onUnmounted(() => clearInterval(zuluIntervalId))
           />
         </svg>
       </a>
-      <span class="header__zulu" title="Heure Zulu (UTC)">{{ zuluTime }}</span>
+      <span class="header__zulu" :title="locale === 'fr' ? 'Heure Zulu (UTC)' : 'Zulu time (UTC)'">{{ zuluTime }}</span>
 
       <button
         class="header__toggle"
         :class="{ 'header__toggle--open': isNavOpen }"
         type="button"
-        aria-label="Ouvrir le menu"
+        :aria-label="locale === 'fr' ? 'Ouvrir le menu' : 'Open menu'"
         :aria-expanded="isNavOpen"
         @click="toggleNav"
       >

@@ -8,10 +8,12 @@
     "prebuild": "node scripts/fetch-contributions.js",
     "build": "vite build",
     "preview": "vite preview",
-    "fetch:contributions": "node scripts/fetch-contributions.js"
+    "fetch:contributions": "node scripts/fetch-contributions.js",
+    "screenshot": "node scripts/take-screenshot.mjs"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
+    "playwright": "^1.63.0",
     "sass": "^1.79.4",
     "vite": "^5.4.8"
   },

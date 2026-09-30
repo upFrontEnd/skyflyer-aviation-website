@@ -29,5 +29,3 @@ const contributions = data.map((item) => ({
 
 mkdirSync(dirname(OUTPUT_PATH), { recursive: true })
 writeFileSync(OUTPUT_PATH, JSON.stringify(contributions, null, 2))
-
-console.log(`✓ ${contributions.length} contributions flightsim.to écrites dans src/data/flightsim-contributions.json`)

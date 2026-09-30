@@ -53,7 +53,10 @@ function formatDate(iso) {
                     target="_blank"
                     rel="noopener"
                   >
-                    <img class="contribution-card__thumb" :src="item.thumbnail" :alt="item.title" loading="lazy" />
+                    <img v-if="item.thumbnail" class="contribution-card__thumb" :src="item.thumbnail" :alt="item.title" loading="lazy" />
+                    <div v-else class="contribution-card__thumb contribution-card__thumb--placeholder" aria-hidden="true">
+                      <img :src="xplaneLogo" alt="" />
+                    </div>
                     <div class="contribution-card__body">
                       <span class="contribution-card__category">{{ item.category }}</span>
                       <span class="contribution-card__title">{{ item.title }}</span>
@@ -61,9 +64,14 @@ function formatDate(iso) {
                   </a>
                 </div>
               </div>
-             
+
           </div>
       </div>
+
+      <p class="contributions__behance">
+        Je réalise également des créations graphiques pour des streamers et YouTubeurs.<br>Retrouvez-les sur mon
+        <a href="https://www.behance.net/adel1982" target="_blank" rel="noopener">profil Behance</a>.
+      </p>
     </div>
   </section>
 </template>

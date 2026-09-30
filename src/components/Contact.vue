@@ -1,8 +1,10 @@
 <script setup>
 import { ref, watch, onUnmounted, nextTick } from 'vue'
 import { useContactModal } from '../composables/useContactModal.js'
+import { useLocale } from '../composables/useLocale.js'
 
 const { isOpen, close } = useContactModal()
+const { locale } = useLocale()
 
 const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
 const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY
@@ -49,8 +51,6 @@ async function renderRecaptcha() {
   recaptchaWidgetId = grecaptcha.render(recaptchaContainer.value, {
     sitekey: RECAPTCHA_SITE_KEY,
     theme: 'dark',
-    // Le format "normal" (304px de large, fixe) déborde du panneau sur
-    // petit mobile ; "compact" (164px) tient sur n'importe quelle largeur.
     size: window.matchMedia('(max-width: 480px)').matches ? 'compact' : 'normal'
   })
 }
@@ -68,12 +68,6 @@ async function handleSubmit() {
 
   status.value = 'sending'
   try {
-    // FormData plutôt que JSON.stringify : avec un Content-Type: application/json
-    // explicite, le navigateur envoie d'abord une requête OPTIONS (preflight)
-    // que l'API Web3Forms ne gère pas, ce qui fait échouer l'appel par CORS
-    // avant même d'atteindre leur serveur. FormData laisse le navigateur fixer
-    // lui-même le Content-Type (multipart/form-data) — une combinaison
-    // considérée "simple" par le navigateur, donc sans preflight.
     const formData = new FormData()
     formData.append('access_key', WEB3FORMS_ACCESS_KEY)
     formData.append('subject', `Nouveau message de ${form.value.name} via skyflyeraviation.com`)
@@ -133,18 +127,18 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
     <Transition name="contact-modal-fade">
       <div v-if="isOpen" class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title" @click.self="close">
         <div class="contact-modal__panel">
-          <button class="contact-modal__close" type="button" aria-label="Fermer" @click="close">&times;</button>
+          <button class="contact-modal__close" type="button" :aria-label="locale === 'fr' ? 'Fermer' : 'Close'" @click="close">&times;</button>
 
           <h2 class="contact__title" id="contact-title">Contact</h2>
-          <p class="contact__intro">Une question, une proposition de partenariat ? Écrivez-moi.</p>
+          <p class="contact__intro">{{ locale === 'fr' ? 'Une question, une proposition de partenariat ? Écrivez-moi.' : 'A question, a partnership proposal? Get in touch.' }}</p>
 
           <form class="contact__form" @submit.prevent="handleSubmit">
             <div class="contact__field">
-              <label for="contact-name">Nom</label>
+              <label for="contact-name">{{ locale === 'fr' ? 'Nom' : 'Name' }}</label>
               <input id="contact-name" v-model="form.name" type="text" required />
             </div>
             <div class="contact__field">
-              <label for="contact-email">E-mail</label>
+              <label for="contact-email">{{ locale === 'fr' ? 'E-mail' : 'Email' }}</label>
               <input id="contact-email" v-model="form.email" type="email" required />
             </div>
             <div class="contact__field">
@@ -171,20 +165,20 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
             <div v-if="RECAPTCHA_SITE_KEY" ref="recaptchaContainer" class="contact__captcha"></div>
 
             <button class="btn" type="submit" :disabled="status === 'sending'">
-              {{ status === 'sending' ? 'Envoi…' : 'Envoyer' }}
+              {{ status === 'sending' ? (locale === 'fr' ? 'Envoi…' : 'Sending…') : (locale === 'fr' ? 'Envoyer' : 'Send') }}
             </button>
 
             <p v-if="status === 'success'" class="contact__feedback contact__feedback--success">
-              Message envoyé, merci ! Je vous répondrai au plus vite.
+              {{ locale === 'fr' ? 'Message envoyé, merci ! Je vous répondrai au plus vite.' : "Message sent, thank you! I'll get back to you as soon as possible." }}
             </p>
             <p v-if="status === 'error'" class="contact__feedback contact__feedback--error">
-              Une erreur est survenue, réessayez ou écrivez directement à {{ CONTACT_EMAIL }}.
+              {{ locale === 'fr' ? `Une erreur est survenue, réessayez ou écrivez directement à ${CONTACT_EMAIL}.` : `Something went wrong, please try again or email me directly at ${CONTACT_EMAIL}.` }}
             </p>
             <p v-if="status === 'missing-key'" class="contact__feedback contact__feedback--error">
-              Formulaire non configuré (VITE_WEB3FORMS_ACCESS_KEY manquant dans .env).
+              {{ locale === 'fr' ? 'Formulaire non configuré (VITE_WEB3FORMS_ACCESS_KEY manquant dans .env).' : 'Form not configured (VITE_WEB3FORMS_ACCESS_KEY missing in .env).' }}
             </p>
             <p v-if="status === 'captcha-required'" class="contact__feedback contact__feedback--error">
-              Merci de valider le contrôle anti-robot avant d'envoyer.
+              {{ locale === 'fr' ? "Merci de valider le contrôle anti-robot avant d'envoyer." : 'Please complete the anti-bot check before sending.' }}
             </p>
           </form>
         </div>

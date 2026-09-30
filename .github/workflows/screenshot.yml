@@ -1,0 +1,50 @@
+name: Update preview screenshot
+
+on:
+  push:
+    branches: [main]
+
+# Nécessaire pour que le job puisse repousser (git push) le screenshot mis à
+# jour vers le dépôt — par défaut GITHUB_TOKEN est en lecture seule.
+permissions:
+  contents: write
+
+jobs:
+  screenshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Installer les dépendances
+        run: bun install
+
+      - name: Build du site (déclenche aussi le prebuild flightsim.to)
+        run: bun run build
+
+      - name: Installer le navigateur Playwright
+        run: bunx playwright install --with-deps chromium
+
+      - name: Servir le build et capturer le screenshot
+        run: |
+          bun run preview -- --port 4173 --strictPort &
+          SERVER_PID=$!
+          for i in $(seq 1 30); do
+            curl -s http://localhost:4173 > /dev/null && break
+            sleep 1
+          done
+          node scripts/take-screenshot.mjs
+          kill $SERVER_PID
+
+      # Le GITHUB_TOKEN par défaut ne déclenche pas d'autre exécution de
+      # workflow lors d'un push (comportement documenté de GitHub, pensé pour
+      # éviter les boucles infinies) — donc pas besoin de précaution
+      # supplémentaire ici malgré le "chore: ..." qui pousse sur main.
+      - name: Commit du screenshot mis à jour
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/preview.png
+          git diff --staged --quiet || git commit -m "chore: update preview screenshot [skip ci]"
+          git push

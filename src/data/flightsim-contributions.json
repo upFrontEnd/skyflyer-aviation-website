@@ -8,6 +8,14 @@
     "createdAt": "2024-08-28T19:31:42Z"
   },
   {
+    "id": 80636,
+    "title": "Normal Checklist - Boeing 737Ng - Alaska Airlines",
+    "thumbnail": "https://cdn.flightsim.to/images/27/normal-checklist---boeing-737ng---united-31047-1724795590-5cUZs.jpg?width=500",
+    "category": "Checklists",
+    "link": "https://flightsim.to/addon/80636/normal-checklist-boeing-737ng-united",
+    "createdAt": "2024-08-27T22:41:19Z"
+  },
+  {
     "id": 80191,
     "title": "Normal Checklist - Boeing 737Ng - Air Algérie",
     "thumbnail": "https://cdn.flightsim.to/images/27/normal-checklist---boeing-737ng---air-algrie-31047-1724271587-F35Oy.jpg?width=500",
@@ -21,14 +29,6 @@
     "thumbnail": "https://cdn.flightsim.to/images/27/normal-checklist---embraer-e-jet-31047-1724186466-jAxpM.jpg?width=500",
     "category": "Checklists",
     "link": "https://flightsim.to/addon/80089/normal-checklist-embraer-e-jet",
-    "createdAt": "2024-08-20T21:47:55Z"
-  },
-  {
-    "id": 40089,
-    "title": "Normal Checklist - Airbus A300-600 - Fedex",
-    "thumbnail": "https://cdn.flightsim.to/images/27/normal-checklist-airbus-a310-fedex-31047-1723223078-0mgw2.jpg",
-    "category": "Checklists",
-    "link": "https://flightsim.to/addon/79298/normal-checklist-airbus-a310-fedex",
     "createdAt": "2024-08-20T21:47:55Z"
   }
 ]

@@ -1,9 +1,9 @@
 export const navigation = [
-  { label: 'Live', href: '#live-title' },
-  { label: 'Event', href: '#event' },
-  { label: 'À propos', href: '#apropos' },
-  { label: 'Setup', href: '#setup' },
-  { label: 'Réalisations', href: '#contributions' },
-  { label: 'Shop', href: '#shop' },
-  { label: 'Contact', modal: true },
+  { label: { fr: 'Live', en: 'Live' }, href: '#live-title' },
+  { label: { fr: 'Event', en: 'Event' }, href: '#event' },
+  { label: { fr: 'À propos', en: 'About' }, href: '#apropos' },
+  { label: { fr: 'Setup', en: 'Setup' }, href: '#setup' },
+  { label: { fr: 'Réalisations', en: 'Work' }, href: '#contributions' },
+  { label: { fr: 'Shop', en: 'Shop' }, href: '#shop' },
+  { label: { fr: 'Contact', en: 'Contact' }, modal: true },
 ]

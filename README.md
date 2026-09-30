@@ -4,7 +4,9 @@ Site vitrine de la chaine Twitch/Youtube Skyflyer Aviation
 
 ## Preview
 
-![Aperçu de la page d'accueil](docs/preview.jpg)
+![Aperçu de la page d'accueil](docs/preview.png)
+
+Capture générée automatiquement par [.github/workflows/screenshot.yml](.github/workflows/screenshot.yml) : à chaque push sur `main`, le workflow build le site, le sert localement, prend un screenshot avec Playwright et repousse l'image mise à jour dans le dépôt. Rien à faire manuellement — l'aperçu ci-dessus reflète toujours la dernière version poussée.
 
 ## Stack
 
@@ -29,6 +31,7 @@ L'application est servie sur [http://localhost:5173](http://localhost:5173).
 | `bun run dev`     | Lance le serveur de développement Vite   |
 | `bun run build`   | Build de production dans `dist/`         |
 | `bun run preview` | Sert le build de production localement   |
+| `bun run screenshot` | Capture `docs/preview.png` (nécessite `bun run preview` déjà lancé sur le port 4173) |
 
 ## Intégration Twitch
 
@@ -76,13 +79,29 @@ Sans `VITE_RECAPTCHA_SITE_KEY`, le formulaire reste fonctionnel (piège à bots 
 ## Structure
 
 ```
+.github/workflows/      # automatisations CI (ex. screenshot.yml)
+docs/                   # fichiers générés/documentaires (ex. preview.png)
+public/                 # fichiers statiques servis tels quels (favicons...)
+scripts/                # scripts Node exécutés hors navigateur (build-time)
 src/
-  App.vue              # composant racine, assemble les sections de la page
-  main.js              # point d'entrée, monte l'app Vue
-  components/          # une SFC .vue par section (Header, Gallery, NewsList, ...)
-  data/                 # données statiques (navigation, actus, partenaires, réseaux sociaux)
-  styles/               # SCSS, un partiel par composant
-  assets/               # images importées par les composants (logo, visuels)
-  screenshots/          # captures d'écran affichées dans la galerie
-public/                 # favicons et fichiers statiques servis tels quels
+  App.vue               # composant racine, assemble les sections de la page dans <main>
+  main.js               # point d'entrée, monte l'app Vue sur #app
+  components/           # une SFC .vue par section de page (Header, Gallery, Shop, Contact...)
+  composables/          # état réactif partagé entre plusieurs composants (voir plus bas)
+  data/                 # données statiques ou pré-générées, importées par les composants
+  styles/                # SCSS, organisé en base/ (reset, variables, polices, typo),
+                         #   components/ (un partiel par composant) et layout/
+  assets/                # images/animations importées directement par un composant précis
+  logo/                  # logos des partenaires/plateformes (Displate, MSFS, X-Plane...)
+  fonts/                 # polices auto-hébergées (.woff2), déclarées dans styles/base/_fonts.scss
+  screenshots/           # captures de vol affichées dans la galerie et en fond de header
 ```
+
+**`src/composables/`** — chacun expose un état réactif *partagé* (le même pour tout le monde qui l'importe, pas une nouvelle instance à chaque appel), pour éviter de faire remonter un état entre composants sans lien parent/enfant direct (props/emit) :
+- `useContactModal.js` — ouverture/fermeture de la popup de contact (déclenchée depuis `Header.vue`, affichée par `Contact.vue`).
+- `useLocale.js` — langue détectée (`fr`/`en`) via `navigator.language`, lue par tous les composants traduits.
+- `useTwitchStream.js` — récupère le live en cours via l'API Twitch pour `LiveStream.vue`.
+
+**`src/data/`** — deux types de fichiers à ne pas confondre :
+- Données écrites à la main (`navigation.js`, `partners.js`, `news.js`, `social.js`, `shop.js`, `xplane-contributions.js`) : à modifier directement pour changer le contenu du site.
+- `flightsim-contributions.json` : généré automatiquement par `scripts/fetch-contributions.js` (voir le script `prebuild`) — ne pas éditer à la main, il sera écrasé au prochain build.

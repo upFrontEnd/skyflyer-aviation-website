@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import lottie from 'lottie-web'
 import liveNowAnimation from '../assets/Live now animation.json'
 import { useTwitchStream } from '../composables/useTwitchStream.js'
@@ -48,6 +48,34 @@ watch(lottieContainer, (container) => {
 // jour retiré du DOM pendant que l'animation tourne encore.
 onUnmounted(() => {
   lottieAnimation?.destroy()
+  playerObserver?.disconnect()
+})
+
+// Twitch refuse l'autoplay (même muet) si son iframe n'est pas suffisamment
+// visible au moment de son initialisation (cf. "Autoplay disabled... viewport
+// visibility" dans la console). Observer toute la <section> ne suffit pas :
+// dès que son bord supérieur apparaît (badge/titre), l'observer se déclenche
+// avec threshold par défaut (0 = 1px visible), alors que le lecteur plus bas
+// dans .live__main est peut-être encore hors écran. On observe donc
+// directement .live__main, avec threshold: 0.6 pour attendre qu'une bonne
+// partie du bloc (lecteur + vignette) soit réellement visible avant de créer
+// l'iframe. `{ once: true }` n'existe pas sur IntersectionObserver : on doit
+// disconnect() nous-mêmes après le premier déclenchement.
+const playerWrapper = ref(null)
+const isPlayerVisible = ref(false)
+let playerObserver = null
+
+onMounted(() => {
+  playerObserver = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        isPlayerVisible.value = true
+        playerObserver.disconnect()
+      }
+    },
+    { threshold: 0.6 }
+  )
+  playerObserver.observe(playerWrapper.value)
 })
 </script>
 
@@ -64,13 +92,15 @@ onUnmounted(() => {
         </div>
 
         <div class="live__content">
-          <div class="live__main">
+          <div class="live__main" ref="playerWrapper">
             <iframe
+              v-if="isPlayerVisible"
               class="live__player"
               :src="twitchEmbedUrl"
               title="Lecteur Twitch"
               allowfullscreen
             ></iframe>
+            <div v-else class="live__player live__player--placeholder" aria-hidden="true"></div>
             <div class="live__info">
               <img
                 v-if="stream?.boxArtUrl"

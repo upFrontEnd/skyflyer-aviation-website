@@ -3,11 +3,13 @@
 import Header from './components/Header.vue'
 import LiveStream from './components/LiveStream.vue'
 import UpcomingEvent from './components/UpcomingEvent.vue'
+import NewsList from './components/NewsList.vue'
 import Gallery from './components/Gallery.vue'
 import Volanta from './components/Volanta.vue'
 import LatestVideo from './components/LatestVideo.vue'
 import Partners from './components/Partners.vue'
 import Contributions from './components/Contributions.vue'
+import Shop from './components/Shop.vue'
 import Footer from './components/Footer.vue'
 import AboutMe from './components/AboutMe.vue'
 import Contact from './components/Contact.vue'
@@ -20,9 +22,9 @@ import Contact from './components/Contact.vue'
     <UpcomingEvent />
     <AboutMe />
     <Contributions />
-    <Gallery />
-    <Volanta />
-    <LatestVideo />
+    <!-- <Gallery /> -->
+    <Shop />
+    <!-- <LatestVideo /> -->
     <Partners />
   </main>
   <Footer />

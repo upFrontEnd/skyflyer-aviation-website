@@ -5,7 +5,6 @@ import { partners } from '../data/partners.js'
 <template>
   <section class="partners" id="partenaires" aria-labelledby="partners-title">
     <div class="container">
-      <h2 class="partners__title" id="partners-title">Partenariats & Affiliations</h2>
       <ul class="partners__grid">
         <!--
           v-for + :key comme dans le reste du projet. `partner.logo` est soit
