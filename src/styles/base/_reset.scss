@@ -47,6 +47,12 @@ a {
 
 img,
 picture {
+  // height: auto est indispensable dès qu'un <img> porte des attributs HTML
+  // width/height (ajoutés pour éviter le layout shift, cf. unsized-images) :
+  // sans lui, max-width: 100% ne contraint QUE la largeur, et le navigateur
+  // garde l'attribut height tel quel — l'image s'affiche alors étirée/
+  // déformée au lieu de conserver son ratio d'origine.
+  height: auto;
   max-width: 100%;
   display: block;
 }

@@ -10,7 +10,7 @@ import { dirname, join } from 'node:path'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const OUTPUT_PATH = join(__dirname, '../src/data/flightsim-contributions.json')
 
-const API_URL = 'https://flightsim.to/backend/search/fetch-addons?author=SkyflyerAviation&sort=newest&per_page=5'
+const API_URL = 'https://flightsim.to/backend/search/fetch-addons?author=SkyflyerAviation&sort=newest&per_page=4'
 
 const res = await fetch(API_URL, { headers: { Accept: 'application/json' } })
 if (!res.ok) {

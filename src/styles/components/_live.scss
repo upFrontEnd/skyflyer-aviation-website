@@ -47,9 +47,64 @@
     border: 0;
     border-radius: $radius;
     width: 100%;
+  }
 
-    &--placeholder {
-      background-color: rgba(0, 0, 0, .25);
+  // Miniature cliquable affichée tant que isLiveLoaded est false (voir
+  // LiveStream.vue) : occupe toute la largeur du grid .live__content (donc
+  // les deux colonnes lecteur+tchat) plutôt qu'une seule.
+  &__facade {
+    aspect-ratio: 21 / 9;
+    background-color: rgba(0, 0, 0, .35);
+    border: 0;
+    border-radius: $radius;
+    cursor: pointer;
+    grid-column: 1 / -1;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    &-bg {
+      filter: blur(2px) brightness(.55);
+      height: 100%;
+      inset: 0;
+      object-fit: cover;
+      position: absolute;
+      width: 100%;
+    }
+
+    &-overlay {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      height: 100%;
+      justify-content: center;
+      padding: 1rem;
+      position: relative;
+      text-align: center;
+    }
+
+    &-play {
+      align-items: center;
+      background-color: $color-orange;
+      border-radius: 50%;
+      color: $color-text;
+      display: flex;
+      height: 3.5rem;
+      justify-content: center;
+      transition: transform 0.15s ease;
+      width: 3.5rem;
+    }
+
+    &:hover &-play {
+      transform: scale(1.08);
+    }
+
+    &-label {
+      color: $color-text;
+      font-size: 0.85rem;
+      font-weight: 600;
+      max-width: 30rem;
     }
   }
 

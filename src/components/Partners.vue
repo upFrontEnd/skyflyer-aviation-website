@@ -15,7 +15,14 @@ import { partners } from '../data/partners.js'
         -->
         <li v-for="partner in partners" :key="partner.id" class="partners__item">
           <a :href="partner.href" :aria-label="partner.name" target="_blank">
-            <img v-if="partner.logo" class="partners__logo" :src="partner.logo" :alt="partner.name" />
+            <img
+              v-if="partner.logo"
+              class="partners__logo"
+              :src="partner.logo"
+              :width="partner.logoWidth"
+              :height="partner.logoHeight"
+              :alt="partner.name"
+            />
             <span v-else class="partners__badge"></span>
           </a>
         </li>

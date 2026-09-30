@@ -67,7 +67,7 @@ onUnmounted(() => clearInterval(zuluIntervalId))
 <template>
   <header class="header__bar">
     <a class="header__logo" href="#accueil" :aria-label="locale === 'fr' ? 'Skyflyer Aviation - accueil' : 'Skyflyer Aviation - home'">
-      <img class="header__logo-img" :src="logoUrl" alt="Skyflyer Aviation" />
+      <img class="header__logo-img" :src="logoUrl" width="92" height="100" alt="Skyflyer Aviation" />
     </a>
 
     <div class="header__actions">

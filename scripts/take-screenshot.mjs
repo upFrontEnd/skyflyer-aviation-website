@@ -14,5 +14,5 @@ await page.goto(URL, { waitUntil: 'load', timeout: 30000 })
 // Laisse le temps au hero (image aléatoire) et au lecteur Twitch de s'afficher
 // avant la capture, plutôt qu'une page à moitié chargée.
 await page.waitForTimeout(2000)
-await page.screenshot({ path: 'docs/preview.png' })
+await page.screenshot({ path: 'docs/preview.png', fullPage: true })
 await browser.close()

@@ -41,7 +41,9 @@
 
   &__cta {
     background-color: $color-orange;
-    color: $color-text;
+    // Blanc sur cet orange ne passe pas le contraste WCAG AA (2.7:1, il
+    // faut 4.5:1) : $color-bg (texte sombre) donne 5.25:1.
+    color: $color-bg;
   }
 }
 

@@ -21,7 +21,7 @@ const featuredItems = pickRandom(shopItems, FEATURED_COUNT)
   <section class="shop" id="shop" aria-labelledby="shop-title">
     <div class="container">
       <h2 class="shop__title" id="shop-title">
-        <span class="shop__brand">Shop</span> <img class="shop__displate-logo" :src="displateLogo" alt="Displate" />
+        <span class="shop__brand">Shop</span> <img class="shop__displate-logo" :src="displateLogo" width="2000" height="531" alt="Displate" />
       </h2>
       <div class="shop__grid">
         <a

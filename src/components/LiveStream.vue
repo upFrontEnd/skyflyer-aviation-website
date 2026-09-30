@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onUnmounted } from 'vue'
 import lottie from 'lottie-web'
 import liveNowAnimation from '../assets/Live now animation.json'
 import { useTwitchStream } from '../composables/useTwitchStream.js'
@@ -11,6 +11,16 @@ const twitchEmbedUrl = `https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&pare
 const twitchChatUrl = `https://www.twitch.tv/embed/${TWITCH_CHANNEL}/chat?parent=${hostname}&darkpopout`
 
 const { stream, loading, error } = useTwitchStream(TWITCH_CHANNEL)
+
+// Le lecteur Twitch ET son tchat pèsent à eux deux plus de 14 Mo (mesuré via
+// Lighthouse) rien qu'en JS/CDN Twitch, chargés automatiquement dès l'arrivée
+// sur la page — ce qui plombait le score de performance, alors que le reste
+// du site ne pèse qu'environ 1 Mo. isLiveLoaded reste à false tant que le
+// visiteur n'a pas cliqué sur la façade (miniature + bouton) : les deux
+// iframes ne sont créées qu'à ce moment-là, sur un vrai geste utilisateur —
+// ce qui permet en plus à l'autoplay muet de Twitch de fonctionner sans
+// contrainte de visibilité au chargement.
+const isLiveLoaded = ref(false)
 
 // Template ref : `lottieContainer` se lie à l'élément du <template> qui
 // porte ref="lottieContainer" — MAIS ce <div> est derrière un
@@ -48,34 +58,6 @@ watch(lottieContainer, (container) => {
 // jour retiré du DOM pendant que l'animation tourne encore.
 onUnmounted(() => {
   lottieAnimation?.destroy()
-  playerObserver?.disconnect()
-})
-
-// Twitch refuse l'autoplay (même muet) si son iframe n'est pas suffisamment
-// visible au moment de son initialisation (cf. "Autoplay disabled... viewport
-// visibility" dans la console). Observer toute la <section> ne suffit pas :
-// dès que son bord supérieur apparaît (badge/titre), l'observer se déclenche
-// avec threshold par défaut (0 = 1px visible), alors que le lecteur plus bas
-// dans .live__main est peut-être encore hors écran. On observe donc
-// directement .live__main, avec threshold: 0.6 pour attendre qu'une bonne
-// partie du bloc (lecteur + vignette) soit réellement visible avant de créer
-// l'iframe. `{ once: true }` n'existe pas sur IntersectionObserver : on doit
-// disconnect() nous-mêmes après le premier déclenchement.
-const playerWrapper = ref(null)
-const isPlayerVisible = ref(false)
-let playerObserver = null
-
-onMounted(() => {
-  playerObserver = new IntersectionObserver(
-    (entries) => {
-      if (entries[0].isIntersecting) {
-        isPlayerVisible.value = true
-        playerObserver.disconnect()
-      }
-    },
-    { threshold: 0.6 }
-  )
-  playerObserver.observe(playerWrapper.value)
 })
 </script>
 
@@ -86,39 +68,56 @@ onMounted(() => {
         <div class="live__head">
           <div v-if="stream?.boxArtUrl" class="live__badge-anim" ref="lottieContainer" aria-hidden="true"></div>
           <div v-else class="live__badge-off"></div>
-          
+
           <h2 v-if="stream?.boxArtUrl" class="live__title" id="live-title">Live en cours</h2>
           <h2 v-else class="live__title" id="live-title">Stream Offline</h2>
         </div>
 
         <div class="live__content">
-          <div class="live__main" ref="playerWrapper">
-            <iframe
-              v-if="isPlayerVisible"
-              class="live__player"
-              :src="twitchEmbedUrl"
-              title="Lecteur Twitch"
-              allowfullscreen
-            ></iframe>
-            <div v-else class="live__player live__player--placeholder" aria-hidden="true"></div>
-            <div class="live__info">
-              <img
-                v-if="stream?.boxArtUrl"
-                class="live__thumb"
-                :src="stream.boxArtUrl"
-                :alt="`Jaquette du jeu ${stream.gameName}`"
-              />
+          <button
+            v-if="!isLiveLoaded"
+            type="button"
+            class="live__facade"
+            @click="isLiveLoaded = true"
+          >
+            <img v-if="stream?.boxArtUrl" class="live__facade-bg" :src="stream.boxArtUrl" alt="" aria-hidden="true" />
+            <span class="live__facade-overlay">
+              <span class="live__facade-play" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
+              </span>
+              <span class="live__facade-label">
+                {{ stream ? stream.title : 'Charger le lecteur et le tchat Twitch' }}
+              </span>
+            </span>
+          </button>
 
-              <p v-if="loading" class="live__text">Chargement du live…</p>
-              <p v-else-if="stream" class="live__text">{{ stream.title }}</p>
+          <template v-else>
+            <div class="live__main">
+              <iframe
+                class="live__player"
+                :src="twitchEmbedUrl"
+                title="Lecteur Twitch"
+                allowfullscreen
+              ></iframe>
+              <div class="live__info">
+                <img
+                  v-if="stream?.boxArtUrl"
+                  class="live__thumb"
+                  :src="stream.boxArtUrl"
+                  :alt="`Jaquette du jeu ${stream.gameName}`"
+                />
+
+                <p v-if="loading" class="live__text">Chargement du live…</p>
+                <p v-else-if="stream" class="live__text">{{ stream.title }}</p>
+              </div>
             </div>
-          </div>
 
-          <iframe
-            class="live__chat"
-            :src="twitchChatUrl"
-            title="Tchat Twitch"
-          ></iframe>
+            <iframe
+              class="live__chat"
+              :src="twitchChatUrl"
+              title="Tchat Twitch"
+            ></iframe>
+          </template>
         </div>
       </div>
     </div>

@@ -18,7 +18,7 @@ function formatDate(iso) {
           <div class="contributions__panel msfs">
               <div class="contributions__platform">
                 <a href="https://flightsim.to/profile/SkyflyerAviation" target="_blank">  
-                  <img class="contributions__logo" :src="msfsLogo" alt="flightsim.to" />
+                  <img class="contributions__logo" :src="msfsLogo" width="400" height="88" alt="flightsim.to" />
                 </a>
                   <div class="contributions__list">
                   <a
@@ -42,7 +42,7 @@ function formatDate(iso) {
           <div class="contributions__panel xplane">
               <div class="contributions__platform">
                 <a href="https://forums.x-plane.org/profile/992473-skyflyer-aviation/" target="_blank">
-                  <img class="contributions__logo" :src="xplaneLogo" alt="X-Plane.org" />
+                  <img class="contributions__logo" :src="xplaneLogo" width="400" height="81" alt="X-Plane.org" />
                 </a>
                 <div v-if="xplaneContributions.length" class="contributions__list">
                   <a
@@ -55,7 +55,7 @@ function formatDate(iso) {
                   >
                     <img v-if="item.thumbnail" class="contribution-card__thumb" :src="item.thumbnail" :alt="item.title" loading="lazy" />
                     <div v-else class="contribution-card__thumb contribution-card__thumb--placeholder" aria-hidden="true">
-                      <img :src="xplaneLogo" alt="" />
+                      <img :src="xplaneLogo" width="400" height="81" alt="" />
                     </div>
                     <div class="contribution-card__body">
                       <span class="contribution-card__category">{{ item.category }}</span>

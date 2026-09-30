@@ -23,7 +23,9 @@
   }
 
   .btn {
-    color: #fff
+    // Blanc sur ces fonds bleu/cyan ne passe pas le contraste WCAG AA
+    // (2.4-3:1, il faut 4.5:1) : $color-bg (texte sombre) passe (4.8-5.9:1).
+    color: $color-bg;
   }
 
   .msfs {

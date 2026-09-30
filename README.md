@@ -4,7 +4,7 @@ Site vitrine de la chaine Twitch/Youtube Skyflyer Aviation
 
 ## Preview
 
-![Aperçu de la page d'accueil](docs/preview.png)
+![Aperçu complet de la page d'accueil](docs/preview.png)
 
 Capture générée automatiquement par [.github/workflows/screenshot.yml](.github/workflows/screenshot.yml) : à chaque push sur `main`, le workflow build le site, le sert localement, prend un screenshot avec Playwright et repousse l'image mise à jour dans le dépôt. Rien à faire manuellement — l'aperçu ci-dessus reflète toujours la dernière version poussée.
 

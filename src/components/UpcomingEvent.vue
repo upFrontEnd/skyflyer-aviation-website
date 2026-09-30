@@ -38,7 +38,7 @@ const { locale } = useLocale()
                 </div>
               </dl>
             </div>
-             <img src="../assets/event.webp" alt="">
+             <img src="../assets/event.webp" width="1100" height="619" alt="" fetchpriority="high">
           </div>
       </div>
     </div>

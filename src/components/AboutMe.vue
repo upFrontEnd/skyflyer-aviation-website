@@ -43,12 +43,12 @@ const a320Caption = computed(() =>
 
           <div class="apropos__photos">
             <figure class="apropos__photos--photo photo-01">
-              <img src="../assets/piper.webp" :alt="locale === 'fr' ? 'Mon premier vol en Piper' : 'My first flight in a Piper'">
+              <img src="../assets/piper.webp" width="640" height="427" :alt="locale === 'fr' ? 'Mon premier vol en Piper' : 'My first flight in a Piper'">
               <figcaption>{{ locale === 'fr' ? 'Mon premier vol en Piper' : 'My first flight in a Piper' }}</figcaption>
             </figure>
 
             <figure class="apropos__photos--photo photo-02">
-              <img src="../assets/a320.webp" :alt="a320Alt">
+              <img src="../assets/a320.webp" width="640" height="427" :alt="a320Alt">
               <figcaption>{{ a320Caption }}</figcaption>
             </figure>
 
