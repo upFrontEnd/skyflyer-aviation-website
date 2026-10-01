@@ -1,19 +1,15 @@
 @use '../base/variables' as *;
 
 .legal-notice {
-  // Le panneau .contact-modal__panel (_contact.scss) est pensé pour un
-  // formulaire court ; ce document est bien plus long, il a besoin de
-  // pouvoir défiler et d'être plus large sur grand écran.
   max-height: 85vh;
   max-width: 40rem;
   overflow-y: auto;
 
-  &__section {
-    margin-top: 1.5rem;
-
+  &__body {
     h3 {
       color: $color-orange;
       font-size: 0.95rem;
+      margin-top: 1.5rem;
       margin-bottom: 0.5rem;
     }
 

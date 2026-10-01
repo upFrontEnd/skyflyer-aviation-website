@@ -76,18 +76,111 @@ Le formulaire inclut un piège à bots (champ caché) et, si configuré, un cont
 
 Sans `VITE_RECAPTCHA_SITE_KEY`, le formulaire reste fonctionnel (piège à bots seul) — le widget ne s'affiche simplement pas.
 
+## Espace admin (Supabase)
+
+Le contenu de "Prochain événement", "Partenaires" et "Mentions légales" n'est plus codé en dur : il vient de [Supabase](https://supabase.com/) modifiable depuis une mini-application séparée accessible sur `/admin.html`, protégée par un compte email/mot de passe.
+
+### 1. Créer le projet Supabase
+
+1. Créer un compte et un nouveau projet sur [supabase.com](https://supabase.com/).
+2. Dans Project Settings → API, récupérer l'**URL du projet** et la clé **anon public**.
+3. Les ajouter dans `.env` : `VITE_SUPABASE_URL=` et `VITE_SUPABASE_ANON_KEY=`.
+
+### 2. Créer les tables et les droits d'accès (Row Level Security)
+
+Dans Supabase → SQL Editor, exécuter :
+
+```sql
+create table event (
+  id int primary key default 1,
+  title text not null,
+  description_fr text not null,
+  description_en text not null,
+  scheduled_flight text not null,
+  aircraft text not null,
+  simulator text not null,
+  image_path text,
+  image_width int,
+  image_height int,
+  updated_at timestamptz default now(),
+  constraint single_row check (id = 1)
+);
+
+create table partners (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  href text not null,
+  logo_path text,
+  logo_width int,
+  logo_height int,
+  display_order int not null default 0
+);
+
+create table legal_notice (
+  id int primary key default 1,
+  content_html text not null,
+  updated_at timestamptz default now(),
+  constraint single_row check (id = 1)
+);
+
+alter table event enable row level security;
+alter table partners enable row level security;
+alter table legal_notice enable row level security;
+
+create policy "Lecture publique" on event for select using (true);
+create policy "Lecture publique" on partners for select using (true);
+create policy "Lecture publique" on legal_notice for select using (true);
+
+create policy "Écriture admin uniquement" on event for all using (auth.role() = 'authenticated');
+create policy "Écriture admin uniquement" on partners for all using (auth.role() = 'authenticated');
+create policy "Écriture admin uniquement" on legal_notice for all using (auth.role() = 'authenticated');
+```
+
+Puis dans Storage, créer un bucket **public** nommé `site-uploads`, avec les mêmes policies (lecture publique, écriture réservée aux utilisateurs authentifiés).
+
+⚠️ Sans ces policies RLS, la clé publique (`VITE_SUPABASE_ANON_KEY`, forcément visible dans le code du site une fois déployé) donnerait un accès total en lecture/écriture à n'importe qui. RLS est ce qui rend cette clé sans danger — ne jamais désactiver RLS sur ces tables.
+
+### 3. Créer le compte admin
+
+Dans Supabase → Authentication → Users, créer manuellement un utilisateur (email + mot de passe) : c'est ce compte qui se connecte sur `/admin.html`. Puis, dans Authentication → Providers → Email, désactiver **"Allow new user signups"** — il ne doit jamais être possible de créer un compte depuis le site, seulement depuis le tableau de bord Supabase.
+
+### 4. Importer le contenu actuel
+
+Script à exécuter une seule fois, en local (jamais en CI), avec la clé **service_role** (Project Settings → API) — différente de la clé anon, elle contourne RLS, donc ne doit **jamais** aller dans `.env` ni dans le code, seulement passée en variable d'environnement le temps de la commande :
+
+```bash
+SUPABASE_URL=ton_url SUPABASE_SERVICE_ROLE_KEY=ta_cle_service_role node scripts/seed-supabase.js
+```
+
+Après ce script, le site affiche exactement le même contenu qu'avant — rien ne change tant que personne n'édite quoi que ce soit depuis `/admin.html`.
+
+### 5. Utiliser l'admin
+
+```bash
+bun run build
+bun run preview
+```
+
+Ouvrir `http://localhost:4173/admin.html`, se connecter avec le compte créé à l'étape 3. Trois sections : Événement, Partenaires (ajout/édition/suppression), Mentions légales. Les images sont automatiquement redimensionnées et compressées en WebP par le navigateur avant l'envoi — pas besoin de les préparer à la main.
+
+Sans `.env` configuré, le site public et l'admin affichent un message d'erreur clair au lieu d'échouer silencieusement (même principe que Twitch/Web3Forms).
+
 ## Structure
 
 ```
 .github/workflows/      # automatisations CI (ex. screenshot.yml)
 docs/                   # fichiers générés/documentaires (ex. preview.png)
 public/                 # fichiers statiques servis tels quels (favicons...)
-scripts/                # scripts Node exécutés hors navigateur (build-time)
+scripts/                # scripts Node exécutés hors navigateur (build-time ou ponctuels)
+admin.html              # point d'entrée de la mini-app d'administration (voir plus haut)
 src/
   App.vue               # composant racine, assemble les sections de la page dans <main>
-  main.js               # point d'entrée, monte l'app Vue sur #app
+  main.js               # point d'entrée du site public, monte l'app Vue sur #app
+  admin/                 # mini-app d'administration séparée, jamais livrée au site public
+                         #   (voir vite.config.js : deux points d'entrée = deux bundles distincts)
   components/           # une SFC .vue par section de page (Header, Gallery, Shop, Contact...)
   composables/          # état réactif partagé entre plusieurs composants (voir plus bas)
+  lib/                   # clients de services externes partagés (ex. supabase.js)
   data/                 # données statiques ou pré-générées, importées par les composants
   styles/                # SCSS, organisé en base/ (reset, variables, polices, typo),
                          #   components/ (un partiel par composant) et layout/
@@ -98,10 +191,13 @@ src/
 ```
 
 **`src/composables/`** — chacun expose un état réactif *partagé* (le même pour tout le monde qui l'importe, pas une nouvelle instance à chaque appel), pour éviter de faire remonter un état entre composants sans lien parent/enfant direct (props/emit) :
-- `useContactModal.js` — ouverture/fermeture de la popup de contact (déclenchée depuis `Header.vue`, affichée par `Contact.vue`).
+- `useContactModal.js` / `useLegalModal.js` — ouverture/fermeture des popups de contact et de mentions légales.
 - `useLocale.js` — langue détectée (`fr`/`en`) via `navigator.language`, lue par tous les composants traduits.
-- `useTwitchStream.js` — récupère le live en cours via l'API Twitch pour `LiveStream.vue`.
+- `useTwitchStream.js` — récupère le live en cours via l'API Twitch pour `LiveStream.vue` et la pastille rouge du menu.
+- `useEventData.js`, `usePartnersData.js`, `useLegalNoticeData.js` — lecture (site public) et écriture (admin) des données Supabase.
 
 **`src/data/`** — deux types de fichiers à ne pas confondre :
-- Données écrites à la main (`navigation.js`, `partners.js`, `news.js`, `social.js`, `shop.js`, `xplane-contributions.js`) : à modifier directement pour changer le contenu du site.
+- Données écrites à la main (`navigation.js`, `news.js`, `social.js`, `shop.js`, `xplane-contributions.js`) : à modifier directement pour changer le contenu du site.
 - `flightsim-contributions.json` : généré automatiquement par `scripts/fetch-contributions.js` (voir le script `prebuild`) — ne pas éditer à la main, il sera écrasé au prochain build.
+
+Les partenaires, l'événement à venir et les mentions légales ne sont plus dans `src/data/` : ils viennent de Supabase (voir "Espace admin" plus haut).

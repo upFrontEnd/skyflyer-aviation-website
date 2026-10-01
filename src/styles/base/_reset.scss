@@ -58,6 +58,14 @@ picture {
 }
 
 button {
+  // color: inherit est nécessaire ici (contrairement à la plupart des
+  // éléments, qui héritent déjà la couleur de texte par défaut) : la feuille
+  // de style par défaut du navigateur fixe explicitement une couleur de
+  // texte sur <button> (proche du noir), qui ne suit donc pas automatiquement
+  // le $color-text blanc défini sur body. Repéré en testant le bouton
+  // "Se connecter" de l'admin : seul premier `.btn` du site sans sa propre
+  // classe BEM pour forcer une couleur, ce qui le laissait illisible.
+  color: inherit;
   font: inherit;
   border: 0;
   background: none;
