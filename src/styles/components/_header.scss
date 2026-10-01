@@ -219,10 +219,12 @@
   }
 
   &__link {
+    align-items: center;
     color: $color-text;
-    display: block;
+    display: inline-flex;
     font-size: 0.75rem;
     font-weight: 600;
+    gap: 6px;
     letter-spacing: 0.03em;
     padding: 14px $gutter;
     text-transform: uppercase;
@@ -238,6 +240,14 @@
         color: $color-orange;
       }
     }
+  }
+
+  &__live-dot {
+    aspect-ratio: 1;
+    background-color: #e02424;
+    border-radius: 50%;
+    display: inline-block;
+    width: 0.5rem;
   }
 
   &__wave {

@@ -2,15 +2,13 @@
 import { ref, watch, onUnmounted } from 'vue'
 import lottie from 'lottie-web'
 import liveNowAnimation from '../assets/Live now animation.json'
-import { useTwitchStream } from '../composables/useTwitchStream.js'
+import { useTwitchStream, TWITCH_CHANNEL } from '../composables/useTwitchStream.js'
 
-// const TWITCH_CHANNEL = 'airlinerslive'
-const TWITCH_CHANNEL = 'londoncontroller'
 const hostname = window.location.hostname
 const twitchEmbedUrl = `https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&parent=${hostname}&muted=true`
 const twitchChatUrl = `https://www.twitch.tv/embed/${TWITCH_CHANNEL}/chat?parent=${hostname}&darkpopout`
 
-const { stream, loading, error } = useTwitchStream(TWITCH_CHANNEL)
+const { stream, loading, error } = useTwitchStream()
 
 // Le lecteur Twitch ET son tchat pèsent à eux deux plus de 14 Mo (mesuré via
 // Lighthouse) rien qu'en JS/CDN Twitch, chargés automatiquement dès l'arrivée
@@ -80,7 +78,13 @@ onUnmounted(() => {
             class="live__facade"
             @click="isLiveLoaded = true"
           >
-            <img v-if="stream?.boxArtUrl" class="live__facade-bg" :src="stream.boxArtUrl" alt="" aria-hidden="true" />
+            <!--
+              thumbnailUrl : vraie capture du live, réactualisée toutes les
+              60s par useTwitchStream (voir withCacheBust) — contrairement à
+              boxArtUrl (jaquette du jeu, fixe), elle donne l'impression que
+              la façade est "vivante" sans jamais charger le vrai lecteur.
+            -->
+            <img v-if="stream?.thumbnailUrl" class="live__facade-bg" :src="stream.thumbnailUrl" alt="" aria-hidden="true" />
             <span class="live__facade-overlay">
               <span class="live__facade-play" aria-hidden="true">
                 <svg width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z" /></svg>

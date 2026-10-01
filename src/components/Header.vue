@@ -5,6 +5,7 @@ import { navigation } from '../data/navigation.js'
 import { headerScreenshots } from '../data/screenshots.js'
 import { useContactModal } from '../composables/useContactModal.js'
 import { useLocale } from '../composables/useLocale.js'
+import { useTwitchStream } from '../composables/useTwitchStream.js'
 import logoUrl from '../assets/logo.webp'
 import waveUrl from '../assets/bg-header.webp'
 
@@ -16,6 +17,13 @@ const { open: openContact } = useContactModal()
 // Même principe, partagé avec tous les composants traduits (AboutMe,
 // UpcomingEvent, Contact) : une seule détection de langue pour tout le site.
 const { locale } = useLocale()
+
+// Toujours le même principe : LiveStream.vue appelle aussi useTwitchStream(),
+// mais depuis la réécriture du composable en singleton (voir ce fichier),
+// les deux composants lisent le même état sans déclencher deux requêtes
+// réseau. `stream` vaut `null` tant que la chaîne est hors ligne : c'est ce
+// qui pilote la pastille rouge à côté de l'item "Live" du menu.
+const { stream } = useTwitchStream()
 
 // Une capture au hasard parmi celles marquées "_head" (voir data/screenshots.js),
 // tirée une seule fois au chargement de la page (pas une ref : elle n'a pas
@@ -85,7 +93,15 @@ onUnmounted(() => clearInterval(zuluIntervalId))
             <button v-if="item.modal" type="button" class="header__link" @click="openContact(); closeNav()">
               {{ item.label[locale] }}
             </button>
-            <a v-else class="header__link" :href="item.href" @click="closeNav">{{ item.label[locale] }}</a>
+            <a v-else class="header__link" :href="item.href" @click="closeNav">
+              <!--
+                item.href === '#live-title' identifie l'entrée "Live" (voir
+                data/navigation.js) : seule celle-là doit porter la pastille,
+                et seulement quand `stream` n'est pas null (chaîne en direct).
+              -->
+              <span v-if="item.href === '#live-title' && stream" class="header__live-dot" aria-hidden="true"></span>
+              {{ item.label[locale] }}
+            </a>
           </li>
         </ul>
       </nav>
