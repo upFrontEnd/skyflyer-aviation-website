@@ -63,7 +63,7 @@ onUnmounted(() => {
   <section class="live" aria-labelledby="live-title">
     <div class="container">
       <div class="live__panel">
-        <div class="live__head">
+        <div class="live__head" :class="{ 'live__head--offline': !stream }">
           <div v-if="stream?.boxArtUrl" class="live__badge-anim" ref="lottieContainer" aria-hidden="true"></div>
           <div v-else class="live__badge-off"></div>
 
@@ -71,7 +71,7 @@ onUnmounted(() => {
           <h2 v-else class="live__title" id="live-title">Stream Offline</h2>
         </div>
 
-        <div class="live__content">
+        <div v-show="stream" class="live__content">
           <button
             v-if="!isLiveLoaded"
             type="button"

@@ -5,6 +5,7 @@ import { navigation } from '../data/navigation.js'
 import { headerScreenshots } from '../data/screenshots.js'
 import { useContactModal } from '../composables/useContactModal.js'
 import { useLocale } from '../composables/useLocale.js'
+import { useScrollSpy } from '../composables/useScrollSpy.js'
 import { useTwitchStream } from '../composables/useTwitchStream.js'
 import logoUrl from '../assets/logo.webp'
 import waveUrl from '../assets/bg-header.webp'
@@ -24,6 +25,7 @@ const { locale } = useLocale()
 // réseau. `stream` vaut `null` tant que la chaîne est hors ligne : c'est ce
 // qui pilote la pastille rouge à côté de l'item "Live" du menu.
 const { stream } = useTwitchStream()
+const { activeHref } = useScrollSpy()
 
 // Une capture au hasard parmi celles marquées "_head" (voir data/screenshots.js),
 // tirée une seule fois au chargement de la page (pas une ref : elle n'a pas
@@ -93,7 +95,7 @@ onUnmounted(() => clearInterval(zuluIntervalId))
             <button v-if="item.modal" type="button" class="header__link" @click="openContact(); closeNav()">
               {{ item.label[locale] }}
             </button>
-            <a v-else class="header__link" :href="item.href" @click="closeNav">
+            <a v-else class="header__link" :class="{ 'header__link--active': activeHref === item.href }" :href="item.href" :aria-current="activeHref === item.href ? 'true' : undefined" @click="closeNav">
               <!--
                 item.href === '#live-title' identifie l'entrée "Live" (voir
                 data/navigation.js) : seule celle-là doit porter la pastille,

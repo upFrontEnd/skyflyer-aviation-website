@@ -233,10 +233,17 @@
       color: $color-orange;
     }
 
+    &--active {
+      color: $color-orange;
+    }
+
     @media (min-width: $bp-desktop) {
       padding: .1rem 1rem;
       color: $color-text;
       &:hover {
+        color: $color-orange;
+      }
+      &--active {
         color: $color-orange;
       }
     }

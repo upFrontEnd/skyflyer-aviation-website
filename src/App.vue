@@ -8,6 +8,7 @@ import Gallery from './components/Gallery.vue'
 import LatestVideo from './components/LatestVideo.vue'
 import Footer from './components/Footer.vue'
 import AboutMe from './components/AboutMe.vue'
+import Setup from './components/Setup.vue'
 
 // Sections jamais visibles au premier rendu (plus bas dans la page, ou
 // n'affichant rien tant qu'on ne clique pas dessus pour Contact) : import()
@@ -27,6 +28,7 @@ const LegalNotice = defineAsyncComponent(() => import('./components/LegalNotice.
     <LiveStream />
     <UpcomingEvent />
     <AboutMe />
+    <Setup />
     <Contributions />
     <!-- <Gallery /> -->
     <Shop />

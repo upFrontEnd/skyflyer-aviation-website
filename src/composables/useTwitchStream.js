@@ -16,7 +16,7 @@ const TWITCH_ACCESS_TOKEN = import.meta.env.VITE_TWITCH_ACCESS_TOKEN
 // implicitement via le paramètre channelLogin) — exportée d'ici, c'est
 // désormais la seule source de vérité, pour ne plus jamais avoir à la
 // changer à deux endroits.
-export const TWITCH_CHANNEL = 'grauadler'
+export const TWITCH_CHANNEL = 'Nelicopterr'
 
 // Twitch régénère cette image toutes les quelques minutes mais garde la même
 // URL par chaîne — sans un paramètre qui change, le navigateur réafficherait

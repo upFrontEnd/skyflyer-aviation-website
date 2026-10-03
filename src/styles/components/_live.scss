@@ -17,6 +17,10 @@
     display: flex;
     justify-content: flex-start;
     padding: 1rem 1rem 0;
+
+    &--offline {
+      padding: 1rem;
+    }
   }
 
   &__badge-off {
