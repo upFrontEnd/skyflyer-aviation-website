@@ -39,6 +39,10 @@ const { event } = useEventData()
                   <dt>{{ locale === 'fr' ? 'Simulateur' : 'Simulator' }}</dt>
                   <dd>{{ event.simulator }}</dd>
                 </div>
+                <div class="event__detail">
+                  <dt>{{ locale === 'fr' ? 'Date' : 'Date' }}</dt>
+                  <dd>{{ locale === 'fr' ? event.date_fr : event.date_en }}</dd>
+                </div>
               </dl>
             </div>
             <!--

@@ -47,6 +47,8 @@ async function seedEvent() {
     scheduled_flight: 'Paris LFPG - Houston KIAH',
     aircraft: 'Toliss Airbus A-340-600',
     simulator: 'X-Plane',
+    date_fr: 'Vendredi 9 octobre - 21:00 Heure Française',
+    date_en: 'Friday 9 october - 1900Z',
     image_path: imagePath,
     image_width: 1100,
     image_height: 619
