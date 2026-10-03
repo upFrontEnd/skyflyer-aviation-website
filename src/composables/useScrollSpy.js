@@ -1,21 +1,23 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { navigation } from '../data/navigation.js'
 
+// Liste des hrefs extraite une seule fois au niveau du module
+const hrefs = navigation.filter(item => item.href).map(item => item.href)
+
 export function useScrollSpy() {
   const activeHref = ref(null)
-  let sections = []
   let rafId = null
 
   function update() {
-    // Ligne de déclenchement : 35% depuis le haut du viewport
     const trigger = window.scrollY + window.innerHeight * 0.35
 
-    // On cherche la dernière section dont le haut se trouve au-dessus de la
-    // ligne de déclenchement — c'est forcément la section que l'utilisateur
-    // est en train de lire.
     let active = null
-    for (const { href, el } of sections) {
-      if (el.getBoundingClientRect().top + window.scrollY <= trigger) {
+    for (const href of hrefs) {
+      // querySelector à chaque appel : les composants async (Contributions,
+      // Shop) n'existent pas encore dans le DOM au moment du onMounted —
+      // les chercher ici garantit qu'ils sont détectés dès qu'ils apparaissent.
+      const el = document.querySelector(href)
+      if (el && el.getBoundingClientRect().top + window.scrollY <= trigger) {
         active = href
       }
     }
@@ -31,11 +33,6 @@ export function useScrollSpy() {
   }
 
   onMounted(() => {
-    sections = navigation
-      .filter(item => item.href)
-      .map(item => ({ href: item.href, el: document.querySelector(item.href) }))
-      .filter(item => item.el)
-
     window.addEventListener('scroll', onScroll, { passive: true })
     update()
   })

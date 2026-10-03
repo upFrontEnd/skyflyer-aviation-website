@@ -1,50 +1,7 @@
 @use '../base/variables' as *;
 
 .setup {
-  padding-block: 3rem;
-
-  &__title {
-    align-items: center;
-    display: flex;
-    font-size: 2.5rem;
-    font-weight: 400;
-    gap: clamp(10px, 3vw, 32px);
-    justify-content: center;
-    letter-spacing: .13em;
-    line-height: 1.2;
-    margin-bottom: 3rem;
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  &__wing {
-    display: flex;
-    flex: 0 1 clamp(30px, 10vw, 112px);
-    flex-direction: column;
-    gap: clamp(4px, .7vw, 8px);
-    min-width: 18px;
-
-    i {
-      background: linear-gradient(180deg, #d19e1d 0%, #ffd86e 50%, #e3a812 100%);
-      border-radius: 10px;
-      display: block;
-      height: clamp(2px, .35vw, 4px);
-    }
-
-    &--left {
-      align-items: flex-end;
-      i:nth-child(1) { width: 100%; }
-      i:nth-child(2) { width: 76%; }
-      i:nth-child(3) { width: 54%; }
-    }
-
-    &--right {
-      align-items: flex-start;
-      i:nth-child(1) { width: 100%; }
-      i:nth-child(2) { width: 76%; }
-      i:nth-child(3) { width: 54%; }
-    }
-  }
+  padding-block: 2.5rem;
 
   &__layout {
     display: grid;
@@ -54,42 +11,6 @@
     @media (min-width: $bp-tablet) {
       align-items: center;
       gap: 2rem;
-      grid-template-columns: 1fr auto 1fr;
-    }
-  }
-
-  &__center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    grid-column: 1 / -1;
-    order: -1;
-    padding-block: 1rem;
-    position: relative;
-
-    @media (min-width: $bp-tablet) {
-      grid-column: auto;
-      order: 0;
-      padding-block: 0;
-    }
-  }
-
-  &__glow {
-    animation: setup-pulse 4s ease-in-out infinite;
-    background: radial-gradient(circle, rgba(88, 101, 242, 0.3) 0%, transparent 68%);
-    border-radius: 50%;
-    height: 320px;
-    position: absolute;
-    width: 320px;
-  }
-
-  &__pc {
-    color: rgba(255, 255, 255, 0.85);
-    position: relative;
-    width: 200px;
-
-    @media (min-width: $bp-tablet) {
-      width: 240px;
     }
   }
 
@@ -105,9 +26,10 @@
 
   &__card {
     align-items: center;
-    background: linear-gradient(135deg, rgba(88, 101, 242, 0.08), rgba(20, 20, 35, 0.85));
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-left: 3px solid rgba(88, 101, 242, 0.45);
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 12px;
+    background: linear-gradient(120deg, rgba(251, 234, 137, 0.2), rgba(42, 40, 41, .96) 58%);
+    border-left: 4px solid #e3a812;
     border-radius: 10px;
     display: flex;
     gap: 0.75rem;
@@ -115,14 +37,13 @@
     transition: border-left-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 
     &:hover {
-      background: linear-gradient(135deg, rgba(88, 101, 242, 0.14), rgba(20, 20, 35, 0.9));
-      border-left-color: $color-orange;
+      background: linear-gradient(120deg, rgba(255, 217, 0, 0.2), rgba(42, 40, 41, .96) 58%);
       transform: translateY(-2px);
     }
   }
 
   &__card-icon {
-    color: rgba(88, 101, 242, 0.9);
+    color: #e3a812;
     flex-shrink: 0;
   }
 

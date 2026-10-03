@@ -4,6 +4,7 @@ import { useAdminAuth } from './useAdminAuth.js'
 import LoginForm from './components/LoginForm.vue'
 import EventForm from './components/EventForm.vue'
 import PartnersManager from './components/PartnersManager.vue'
+import SetupManager from './components/SetupManager.vue'
 import LegalNoticeForm from './components/LegalNoticeForm.vue'
 
 const { user, loading, init, logout } = useAdminAuth()
@@ -28,6 +29,7 @@ onMounted(init)
       </header>
 
       <EventForm />
+      <SetupManager />
       <PartnersManager />
       <LegalNoticeForm />
     </div>

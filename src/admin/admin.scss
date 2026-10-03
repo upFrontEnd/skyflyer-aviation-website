@@ -131,6 +131,70 @@
   width: max-content;
 }
 
+.admin-form__row {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.admin-setup-table {
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  margin-bottom: 2rem;
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+
+  th, td {
+    border: 1px solid rgba(255, 255, 255, .1);
+    padding: 0.5rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    color: $color-speach;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  input, select, textarea {
+    background: $color-bg;
+    border: 1px solid $color-border;
+    border-radius: $radius;
+    color: $color-text;
+    font-family: $font-body;
+    font-size: 0.78rem;
+    padding: 0.3rem 0.5rem;
+    width: 100%;
+
+    &:focus {
+      border-color: $color-orange;
+      outline: none;
+    }
+  }
+
+  textarea { font-family: monospace; resize: vertical; }
+}
+
+.admin-setup-svg-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 6rem;
+}
+
+.admin-setup-svg-preview {
+  align-items: center;
+  background: rgba(255,255,255,.04);
+  border-radius: $radius;
+  color: $color-text;
+  display: flex;
+  height: 2.5rem;
+  justify-content: center;
+  width: 2.5rem;
+}
+
 .image-uploader {
   display: flex;
   flex-direction: column;
