@@ -3,8 +3,7 @@ import { usePartnersData } from '../composables/usePartnersData.js'
 import { getPublicImageUrl } from '../lib/supabase.js'
 
 // Remplace l'ancien `import { partners } from '../data/partners.js'` : la
-// liste vient maintenant de Supabase, modifiable depuis /admin.html sans
-// avoir besoin de toucher au code.
+// liste vient maintenant de Supabase, modifiable depuis /admin.html 
 const { partners } = usePartnersData()
 </script>
 

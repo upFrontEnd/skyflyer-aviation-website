@@ -10,32 +10,13 @@ const twitchChatUrl = `https://www.twitch.tv/embed/${TWITCH_CHANNEL}/chat?parent
 
 const { stream, loading, error } = useTwitchStream()
 
-// Le lecteur Twitch ET son tchat pèsent à eux deux plus de 14 Mo (mesuré via
-// Lighthouse) rien qu'en JS/CDN Twitch, chargés automatiquement dès l'arrivée
-// sur la page — ce qui plombait le score de performance, alors que le reste
-// du site ne pèse qu'environ 1 Mo. isLiveLoaded reste à false tant que le
+// isLiveLoaded reste à false tant que le
 // visiteur n'a pas cliqué sur la façade (miniature + bouton) : les deux
-// iframes ne sont créées qu'à ce moment-là, sur un vrai geste utilisateur —
+// iframes ne sont créées qu'à ce moment-là, sur un vrai geste utilisateur
 // ce qui permet en plus à l'autoplay muet de Twitch de fonctionner sans
 // contrainte de visibilité au chargement.
 const isLiveLoaded = ref(false)
 
-// Template ref : `lottieContainer` se lie à l'élément du <template> qui
-// porte ref="lottieContainer" — MAIS ce <div> est derrière un
-// v-if="stream?.boxArtUrl" (voir plus bas) : il n'existe dans le DOM que
-// lorsque le live est détecté, pas dès le montage du composant. onMounted()
-// ne s'exécute qu'UNE SEULE FOIS pour tout le composant ; si stream est
-// encore null à ce moment (l'appel à l'API Twitch n'a pas encore répondu),
-// lottieContainer.value vaut encore `null` et l'animation ne s'initialise
-// jamais, même une fois l'élément apparu plus tard. C'était le bug.
-//
-// watch(lottieContainer, ...) est la bonne solution : contrairement à
-// onMounted, il se redéclenche à chaque fois que la valeur du ref change —
-// donc à chaque fois que ce <div> apparaît OU disparaît du DOM (le live
-// passe online puis offline puis online...). On (re)crée l'animation
-// quand le conteneur apparaît, et on la détruit proprement quand il
-// disparaît (sinon lottie-web garderait une référence vers un noeud DOM
-// déjà retiré par Vue).
 const lottieContainer = ref(null)
 let lottieAnimation = null
 

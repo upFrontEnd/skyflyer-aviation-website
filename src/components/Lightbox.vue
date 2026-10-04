@@ -67,8 +67,11 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
         @click.self="close"
       >
         <button class="lightbox__close" type="button" aria-label="Fermer" @click="close">&times;</button>
+
         <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Image précédente" @click="prev">&larr;</button>
+
         <img class="lightbox__img" :src="current.src" :alt="current.alt" />
+        
         <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Image suivante" @click="next">&rarr;</button>
       </div>
     </Transition>

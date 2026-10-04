@@ -4,9 +4,6 @@ import { xplaneContributions } from '../data/xplane-contributions.js'
 import msfsLogo from '../logo/msfs.webp'
 import xplaneLogo from '../logo/xplane.webp'
 
-function formatDate(iso) {
-  return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
-}
 </script>
 
 <template>

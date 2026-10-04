@@ -19,7 +19,7 @@ function shuffle(array) {
 }
 
 // Comme pour `year` dans Footer.vue : PREVIEW_COUNT et `items` sont des
-// constantes calculées une fois, pas des refs — le tirage aléatoire se fait
+// constantes calculées une fois, pas des refs, le tirage aléatoire se fait
 // une seule fois au chargement du composant, pas à chaque re-render.
 const PREVIEW_COUNT = 12
 const items = shuffle(screenshots).slice(0, PREVIEW_COUNT)
