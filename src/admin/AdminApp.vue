@@ -24,14 +24,22 @@ onMounted(init)
 
     <div v-else class="admin__dashboard">
       <header class="admin__header">
-        <h1>Administration Skyflyer Aviation</h1>
-        <button class="btn" type="button" @click="logout">Déconnexion</button>
+        <h1>
+          <img class="admin__logo" src="../assets/logo.webp" alt="Logo Skyflyer Aviation">
+          Administration Skyflyer Aviation
+        </h1>
+        <button class="btn btn--error" type="button" @click="logout">Déconnexion</button>
       </header>
+      <div class="container">
+        <EventForm />
+        <LegalNoticeForm />   
+      </div> 
+      <div class="container">
+        <SetupManager />
+      </div>
+        <PartnersManager />
+      
 
-      <EventForm />
-      <SetupManager />
-      <PartnersManager />
-      <LegalNoticeForm />
     </div>
   </div>
 </template>

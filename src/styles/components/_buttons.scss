@@ -5,13 +5,15 @@
   display: block;
   font-size: 1rem;
   font-weight: 600;
-  margin: 0 auto;
-  padding: 0.5rem;
-  transition: filter 0.15s ease;
+  padding: 0.5rem 1rem;
   width: max-content;
 
-  &:hover {
-    filter: brightness(1.08);
+  &--error {
+    background-color: $color-dis;
+  }
+
+  &--success {
+    background-color: #03a909;
   }
 
 }

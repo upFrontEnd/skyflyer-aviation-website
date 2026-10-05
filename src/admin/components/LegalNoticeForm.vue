@@ -23,7 +23,7 @@ async function onSubmit() {
 </script>
 
 <template>
-  <section class="admin-section">
+  <section class="admin-section legal-notice">
     <h2>Mentions légales</h2>
     <p v-if="loading">Chargement…</p>
     <form v-else class="admin-form" @submit.prevent="onSubmit">

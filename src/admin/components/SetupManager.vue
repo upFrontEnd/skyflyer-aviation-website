@@ -47,7 +47,7 @@ const sideLabel = (s) => s === 'left' ? 'Gauche' : 'Droite'
 </script>
 
 <template>
-  <section class="admin-section">
+  <section class="admin-section setup">
     <h2>Setup — Matériel</h2>
 
     <p v-if="loading">Chargement…</p>

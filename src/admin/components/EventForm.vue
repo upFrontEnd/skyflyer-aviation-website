@@ -53,7 +53,7 @@ async function onSubmit() {
 </script>
 
 <template>
-  <section class="admin-section">
+  <section class="admin-section event">
     <h2>Prochain événement</h2>
     <p v-if="loading">Chargement…</p>
     <form v-else class="admin-form" @submit.prevent="onSubmit">
@@ -93,7 +93,7 @@ async function onSubmit() {
         <label>Image de l'événement</label>
         <ImageUploader folder="event" :current-url="getPublicImageUrl(form.image_path)" @uploaded="onImageUploaded" />
       </div>
-      <button class="btn" type="submit" :disabled="status === 'saving'">
+      <button class="btn btn--success" type="submit" :disabled="status === 'saving'">
         {{ status === 'saving' ? 'Enregistrement…' : 'Enregistrer' }}
       </button>
       <p v-if="status === 'saved'" class="admin-feedback admin-feedback--success">Enregistré.</p>

@@ -6,24 +6,66 @@
 
 .admin {
   margin-inline: auto;
-  max-width: 40rem;
-  padding: 2rem $gutter;
+}
+
+.container {
+  display: flex;
+  align-items: top;
+  justify-content: center;
+  gap: 2rem ;
+  padding: 1rem;
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+  gap: 1rem
+}
+
+.admin__logo {
+  width: 3rem;
 }
 
 .admin__loading {
   text-align: center;
 }
 
+.admin-section {
+  padding: 2rem;
+}
+
 .admin__dashboard {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 1.5rem;
 }
 
 .admin__header {
+  border: 1px solid rgba(255, 255, 255, .14);
+  background: linear-gradient(120deg, rgba(151, 151, 151, 0.2), rgba(42, 40, 41, .96) 58%);
+  padding: 1rem;
   align-items: center;
   display: flex;
   justify-content: space-between;
+}
+
+/** EVENT **/
+.event, .legal-notice {
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-left: 4px solid #f57c20;
+  border-radius: 12px;
+  background: linear-gradient(120deg, rgba(242, 165, 88, 0.2), rgba(42, 40, 41, .96) 58%);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
+  padding: 1.5rem;
+  width: 50%;
+}
+
+/** SETUP **/
+.setup {
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 12px;
+  background: linear-gradient(120deg, rgba(251, 234, 137, 0.2), rgba(42, 40, 41, .96) 58%);
+  border-left: 4px solid #e3a812;
 }
 
 .admin-login {
@@ -51,16 +93,10 @@
   font-size: 0.85rem;
 }
 
-.admin-section {
-  border-top: 1px solid rgba(255, 255, 255, .14);
-  padding-top: 2rem;
-}
-
 .admin-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 32rem;
 }
 
 .admin-field {
