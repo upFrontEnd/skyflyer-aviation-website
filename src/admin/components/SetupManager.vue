@@ -152,7 +152,7 @@ const sideLabel = (s) => s === 'left' ? 'Gauche' : 'Droite'
           <!-- Supprimer -->
           <td>
             <button type="button" class="btn admin-partners-list__delete" @click="onDelete(item)">
-              Supprimer
+                X
             </button>
           </td>
         </tr>

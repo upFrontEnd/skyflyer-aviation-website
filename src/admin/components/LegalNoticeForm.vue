@@ -38,7 +38,7 @@ async function onSubmit() {
         <label for="legal-content">Contenu (HTML)</label>
         <textarea id="legal-content" v-model="draft" rows="20" required></textarea>
       </div>
-      <button class="btn" type="submit" :disabled="status === 'saving'">
+      <button class="btn btn--success" type="submit" :disabled="status === 'saving'">
         {{ status === 'saving' ? 'Enregistrement…' : 'Enregistrer' }}
       </button>
       <p v-if="status === 'saved'" class="admin-feedback admin-feedback--success">Enregistré.</p>
