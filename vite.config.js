@@ -4,7 +4,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
   root: '.',
-  base: process.env.GITHUB_ACTIONS ? '/skyflyer-aviation-website/' : '/',
+  base: '/',
   publicDir: 'public',
   plugins: [vue()],
   css: {
