@@ -32,7 +32,7 @@ const LegalNotice = defineAsyncComponent(() => import('./components/LegalNotice.
     <Contributions />
     <!-- <Gallery /> -->
     <Shop />
-    <!-- <LatestVideo /> -->
+    <LatestVideo />
     <Partners />
   </main>
   <Footer />

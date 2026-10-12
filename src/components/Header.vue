@@ -1,12 +1,13 @@
 <script setup>
 
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { navigation } from '../data/navigation.js'
 import { headerScreenshots } from '../data/screenshots.js'
 import { useContactModal } from '../composables/useContactModal.js'
 import { useLocale } from '../composables/useLocale.js'
 import { useScrollSpy } from '../composables/useScrollSpy.js'
 import { useTwitchStream } from '../composables/useTwitchStream.js'
+import { useEventData } from '../composables/useEventData.js'
 import logoUrl from '../assets/logo.webp'
 import waveUrl from '../assets/bg-header.webp'
 
@@ -23,6 +24,10 @@ const { locale } = useLocale()
 // réseau. `stream` vaut `null` tant que la chaîne est hors ligne : c'est ce
 // qui pilote la pastille rouge à côté de l'item "Live" du menu.
 const { stream } = useTwitchStream()
+const { event } = useEventData()
+const visibleNavigation = computed(() =>
+  navigation.filter(item => item.href !== '#event' || event.value?.active)
+)
 const { activeHref } = useScrollSpy()
 
 // Une capture au hasard parmi celles marquées "_head" (voir data/screenshots.js),
@@ -81,7 +86,7 @@ onUnmounted(() => clearInterval(zuluIntervalId))
     <div class="header__actions">
       <nav class="header__nav" :class="{ 'header__nav--open': isNavOpen }">
         <ul class="header__list">
-          <li v-for="item in navigation" :key="item.label.fr">
+          <li v-for="item in visibleNavigation" :key="item.label.fr">
             <!--
               item.modal (voir data/navigation.js) distingue l'entrée
               "Contact" des autres liens : au lieu d'un <a href="#..."> qui
