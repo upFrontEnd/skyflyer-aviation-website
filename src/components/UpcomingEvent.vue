@@ -13,7 +13,7 @@ const { event } = useEventData()
 </script>
 
 <template>
-  <section id="event" class="event" aria-labelledby="event-title">
+  <section v-if="event?.active" id="event" class="event" aria-labelledby="event-title">
     <div class="container">
       <div class="event__panel">
           <div class="event__glow" aria-hidden="true"></div>

@@ -7,6 +7,7 @@ import ImageUploader from './ImageUploader.vue'
 const { event, loading, updateEvent } = useEventData()
 
 const form = ref({
+  active: false,
   title: '',
   description_fr: '',
   description_en: '',
@@ -57,6 +58,12 @@ async function onSubmit() {
     <h2>Prochain événement</h2>
     <p v-if="loading">Chargement…</p>
     <form v-else class="admin-form" @submit.prevent="onSubmit">
+      <div class="admin-field">
+        <label for="event-active">
+          <input id="event-active" v-model="form.active" type="checkbox" />
+          Afficher l'événement sur le site
+        </label>
+      </div>
       <div class="admin-field">
         <label for="event-title">Titre</label>
         <input id="event-title" v-model="form.title" type="text" required />

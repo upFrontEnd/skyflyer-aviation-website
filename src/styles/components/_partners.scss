@@ -8,16 +8,27 @@
   }
 
   &__grid {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
-    grid-template-columns: repeat(2, 1fr);
-
-    @media (min-width: $bp-tablet) {
-      grid-template-columns: repeat(4, 1fr);
-    }
+    justify-content: center;
   }
 
   &__item {
+    flex: 0 0 100%;
+
+    @media (min-width: $bp-mobile) {
+      flex: 0 0 calc(50% - 0.5rem);
+    }
+
+    @media (min-width: $bp-tablet) {
+      flex: 0 0 calc(33.333% - 0.667rem);
+    }
+
+    @media (min-width: $bp-desktop) {
+      flex: 0 0 calc(25% - 0.75rem);
+    }
+
     a {
       background: linear-gradient(120deg, rgba(151, 151, 151, 0.2), rgba(42, 40, 41, .96) 58%);
       align-items: center;

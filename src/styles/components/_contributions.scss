@@ -5,7 +5,12 @@
 
   .sub-container {
     display: flex;
+    flex-direction: column;
     gap: 2rem;
+
+    @media (min-width: $bp-tablet) {
+      flex-direction: row;
+    }
   }
 
   &__title {
@@ -19,7 +24,11 @@
     overflow: hidden;
     padding: 1.5rem;
     position: relative;
-    width: 50%;
+    width: 100%;
+
+    @media (min-width: $bp-tablet) {
+      width: 50%;
+    }
   }
 
   .btn {

@@ -98,7 +98,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
             -->
             <input type="checkbox" name="botcheck" class="contact__honeypot" tabindex="-1" autocomplete="off" />
 
-            <button class="btn" type="submit" :disabled="status === 'sending'">
+            <button class="btn btn--success" type="submit" :disabled="status === 'sending'">
               {{ status === 'sending' ? (locale === 'fr' ? 'Envoi…' : 'Sending…') : (locale === 'fr' ? 'Envoyer' : 'Send') }}
             </button>
 
