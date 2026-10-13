@@ -1,6 +1,7 @@
 <script setup>
 import { shopItems } from '../data/shop.js'
 import displateLogo from '../logo/displate.svg'
+import { trackEvent } from '../composables/useAnalytics.js'
 
 const COLLECTION_URL = 'https://displate.com/artist/skyflyer/pegase'
 const FEATURED_COUNT = 9
@@ -31,12 +32,13 @@ const featuredItems = pickRandom(shopItems, FEATURED_COUNT)
           :href="item.link"
           target="_blank"
           rel="noopener"
+          @click="trackEvent('shop_item_click', { item_title: item.title })"
         >
           <img class="shop-card__thumb" :src="item.thumbnail" :alt="item.title" loading="lazy" />
         </a>
       </div>
 
-      <a class="btn shop__cta" :href="COLLECTION_URL" target="_blank" rel="noopener">
+      <a class="btn shop__cta" :href="COLLECTION_URL" target="_blank" rel="noopener" @click="trackEvent('shop_cta_click')">
         Voir toute la collection
       </a>
     </div>

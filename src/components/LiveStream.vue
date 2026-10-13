@@ -3,6 +3,7 @@ import { ref, watch, onUnmounted } from 'vue'
 import lottie from 'lottie-web'
 import liveNowAnimation from '../assets/Live now animation.json'
 import { useTwitchStream, TWITCH_CHANNEL } from '../composables/useTwitchStream.js'
+import { trackEvent } from '../composables/useAnalytics.js'
 
 const hostname = window.location.hostname
 const twitchEmbedUrl = `https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&parent=${hostname}&muted=true`
@@ -57,7 +58,7 @@ onUnmounted(() => {
             v-if="!isLiveLoaded"
             type="button"
             class="live__facade"
-            @click="isLiveLoaded = true"
+            @click="isLiveLoaded = true; trackEvent('twitch_live_click', { channel: TWITCH_CHANNEL })"
           >
             <!--
               thumbnailUrl : vraie capture du live, réactualisée toutes les

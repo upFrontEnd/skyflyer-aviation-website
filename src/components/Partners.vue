@@ -1,6 +1,7 @@
 <script setup>
 import { usePartnersData } from '../composables/usePartnersData.js'
 import { getPublicImageUrl } from '../lib/supabase.js'
+import { trackEvent } from '../composables/useAnalytics.js'
 
 // Remplace l'ancien `import { partners } from '../data/partners.js'` : la
 // liste vient maintenant de Supabase, modifiable depuis /admin.html 
@@ -19,7 +20,7 @@ const { partners } = usePartnersData()
           équivalent déclaratif d'un `if/else` en JS classique.
         -->
         <li v-for="partner in partners" :key="partner.id" class="partners__item">
-          <a :href="partner.href" :aria-label="partner.name" target="_blank">
+          <a :href="partner.href" :aria-label="partner.name" target="_blank" @click="trackEvent('partner_click', { partner_name: partner.name })">
             <img
               v-if="partner.logo_path"
               class="partners__logo"
