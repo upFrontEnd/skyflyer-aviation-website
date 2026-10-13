@@ -45,7 +45,7 @@ async function onDelete(partner) {
 </script>
 
 <template>
-  <section class="admin-section">
+  <section class="admin-partners">
     <h2>Partenaires</h2>
     <p v-if="loading">Chargement…</p>
 
