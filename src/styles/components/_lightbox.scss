@@ -43,6 +43,8 @@
     font-size: 2rem;
     padding: 1rem;
     position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 
     &:hover {
       color: $color-orange;
