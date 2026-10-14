@@ -162,16 +162,10 @@ onUnmounted(() => clearInterval(zuluIntervalId))
     </div>
   </header>
 
-  <!--
-    :style (raccourci de v-bind:style) permet de calculer une valeur CSS
-    dynamiquement en JS. Ici on définit une custom property CSS
-    (--header-hero-bg) dont la valeur dépend de l'image importée plus haut ;
-    le SCSS (_header.scss) s'en sert ensuite comme background-image.
-    margin-top négatif (voir _header.scss) : fait remonter la photo sous
-    .header__bar pour retrouver le même chevauchement visuel qu'avant,
-    même si les deux ne sont plus imbriqués dans le DOM.
-  -->
-  <div class="header__hero" id="accueil" :style="{ '--header-hero-bg': `url(${heroBgUrl})` }">
+  <div class="header__hero" id="accueil">
+    <div class="header__hero-bg" aria-hidden="true">
+      <img class="header__hero-bg-img" :src="heroBgUrl" fetchpriority="high" alt="" width="1920" height="1080" />
+    </div>
     <img class="header__wave" :src="waveUrl" alt="" aria-hidden="true" />
 
     <div class="header__svgContainer">
