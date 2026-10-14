@@ -1,15 +1,27 @@
 <script setup>
+import { computed } from 'vue'
 import flightsimContributions from '../data/flightsim-contributions.json'
 import { xplaneContributions } from '../data/xplane-contributions.js'
 import msfsLogo from '../logo/msfs.webp'
 import xplaneLogo from '../logo/xplane.webp'
+import { useLocale } from '../composables/useLocale.js'
 
+const { locale } = useLocale()
+const t = computed(() => locale.value === 'fr' ? {
+  title:   'Réalisations',
+  behance: 'Je réalise également des créations graphiques pour des streamers et YouTubeurs.',
+  behanceLink: 'profil Behance',
+} : {
+  title:   'Work',
+  behance: 'I also create graphic designs for streamers and YouTubers.',
+  behanceLink: 'Behance profile',
+})
 </script>
 
 <template>
   <section class="contributions" id="contributions" aria-labelledby="contributions-title">
     <div class="container">
-      <h2 class="contributions__title" id="contributions-title">Réalisations</h2>
+      <h2 class="contributions__title" id="contributions-title">{{ t.title }}</h2>
       
       <div class="sub-container">
           <div class="contributions__panel msfs">
@@ -66,8 +78,8 @@ import xplaneLogo from '../logo/xplane.webp'
       </div>
 
       <p class="contributions__behance">
-        Je réalise également des créations graphiques pour des streamers et YouTubeurs.<br>Retrouvez-les sur mon
-        <a href="https://www.behance.net/adel1982" target="_blank" rel="noopener">profil Behance</a>.
+        {{ t.behance }}<br>
+        <a href="https://www.behance.net/adel1982" target="_blank" rel="noopener">{{ t.behanceLink }}</a>.
       </p>
     </div>
   </section>

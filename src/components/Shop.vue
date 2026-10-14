@@ -1,7 +1,12 @@
 <script setup>
+import { computed } from 'vue'
 import { shopItems } from '../data/shop.js'
 import displateLogo from '../logo/displate.svg'
 import { trackEvent } from '../composables/useAnalytics.js'
+import { useLocale } from '../composables/useLocale.js'
+
+const { locale } = useLocale()
+const ctaLabel = computed(() => locale.value === 'fr' ? 'Voir toute la collection' : 'View the full collection')
 
 const COLLECTION_URL = 'https://displate.com/artist/skyflyer/pegase'
 const FEATURED_COUNT = 15
@@ -39,7 +44,7 @@ const featuredItems = pickRandom(shopItems, FEATURED_COUNT)
       </div>
 
       <a class="btn shop__cta" :href="COLLECTION_URL" target="_blank" rel="noopener" @click="trackEvent('shop_cta_click')">
-        Voir toute la collection
+        {{ ctaLabel }}
       </a>
     </div>
   </section>

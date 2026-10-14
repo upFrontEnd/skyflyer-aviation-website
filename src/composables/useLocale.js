@@ -1,9 +1,13 @@
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 
-// navigator.language renvoie un code du type "fr-FR", "en-US", "de-DE"... :
-// on ne garde que les deux premières lettres pour savoir si le visiteur est
-// francophone, sinon on bascule sur l'anglais par défaut.
 const locale = ref(navigator.language.slice(0, 2) === 'fr' ? 'fr' : 'en')
+
+watchEffect(() => {
+  document.documentElement.lang = locale.value
+  document.title = locale.value === 'fr'
+    ? 'Skyflyer Aviation | Simulation de vol réaliste · IVAO & VATSIM'
+    : 'Skyflyer Aviation | Realistic Flight Simulation · IVAO & VATSIM'
+})
 
 export function useLocale() {
   return { locale }

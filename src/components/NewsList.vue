@@ -2,18 +2,19 @@
 import { computed, ref } from 'vue'
 import { useNewsData } from '../composables/useNewsData.js'
 import { getPublicImageUrl } from '../lib/supabase.js'
+import { useLocale } from '../composables/useLocale.js'
 import NewsModal from './NewsModal.vue'
 
 const { news } = useNewsData()
+const { locale } = useLocale()
 
-const lang = navigator.language?.startsWith('en') ? 'en' : 'fr'
-const rtf = new Intl.RelativeTimeFormat(lang, { numeric: 'auto' })
+const rtf = computed(() => new Intl.RelativeTimeFormat(locale.value, { numeric: 'auto' }))
 
 const activeNews = computed(() => news.value.filter(item => item.active))
 const selectedNews = ref(null)
 
 function title(item) {
-  return (lang === 'en' && item.title_en) ? item.title_en : item.title
+  return (locale.value === 'en' && item.title_en) ? item.title_en : item.title
 }
 
 function relativeTime(dateStr) {
@@ -26,13 +27,13 @@ function relativeTime(dateStr) {
   const months = Math.floor(days / 30)
   const years = Math.floor(days / 365)
 
-  if (seconds < 60)  return rtf.format(-seconds, 'second')
-  if (minutes < 60)  return rtf.format(-minutes, 'minute')
-  if (hours < 24)    return rtf.format(-hours,   'hour')
-  if (days < 7)      return rtf.format(-days,    'day')
-  if (weeks < 5)     return rtf.format(-weeks,   'week')
-  if (months < 12)   return rtf.format(-months,  'month')
-  return rtf.format(-years, 'year')
+  if (seconds < 60)  return rtf.value.format(-seconds, 'second')
+  if (minutes < 60)  return rtf.value.format(-minutes, 'minute')
+  if (hours < 24)    return rtf.value.format(-hours,   'hour')
+  if (days < 7)      return rtf.value.format(-days,    'day')
+  if (weeks < 5)     return rtf.value.format(-weeks,   'week')
+  if (months < 12)   return rtf.value.format(-months,  'month')
+  return rtf.value.format(-years, 'year')
 }
 
 function onCardClick(item) {
@@ -43,7 +44,7 @@ function onCardClick(item) {
   }
 }
 
-const sectionTitle = lang === 'en' ? 'News' : 'Actus'
+const sectionTitle = computed(() => locale.value === 'en' ? 'News' : 'Actus')
 </script>
 
 <template>
