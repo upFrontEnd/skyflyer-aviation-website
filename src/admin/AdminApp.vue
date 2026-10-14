@@ -6,6 +6,7 @@ import EventForm from './components/EventForm.vue'
 import PartnersManager from './components/PartnersManager.vue'
 import SetupManager from './components/SetupManager.vue'
 import LegalNoticeForm from './components/LegalNoticeForm.vue'
+import NewsManager from './components/NewsManager.vue'
 
 const { user, loading, init, logout } = useAdminAuth()
 
@@ -26,7 +27,7 @@ onMounted(init)
       <header class="admin__header">
         <h1>
           <img class="admin__logo" src="../assets/logo.webp" alt="Logo Skyflyer Aviation">
-          Administration Skyflyer Aviation
+          Admin Skyflyer Aviation
         </h1>
         <button class="btn btn--error" type="button" @click="logout">Déconnexion</button>
       </header>
@@ -37,6 +38,7 @@ onMounted(init)
       <div class="container">
         <SetupManager />
       </div>
+        <NewsManager />
         <PartnersManager />
       
 

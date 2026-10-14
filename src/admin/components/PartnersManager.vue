@@ -3,8 +3,10 @@ import { ref } from 'vue'
 import { usePartnersData } from '../../composables/usePartnersData.js'
 import { getPublicImageUrl } from '../../lib/supabase.js'
 import ImageUploader from './ImageUploader.vue'
+import { useCollapsible } from '../useCollapsible.js'
 
 const { partners, loading, addPartner, updatePartner, deletePartner } = usePartnersData()
+const { isOpen, toggle } = useCollapsible('partners')
 
 const newPartner = ref({ name: '', href: '', logo_path: null, logo_width: null, logo_height: null })
 const addStatus = ref('idle')
@@ -45,8 +47,13 @@ async function onDelete(partner) {
 </script>
 
 <template>
-  <section class="admin-partners">
-    <h2>Partenaires</h2>
+  <section class="admin-partners" :class="{ 'admin-panel-closed': !isOpen }">
+    <h2 class="admin-panel__title" @click="toggle">
+      Partenaires
+      <svg class="admin-panel__arrow" :class="{ 'admin-panel__arrow--open': isOpen }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </h2>
+    <div class="admin-collapse" :class="{ 'admin-collapse--closed': !isOpen }">
+      <div class="admin-collapse__inner">
     <p v-if="loading">Chargement…</p>
 
     <ul v-else class="admin-partners-list">
@@ -88,5 +95,7 @@ async function onDelete(partner) {
         {{ addStatus === 'saving' ? 'Ajout…' : 'Ajouter' }}
       </button>
     </form>
+      </div>
+    </div>
   </section>
 </template>

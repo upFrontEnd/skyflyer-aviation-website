@@ -3,8 +3,10 @@ import { ref, watch } from 'vue'
 import { useEventData } from '../../composables/useEventData.js'
 import { getPublicImageUrl } from '../../lib/supabase.js'
 import ImageUploader from './ImageUploader.vue'
+import { useCollapsible } from '../useCollapsible.js'
 
 const { event, loading, updateEvent } = useEventData()
+const { isOpen, toggle } = useCollapsible('event')
 
 const form = ref({
   active: false,
@@ -54,16 +56,15 @@ async function onSubmit() {
 </script>
 
 <template>
-  <section class="admin-section event">
-    <h2>Prochain événement</h2>
+  <section class="admin-section event" :class="{ 'admin-panel-closed': !isOpen }">
+    <h2 class="admin-panel__title" @click="toggle">
+      Prochain événement
+      <svg class="admin-panel__arrow" :class="{ 'admin-panel__arrow--open': isOpen }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </h2>
+    <div class="admin-collapse" :class="{ 'admin-collapse--closed': !isOpen }">
+      <div class="admin-collapse__inner">
     <p v-if="loading">Chargement…</p>
     <form v-else class="admin-form" @submit.prevent="onSubmit">
-      <div class="admin-field">
-        <label for="event-active">
-          <input id="event-active" v-model="form.active" type="checkbox" />
-          Afficher l'événement sur le site
-        </label>
-      </div>
       <div class="admin-field">
         <label for="event-title">Titre</label>
         <input id="event-title" v-model="form.title" type="text" required />
@@ -100,11 +101,20 @@ async function onSubmit() {
         <label>Image de l'événement</label>
         <ImageUploader folder="event" :current-url="getPublicImageUrl(form.image_path)" @uploaded="onImageUploaded" />
       </div>
-      <button class="btn btn--success" type="submit" :disabled="status === 'saving'">
+      <div class="admin-display-on-site">
+        <button class="btn btn--success" type="submit" :disabled="status === 'saving'">
         {{ status === 'saving' ? 'Enregistrement…' : 'Enregistrer' }}
       </button>
+      <label for="event-active">
+          <input id="event-active" v-model="form.active" type="checkbox" />
+          Afficher l'événement sur le site
+        </label>
+      </div>
+      
       <p v-if="status === 'saved'" class="admin-feedback admin-feedback--success">Enregistré.</p>
       <p v-if="status === 'error'" class="admin-feedback admin-feedback--error">Une erreur est survenue.</p>
     </form>
+      </div>
+    </div>
   </section>
 </template>

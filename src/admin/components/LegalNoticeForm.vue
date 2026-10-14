@@ -1,8 +1,10 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useLegalNoticeData } from '../../composables/useLegalNoticeData.js'
+import { useCollapsible } from '../useCollapsible.js'
 
 const { content, loading, updateLegalNotice } = useLegalNoticeData()
+const { isOpen, toggle } = useCollapsible('legal')
 
 const draft = ref('')
 watch(content, (value) => {
@@ -23,8 +25,13 @@ async function onSubmit() {
 </script>
 
 <template>
-  <section class="admin-section legal-notice">
-    <h2>Mentions légales</h2>
+  <section class="admin-section legal-notice" :class="{ 'admin-panel-closed': !isOpen }">
+    <h2 class="admin-panel__title" @click="toggle">
+      Mentions légales
+      <svg class="admin-panel__arrow" :class="{ 'admin-panel__arrow--open': isOpen }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </h2>
+    <div class="admin-collapse" :class="{ 'admin-collapse--closed': !isOpen }">
+      <div class="admin-collapse__inner">
     <p v-if="loading">Chargement…</p>
     <form v-else class="admin-form" @submit.prevent="onSubmit">
       <!--
@@ -44,5 +51,7 @@ async function onSubmit() {
       <p v-if="status === 'saved'" class="admin-feedback admin-feedback--success">Enregistré.</p>
       <p v-if="status === 'error'" class="admin-feedback admin-feedback--error">Une erreur est survenue.</p>
     </form>
+      </div>
+    </div>
   </section>
 </template>

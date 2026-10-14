@@ -8,6 +8,7 @@ import { useLocale } from '../composables/useLocale.js'
 import { useScrollSpy } from '../composables/useScrollSpy.js'
 import { useTwitchStream } from '../composables/useTwitchStream.js'
 import { useEventData } from '../composables/useEventData.js'
+import { useNewsData } from '../composables/useNewsData.js'
 import logoUrl from '../assets/logo.webp'
 import waveUrl from '../assets/bg-header.webp'
 
@@ -25,8 +26,13 @@ const { locale } = useLocale()
 // qui pilote la pastille rouge à côté de l'item "Live" du menu.
 const { stream } = useTwitchStream()
 const { event } = useEventData()
+const { news } = useNewsData()
 const visibleNavigation = computed(() =>
-  navigation.filter(item => item.href !== '#event' || event.value?.active)
+  navigation.filter(item => {
+    if (item.href === '#event') return event.value?.active
+    if (item.href === '#actu')  return news.value.some(n => n.active)
+    return true
+  })
 )
 const { activeHref } = useScrollSpy()
 

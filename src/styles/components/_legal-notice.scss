@@ -5,6 +5,19 @@
   max-width: 40rem;
   overflow-y: auto;
 
+  scrollbar-width: thin;
+  scrollbar-color: $color-orange rgba(255, 255, 255, .06);
+
+  &::-webkit-scrollbar { width: 5px; }
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, .06);
+    border-radius: 0 12px 12px 0;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $color-orange;
+    border-radius: 3px;
+  }
+
   &__body {
     h3 {
       color: $color-orange;

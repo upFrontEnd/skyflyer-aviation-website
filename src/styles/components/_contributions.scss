@@ -19,7 +19,7 @@
 
   &__panel {
     border: 1px solid rgba(255, 255, 255, .14);
-    border-radius: 12px;
+    border-radius: .7rem;
     box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
     overflow: hidden;
     padding: 1.5rem;
@@ -94,8 +94,8 @@
   align-items: center;
   border-radius: $radius;
   display: flex;
-  gap: 12px;
-  padding: 10px;
+  gap: 1rem;
+  padding: .3rem;
   transition: transform 0.15s ease;
 
   &:hover {

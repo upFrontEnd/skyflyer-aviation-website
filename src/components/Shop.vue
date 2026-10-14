@@ -4,7 +4,7 @@ import displateLogo from '../logo/displate.svg'
 import { trackEvent } from '../composables/useAnalytics.js'
 
 const COLLECTION_URL = 'https://displate.com/artist/skyflyer/pegase'
-const FEATURED_COUNT = 9
+const FEATURED_COUNT = 15
 
 function pickRandom(items, count) {
   const shuffled = [...items]

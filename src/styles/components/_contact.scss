@@ -17,6 +17,18 @@
   width: 100vw;
   z-index: 1000;
 
+  scrollbar-width: thin;
+  scrollbar-color: $color-orange rgba(255, 255, 255, .06);
+
+  &::-webkit-scrollbar { width: 5px; }
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, .06);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $color-orange;
+    border-radius: 3px;
+  }
+
   &__panel {
     background: linear-gradient(120deg, rgba(245, 124, 32, 0.15), rgba(42, 40, 41, .96) 58%);
     border: 1px solid rgba(255, 255, 255, .14);
