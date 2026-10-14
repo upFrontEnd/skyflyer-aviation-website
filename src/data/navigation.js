@@ -4,7 +4,7 @@ export const navigation = [
   { label: { fr: 'À propos', en: 'About' }, href: '#apropos' },
   { label: { fr: 'Setup', en: 'Setup' }, href: '#setup' },
   { label: { fr: 'Réalisations', en: 'Work' }, href: '#contributions' },
-  { label: { fr: 'Shop', en: 'Shop' }, href: '#shop' },
   { label: { fr: 'Actu', en: 'News' }, href: '#actu' },
+  { label: { fr: 'Shop', en: 'Shop' }, href: '#shop' },
   { label: { fr: 'Contact', en: 'Contact' }, modal: true },
 ]
