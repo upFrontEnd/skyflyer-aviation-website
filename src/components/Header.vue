@@ -2,7 +2,6 @@
 
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { navigation } from '../data/navigation.js'
-import { headerScreenshots } from '../data/screenshots.js'
 import { useContactModal } from '../composables/useContactModal.js'
 import { useLocale } from '../composables/useLocale.js'
 import { useScrollSpy } from '../composables/useScrollSpy.js'
@@ -11,6 +10,7 @@ import { useEventData } from '../composables/useEventData.js'
 import { useNewsData } from '../composables/useNewsData.js'
 import logoUrl from '../assets/logo.webp'
 import waveUrl from '../assets/bg-header.webp'
+import heroBgUrl from '../screenshots/44_head.webp'
 
 // Partagée avec Contact.vue via le composable : ouvrir la popup depuis ici n'a pas besoin de props/emit, les deux composants lisent/écrivent la même ref partagée.
 const { open: openContact } = useContactModal()
@@ -39,7 +39,6 @@ const { activeHref } = useScrollSpy()
 // Une capture au hasard parmi celles marquées "_head" (voir data/screenshots.js),
 // tirée une seule fois au chargement de la page (pas une ref : elle n'a pas
 // besoin de changer après).
-const heroBgUrl = headerScreenshots[Math.floor(Math.random() * headerScreenshots.length)]
 
 // ref() crée une valeur "réactive" : Vue surveille les changements de
 // isNavOpen.value et re-render automatiquement le template concerné dès
