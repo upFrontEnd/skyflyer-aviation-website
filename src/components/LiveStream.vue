@@ -2,13 +2,13 @@
 import { ref, computed, watch, onUnmounted } from 'vue'
 import lottie from 'lottie-web'
 import liveNowAnimation from '../assets/Live now animation.json'
-import { useTwitchStream, TWITCH_CHANNEL } from '../composables/useTwitchStream.js'
+import { useTwitchStream, twitchChannel } from '../composables/useTwitchStream.js'
 import { trackEvent } from '../composables/useAnalytics.js'
 import { useLocale } from '../composables/useLocale.js'
 
 const hostname = window.location.hostname
-const twitchEmbedUrl = `https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&parent=${hostname}&muted=true`
-const twitchChatUrl = `https://www.twitch.tv/embed/${TWITCH_CHANNEL}/chat?parent=${hostname}&darkpopout`
+const twitchEmbedUrl = computed(() => `https://player.twitch.tv/?channel=${twitchChannel.value}&parent=${hostname}&muted=true`)
+const twitchChatUrl = computed(() => `https://www.twitch.tv/embed/${twitchChannel.value}/chat?parent=${hostname}&darkpopout`)
 
 const { stream, loading, error } = useTwitchStream()
 const { locale } = useLocale()
@@ -78,7 +78,7 @@ onUnmounted(() => {
             v-if="!isLiveLoaded"
             type="button"
             class="live__facade"
-            @click="isLiveLoaded = true; trackEvent('twitch_live_click', { channel: TWITCH_CHANNEL })"
+            @click="isLiveLoaded = true; trackEvent('twitch_live_click', { channel: twitchChannel })"
           >
             <!--
               thumbnailUrl : vraie capture du live, réactualisée toutes les

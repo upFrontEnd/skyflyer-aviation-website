@@ -1,4 +1,5 @@
-import { ref, onMounted } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
+import { useSiteSettings } from './useSiteSettings.js'
 
 // import.meta.env.VITE_* : la façon dont Vite expose des variables
 // d'environnement (définies dans .env, jamais commité) au code client. Tout
@@ -11,12 +12,12 @@ import { ref, onMounted } from 'vue'
 const TWITCH_CLIENT_ID = import.meta.env.VITE_TWITCH_CLIENT_ID
 const TWITCH_ACCESS_TOKEN = import.meta.env.VITE_TWITCH_ACCESS_TOKEN
 
-// Seule chaîne suivie par tout le site : vivait avant en double (une copie
-// dans LiveStream.vue pour construire les URLs d'iframe, une autre ici
-// implicitement via le paramètre channelLogin) — exportée d'ici, c'est
-// désormais la seule source de vérité, pour ne plus jamais avoir à la
-// changer à deux endroits.
-export const TWITCH_CHANNEL = 'bigmoussegaming'
+const { settings } = useSiteSettings()
+export const twitchChannel = computed(() => settings.value.twitch_channel || 'bigmoussegaming')
+
+// Re-fetch dès que la chaîne est connue depuis Supabase (les settings arrivent
+// après le premier onMounted, donc le premier fetch part avec le fallback).
+watch(twitchChannel, () => fetchStream(), { flush: 'post' })
 
 // Twitch régénère cette image toutes les quelques minutes mais garde la même
 // URL par chaîne — sans un paramètre qui change, le navigateur réafficherait
@@ -65,7 +66,7 @@ async function fetchStream({ silent = false } = {}) {
     // Get Streams : renvoie un tableau vide si la chaîne n'est pas en
     // direct (ce n'est pas une erreur HTTP, juste `data: []`).
     const streamsRes = await fetch(
-      `https://api.twitch.tv/helix/streams?user_login=${encodeURIComponent(TWITCH_CHANNEL)}`,
+      `https://api.twitch.tv/helix/streams?user_login=${encodeURIComponent(twitchChannel.value)}`,
       { headers }
     )
     if (!streamsRes.ok) {

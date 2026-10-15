@@ -1,6 +1,7 @@
 @use '../base/variables' as *;
 
 .event {
+   padding-top: 1.9rem;
   &__panel {
     border: 1px solid rgba(255, 255, 255, .14);
     border-left: 4px solid #f57c20;

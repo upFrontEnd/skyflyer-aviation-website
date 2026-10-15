@@ -4,6 +4,24 @@
 @use '../styles/base/variables' as *;
 @use '../styles/components/buttons';
 
+/** SCROLLBARS **/
+:root {
+  --scrollbar-width: 6px;
+  --scrollbar-track: rgba(255, 255, 255, .06);
+  --scrollbar-thumb: rgba(245, 124, 32, .55);
+  --scrollbar-thumb-hover: #f57c20;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+*::-webkit-scrollbar { width: var(--scrollbar-width); height: var(--scrollbar-width); }
+*::-webkit-scrollbar-track { background: var(--scrollbar-track); border-radius: 99px; }
+*::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 99px; }
+*::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+
 .admin {
   margin-inline: auto;
 }
@@ -95,7 +113,7 @@ h1 {
 }
 
 /** EVENT **/
-.event, .legal-notice {
+.event, .legal-notice, .twitch {
   border: 1px solid rgba(255, 255, 255, .14);
   border-left: 4px solid #f57c20;
   border-radius: 12px;

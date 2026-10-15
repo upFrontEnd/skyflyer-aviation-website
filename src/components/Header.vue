@@ -8,6 +8,7 @@ import { useScrollSpy } from '../composables/useScrollSpy.js'
 import { useTwitchStream } from '../composables/useTwitchStream.js'
 import { useEventData } from '../composables/useEventData.js'
 import { useNewsData } from '../composables/useNewsData.js'
+import { useSiteSettings } from '../composables/useSiteSettings.js'
 import logoUrl from '../assets/logo.webp'
 import waveUrl from '../assets/bg-header.webp'
 import heroBgUrl from '../screenshots/44_head.webp'
@@ -27,10 +28,12 @@ const { locale } = useLocale()
 const { stream } = useTwitchStream()
 const { event } = useEventData()
 const { news } = useNewsData()
+const { settings } = useSiteSettings()
 const visibleNavigation = computed(() =>
   navigation.filter(item => {
     if (item.href === '#event') return event.value?.active
     if (item.href === '#actu')  return news.value.some(n => n.active)
+    if (item.href === '#video') return !!settings.value.youtube_video_id?.trim()
     return true
   })
 )

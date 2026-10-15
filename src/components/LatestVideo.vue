@@ -1,8 +1,10 @@
 <script setup>
 import { computed } from 'vue'
 import { useLocale } from '../composables/useLocale.js'
+import { useSiteSettings } from '../composables/useSiteSettings.js'
 
-const YOUTUBE_VIDEO_ID = 'T1nTBUwFDo8'
+const { settings } = useSiteSettings()
+const videoId = computed(() => settings.value.youtube_video_id?.trim() || '')
 const { locale } = useLocale()
 const t = computed(() => locale.value === 'fr' ? {
   title:      'Dernière vidéo',
@@ -14,7 +16,7 @@ const t = computed(() => locale.value === 'fr' ? {
 </script>
 
 <template>
-  <section class="video" aria-labelledby="video-title">
+  <section v-if="videoId" id="video" class="video" aria-labelledby="video-title">
     <div class="container">
       <div class="video__panel">
         <div class="video__head">
@@ -22,7 +24,7 @@ const t = computed(() => locale.value === 'fr' ? {
         </div>
         <iframe
           class="video__frame"
-          :src="`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}`"
+          :src="`https://www.youtube.com/embed/${videoId}`"
           :title="t.frameTitle"
           allowfullscreen
         ></iframe>

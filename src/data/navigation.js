@@ -6,5 +6,6 @@ export const navigation = [
   { label: { fr: 'Réalisations', en: 'Work' }, href: '#contributions' },
   { label: { fr: 'Actu', en: 'News' }, href: '#actu' },
   { label: { fr: 'Shop', en: 'Shop' }, href: '#shop' },
+  { label: { fr: 'Vidéo', en: 'Video' }, href: '#video' },
   { label: { fr: 'Contact', en: 'Contact' }, modal: true },
 ]
