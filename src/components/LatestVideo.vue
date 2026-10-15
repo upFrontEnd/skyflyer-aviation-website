@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useLocale } from '../composables/useLocale.js'
 
-const YOUTUBE_VIDEO_ID = 'xVsPPjk5GsM'
+const YOUTUBE_VIDEO_ID = 'T1nTBUwFDo8'
 const { locale } = useLocale()
 const t = computed(() => locale.value === 'fr' ? {
   title:      'Dernière vidéo',
