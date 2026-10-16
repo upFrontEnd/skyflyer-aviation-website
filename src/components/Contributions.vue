@@ -1,20 +1,25 @@
 <script setup>
 import { computed } from 'vue'
 import flightsimContributions from '../data/flightsim-contributions.json'
+import behanceContributions from '../data/behance-contributions.json'
 import { xplaneContributions } from '../data/xplane-contributions.js'
 import msfsLogo from '../logo/msfs.webp'
 import xplaneLogo from '../logo/xplane.webp'
 import { useLocale } from '../composables/useLocale.js'
+import { useContactModal } from '../composables/useContactModal.js'
 
 const { locale } = useLocale()
+const { open: openContact } = useContactModal()
 const t = computed(() => locale.value === 'fr' ? {
   title:   'Réalisations',
-  behance: 'Je réalise également des créations graphiques pour des streamers et YouTubeurs.',
-  behanceLink: 'profil Behance',
+  ctaText:   "Besoin d'une créa ?",
+  ctaButton: 'Contactez-moi',
+  behanceLink: 'Voir le profil Behance',
 } : {
   title:   'Work',
-  behance: 'I also create graphic designs for streamers and YouTubers.',
-  behanceLink: 'Behance profile',
+  ctaText:   'Need a design?',
+  ctaButton: 'Get in touch',
+  behanceLink: 'See the Behance profile',
 })
 </script>
 
@@ -77,10 +82,29 @@ const t = computed(() => locale.value === 'fr' ? {
           </div>
       </div>
 
-      <p class="contributions__behance">
-        {{ t.behance }}<br>
-        <a href="https://www.behance.net/adel1982" target="_blank" rel="noopener">{{ t.behanceLink }}</a>.
-      </p>
+      <div class="contributions__panel behance">
+        <div class="contributions__list contributions__list--grid">
+          <a
+            v-for="item in behanceContributions"
+            :key="item.id"
+            class="contribution-card"
+            :href="item.link"
+            target="_blank"
+            rel="noopener"
+          >
+            <img class="contribution-card__thumb" :src="item.thumbnail" :alt="item.title" loading="lazy" />
+            <div class="contribution-card__body">
+              <span class="contribution-card__category">{{ item.crea }}</span>
+              <span class="contribution-card__title">{{ item.title }}</span>
+            </div>
+          </a>
+        </div>
+      </div>
+       <p class="contributions__cta">
+          {{ t.ctaText }}
+          <!-- Le contact est une popup (useContactModal), pas une section : un bouton plutôt qu'un lien #contact -->
+          <button type="button" class="contributions__cta-link" @click="openContact()">{{ t.ctaButton }}</button>
+        </p>
     </div>
   </section>
 </template>

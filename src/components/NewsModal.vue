@@ -7,6 +7,7 @@ const props = defineProps({
   item:         { type: Object,   required: true },
   relativeTime: { type: Function, required: true },
   title:        { type: Function, required: true },
+  content:      { type: Function, required: true },
 })
 
 const emit = defineEmits(['close'])
@@ -34,7 +35,7 @@ const closeColor = computed(() => {
 
 // Force target="_blank" sur tous les liens du contenu HTML admin
 const processedContent = computed(() =>
-  (props.item.content || '').replace(/<a\s+/gi, '<a target="_blank" rel="noopener noreferrer" ')
+  (props.content(props.item) || '').replace(/<a\s+/gi, '<a target="_blank" rel="noopener noreferrer" ')
 )
 
 function stripHtml(html) {
@@ -46,7 +47,7 @@ const shareUrl = computed(() => props.item.link || window.location.href)
 const shareLinks = computed(() => {
   const url     = encodeURIComponent(shareUrl.value)
   const title   = props.title(props.item)
-  const excerpt = stripHtml(props.item.content).slice(0, 200)
+  const excerpt = stripHtml(props.content(props.item)).slice(0, 200)
   return {
     x:        `https://twitter.com/intent/tweet?url=${url}&text=${encodeURIComponent(excerpt ? `${title} — ${excerpt.slice(0, 100)}` : title)}`,
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
@@ -80,7 +81,7 @@ async function nativeShare() {
   try {
     await navigator.share({
       title: props.title(props.item),
-      text:  stripHtml(props.item.content).slice(0, 300),
+      text:  stripHtml(props.content(props.item)).slice(0, 300),
       url:   shareUrl.value,
     })
   } catch { /* annulé par l'utilisateur */ }

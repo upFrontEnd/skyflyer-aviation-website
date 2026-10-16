@@ -98,13 +98,13 @@ const sideLabel = (s) => s === 'left' ? 'Gauche' : 'Droite'
             <input
               type="text"
               :value="item.category_fr"
-              placeholder="fr"
+              placeholder="🇫🇷"
               @change="onEditField(item, 'category_fr', $event.target.value)"
             />
             <input
               type="text"
               :value="item.category_en"
-              placeholder="en"
+              placeholder="🇬🇧"
               @change="onEditField(item, 'category_en', $event.target.value)"
             />
           </td>
@@ -185,11 +185,11 @@ const sideLabel = (s) => s === 'left' ? 'Gauche' : 'Droite'
 
       <div class="admin-form__row">
         <div class="admin-field">
-          <label>Catégorie (fr)</label>
+          <label>🇫🇷 Catégorie</label>
           <input v-model="newItem.category_fr" type="text" required />
         </div>
         <div class="admin-field">
-          <label>Catégorie (en)</label>
+          <label>🇬🇧 Catégorie</label>
           <input v-model="newItem.category_en" type="text" required />
         </div>
       </div>

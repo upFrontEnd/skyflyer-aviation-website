@@ -17,6 +17,10 @@ function title(item) {
   return (locale.value === 'en' && item.title_en) ? item.title_en : item.title
 }
 
+function content(item) {
+  return (locale.value === 'en' && item.content_en) ? item.content_en : item.content
+}
+
 function relativeTime(dateStr) {
   const diff = Date.now() - new Date(dateStr).getTime()
   const seconds = Math.floor(diff / 1000)
@@ -37,7 +41,7 @@ function relativeTime(dateStr) {
 }
 
 function onCardClick(item) {
-  if (item.content) {
+  if (item.content || item.content_en) {
     selectedNews.value = item
   } else if (item.link) {
     window.open(item.link, '_blank', 'noopener')
@@ -58,7 +62,7 @@ const sectionTitle = computed(() => locale.value === 'en' ? 'News' : 'Actus')
           v-for="item in activeNews"
           :key="item.id"
           class="news-card"
-          :class="{ 'news-card--clickable': item.content || item.link }"
+          :class="{ 'news-card--clickable': item.content || item.content_en || item.link }"
           role="button"
           tabindex="0"
           @click="onCardClick(item)"
@@ -86,6 +90,7 @@ const sectionTitle = computed(() => locale.value === 'en' ? 'News' : 'Actus')
       :item="selectedNews"
       :relative-time="relativeTime"
       :title="title"
+      :content="content"
       @close="selectedNews = null"
     />
   </section>

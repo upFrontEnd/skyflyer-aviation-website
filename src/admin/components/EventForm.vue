@@ -70,11 +70,11 @@ async function onSubmit() {
         <input id="event-title" v-model="form.title" type="text" required />
       </div>
       <div class="admin-field">
-        <label for="event-desc-fr">Description (français)</label>
+        <label for="event-desc-fr">🇫🇷 Description</label>
         <textarea id="event-desc-fr" v-model="form.description_fr" rows="3" required></textarea>
       </div>
       <div class="admin-field">
-        <label for="event-desc-en">Description (anglais)</label>
+        <label for="event-desc-en">🇬🇧 Description</label>
         <textarea id="event-desc-en" v-model="form.description_en" rows="3" required></textarea>
       </div>
       <div class="admin-field">
@@ -90,11 +90,11 @@ async function onSubmit() {
         <input id="event-sim" v-model="form.simulator" type="text" required />
       </div>
       <div class="admin-field">
-        <label for="event-sim">Date (français)</label>
+        <label for="event-sim">🇫🇷 Date</label>
         <input id="event-sim" v-model="form.date_fr" type="text" required />
       </div>
       <div class="admin-field">
-        <label for="event-sim">Date (anglais)</label>
+        <label for="event-sim">🇬🇧 Date</label>
         <input id="event-sim" v-model="form.date_en" type="text" required />
       </div>
       <div class="admin-field">

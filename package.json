@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/fetch-contributions.js",
+    "prebuild": "bun scripts/fetch-contributions.js && bun scripts/fetch-behance.js",
     "build": "vite build",
     "preview": "vite preview",
-    "fetch:contributions": "node scripts/fetch-contributions.js",
-    "screenshot": "node scripts/take-screenshot.mjs"
+    "fetch:contributions": "bun scripts/fetch-contributions.js",
+    "fetch:behance": "bun scripts/fetch-behance.js",
+    "screenshot": "bun scripts/take-screenshot.mjs"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
