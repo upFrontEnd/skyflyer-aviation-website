@@ -18,6 +18,7 @@ const form = ref({
   simulator: '',
   date_fr: '',
   date_en: '',
+  url: '',
   image_path: null,
   image_width: null,
   image_height: null
@@ -76,6 +77,10 @@ async function onSubmit() {
       <div class="admin-field">
         <label for="event-desc-en">🇬🇧 Description</label>
         <textarea id="event-desc-en" v-model="form.description_en" rows="3" required></textarea>
+      </div>
+      <div class="admin-field">
+        <label for="event-title">URL</label>
+        <input id="event-title" v-model="form.url" type="text" required />
       </div>
       <div class="admin-field">
         <label for="event-flight">Vol programmé</label>
