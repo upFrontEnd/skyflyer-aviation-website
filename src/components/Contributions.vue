@@ -72,6 +72,7 @@ const t = computed(() => locale.value === 'fr' ? {
                       <img :src="xplaneLogo" width="400" height="81" alt="" />
                     </div>
                     <div class="contribution-card__body">
+                      
                       <span class="contribution-card__category">{{ item.category }}</span>
                       <span class="contribution-card__title">{{ item.title }}</span>
                     </div>
