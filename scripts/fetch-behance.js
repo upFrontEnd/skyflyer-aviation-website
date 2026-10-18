@@ -49,7 +49,11 @@ try {
       const covers = p.covers?.allAvailable ?? []
       const cover = covers.find((c) => c.width === COVER_WIDTH && c.type === 'WEBP')
         ?? covers.find((c) => c.width === COVER_WIDTH)
-      return { id: p.id, title: p.name, thumbnail: cover?.url, link: p.url, publishedOn: p.publishedOn }
+      const field = p.fields?.[0]?.name ?? null
+      const sep = p.name.indexOf(' - ')
+      const crea = field ?? (sep !== -1 ? p.name.slice(0, sep) : null)
+      const title = sep !== -1 ? p.name.slice(sep + 3) : p.name
+      return { id: p.id, crea, title, thumbnail: cover?.url, link: p.url, publishedOn: p.publishedOn }
     })
     .filter((p) => p.thumbnail)
     .sort((a, b) => b.publishedOn - a.publishedOn)
