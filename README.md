@@ -13,13 +13,13 @@ Capture générée automatiquement par [.github/workflows/screenshot.yml](.githu
 - [Vue 3](https://vuejs.org/) (`<script setup>`, JavaScript uniquement, pas de TypeScript)
 - [Vite](https://vitejs.dev/)
 - SCSS
-- npm (Node.js ≥ 18)
+- [Bun](https://bun.sh/) comme gestionnaire de paquets (le CI utilise `npm`)
 
 ## Démarrage
 
 ```bash
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 L'application est servie sur [http://localhost:5173](http://localhost:5173).
@@ -28,14 +28,14 @@ L'application est servie sur [http://localhost:5173](http://localhost:5173).
 
 | Commande                      | Description                                                                 |
 | ----------------------------- | --------------------------------------------------------------------------- |
-| `npm run dev`                 | Lance le serveur de développement Vite                                      |
-| `npm run build`               | Build de production dans `dist/` (exécute automatiquement `prebuild`)       |
-| `npm run preview`             | Sert le build de production localement                                      |
-| `npm run screenshot`          | Capture `docs/preview.png` (nécessite `npm run preview` déjà lancé sur le port 4173) |
-| `npm run fetch:contributions` | Rafraîchit `flightsim-contributions.json` depuis flightsim.to               |
-| `npm run fetch:behance`       | Rafraîchit `behance-contributions.json` depuis le profil Behance            |
+| `bun run dev`                 | Lance le serveur de développement Vite                                      |
+| `bun run build`               | Build de production dans `dist/` (exécute automatiquement `prebuild`)       |
+| `bun run preview`             | Sert le build de production localement                                      |
+| `bun run screenshot`          | Capture `docs/preview.png` (nécessite `bun run preview` déjà lancé sur le port 4173) |
+| `bun run fetch:contributions` | Rafraîchit `flightsim-contributions.json` depuis flightsim.to               |
+| `bun run fetch:behance`       | Rafraîchit `behance-contributions.json` depuis le profil Behance            |
 
-Le script `prebuild` s'exécute automatiquement avant chaque `npm run build` : il appelle les deux scripts `fetch:*` ci-dessus pour que les données soient à jour au moment du déploiement.
+Le script `prebuild` s'exécute automatiquement avant chaque `bun run build` : il appelle les deux scripts `fetch:*` ci-dessus pour que les données soient à jour au moment du déploiement.
 
 ## Intégration Twitch
 
@@ -161,8 +161,8 @@ Après ce script, le site affiche exactement le même contenu qu'avant — rien 
 ### 5. Utiliser l'admin
 
 ```bash
-npm run build
-npm run preview
+bun run build
+bun run preview
 ```
 
 Ouvrir `http://localhost:4173/admin.html`, se connecter avec le compte créé à l'étape 3. Trois sections : Événement, Partenaires (ajout/édition/suppression), Mentions légales. Les images sont automatiquement redimensionnées et compressées en WebP par le navigateur avant l'envoi — pas besoin de les préparer à la main.
