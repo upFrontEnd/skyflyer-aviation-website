@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onUnmounted, nextTick } from 'vue'
+import { ref, watch, onUnmounted } from 'vue'
 import { useContactModal } from '../composables/useContactModal.js'
 import { useLocale } from '../composables/useLocale.js'
 
@@ -53,11 +53,9 @@ function onKeydown(e) {
   if (e.key === 'Escape') close()
 }
 
-watch(isOpen, async (open) => {
+watch(isOpen, (open) => {
   if (open) {
     window.addEventListener('keydown', onKeydown)
-    await nextTick()
-    renderRecaptcha()
   } else {
     window.removeEventListener('keydown', onKeydown)
   }
@@ -111,9 +109,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
             <p v-if="status === 'missing-key'" class="contact__feedback contact__feedback--error">
               {{ locale === 'fr' ? 'Formulaire non configuré (VITE_WEB3FORMS_ACCESS_KEY manquant dans .env).' : 'Form not configured (VITE_WEB3FORMS_ACCESS_KEY missing in .env).' }}
             </p>
-            <p v-if="status === 'captcha-required'" class="contact__feedback contact__feedback--error">
-              {{ locale === 'fr' ? "Merci de valider le contrôle anti-robot avant d'envoyer." : 'Please complete the anti-bot check before sending.' }}
-            </p>
+
           </form>
         </div>
       </div>
