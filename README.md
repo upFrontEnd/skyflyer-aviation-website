@@ -13,25 +13,29 @@ Capture générée automatiquement par [.github/workflows/screenshot.yml](.githu
 - [Vue 3](https://vuejs.org/) (`<script setup>`, JavaScript uniquement, pas de TypeScript)
 - [Vite](https://vitejs.dev/)
 - SCSS
-- [Bun](https://bun.sh/) comme gestionnaire de paquets
+- npm (Node.js ≥ 18)
 
 ## Démarrage
 
 ```bash
-bun install
-bun run dev
+npm install
+npm run dev
 ```
 
 L'application est servie sur [http://localhost:5173](http://localhost:5173).
 
 ## Scripts
 
-| Commande         | Description                              |
-| ---------------- | ----------------------------------------- |
-| `bun run dev`     | Lance le serveur de développement Vite   |
-| `bun run build`   | Build de production dans `dist/`         |
-| `bun run preview` | Sert le build de production localement   |
-| `bun run screenshot` | Capture `docs/preview.png` (nécessite `bun run preview` déjà lancé sur le port 4173) |
+| Commande                      | Description                                                                 |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| `npm run dev`                 | Lance le serveur de développement Vite                                      |
+| `npm run build`               | Build de production dans `dist/` (exécute automatiquement `prebuild`)       |
+| `npm run preview`             | Sert le build de production localement                                      |
+| `npm run screenshot`          | Capture `docs/preview.png` (nécessite `npm run preview` déjà lancé sur le port 4173) |
+| `npm run fetch:contributions` | Rafraîchit `flightsim-contributions.json` depuis flightsim.to               |
+| `npm run fetch:behance`       | Rafraîchit `behance-contributions.json` depuis le profil Behance            |
+
+Le script `prebuild` s'exécute automatiquement avant chaque `npm run build` : il appelle les deux scripts `fetch:*` ci-dessus pour que les données soient à jour au moment du déploiement.
 
 ## Intégration Twitch
 
@@ -157,8 +161,8 @@ Après ce script, le site affiche exactement le même contenu qu'avant — rien 
 ### 5. Utiliser l'admin
 
 ```bash
-bun run build
-bun run preview
+npm run build
+npm run preview
 ```
 
 Ouvrir `http://localhost:4173/admin.html`, se connecter avec le compte créé à l'étape 3. Trois sections : Événement, Partenaires (ajout/édition/suppression), Mentions légales. Les images sont automatiquement redimensionnées et compressées en WebP par le navigateur avant l'envoi — pas besoin de les préparer à la main.
@@ -198,6 +202,7 @@ src/
 
 **`src/data/`** — deux types de fichiers à ne pas confondre :
 - Données écrites à la main (`navigation.js`, `news.js`, `social.js`, `shop.js`, `xplane-contributions.js`) : à modifier directement pour changer le contenu du site.
-- `flightsim-contributions.json` : généré automatiquement par `scripts/fetch-contributions.js` (voir le script `prebuild`) — ne pas éditer à la main, il sera écrasé au prochain build.
+- `flightsim-contributions.json` : généré automatiquement par `scripts/fetch-contributions.js` — ne pas éditer à la main, il sera écrasé au prochain build.
+- `behance-contributions.json` : généré automatiquement par `scripts/fetch-behance.js` — même règle, ne pas éditer à la main.
 
 Les partenaires, l'événement à venir et les mentions légales ne sont plus dans `src/data/` : ils viennent de Supabase (voir "Espace admin" plus haut).
