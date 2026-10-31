@@ -21,6 +21,7 @@ const t = computed(() => locale.value === 'fr' ? {
   chatTitle:    'Tchat Twitch',
   loading:      'Chargement du live…',
   gameAlt:      (name) => `Jaquette du jeu ${name}`,
+  channelLink:  'Suivre sur Twitch',
 } : {
   liveTitle:    'Live now',
   offlineTitle: 'Stream Offline',
@@ -29,6 +30,7 @@ const t = computed(() => locale.value === 'fr' ? {
   chatTitle:    'Twitch chat',
   loading:      'Loading stream…',
   gameAlt:      (name) => `Game cover: ${name}`,
+  channelLink:  'Follow on Twitch',
 })
 
 // isLiveLoaded reste à false tant que le
@@ -37,6 +39,15 @@ const t = computed(() => locale.value === 'fr' ? {
 // ce qui permet en plus à l'autoplay muet de Twitch de fonctionner sans
 // contrainte de visibilité au chargement.
 const isLiveLoaded = ref(false)
+
+// Pas de tchat sur mobile (peu utilisable sur petit écran). Même seuil que
+// $bp-tablet dans _variables.scss, où le lecteur et le tchat passent côte à
+// côte. v-if plutôt qu'un display: none en CSS : l'iframe n'est pas chargée
+// du tout. Suit aussi les changements de largeur (rotation de l'écran).
+const desktopQuery = window.matchMedia('(min-width: 768px)')
+const showChat = ref(desktopQuery.matches)
+const onQueryChange = (e) => { showChat.value = e.matches }
+desktopQuery.addEventListener('change', onQueryChange)
 
 const lottieContainer = ref(null)
 let lottieAnimation = null
@@ -58,6 +69,7 @@ watch(lottieContainer, (container) => {
 // jour retiré du DOM pendant que l'animation tourne encore.
 onUnmounted(() => {
   lottieAnimation?.destroy()
+  desktopQuery.removeEventListener('change', onQueryChange)
 })
 </script>
 
@@ -71,6 +83,22 @@ onUnmounted(() => {
 
           <h2 v-if="stream?.boxArtUrl" class="live__title" id="live-title">{{ t.liveTitle }}</h2>
           <h2 v-else class="live__title" id="live-title">{{ t.offlineTitle }}</h2>
+
+          <a
+            class="live__channel-link"
+            href="https://www.twitch.tv/skyflyeraviation/about"
+            target="_blank"
+            rel="noopener"
+            @click="trackEvent('twitch_channel_click', { location: 'live_panel' })"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0 1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"
+              />
+            </svg>
+            <span>{{ t.channelLink }}</span>
+          </a>
         </div>
 
         <div v-show="stream" class="live__content">
@@ -119,6 +147,7 @@ onUnmounted(() => {
             </div>
 
             <iframe
+              v-if="showChat"
               class="live__chat"
               :src="twitchChatUrl"
               :title="t.chatTitle"

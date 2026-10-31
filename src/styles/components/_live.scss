@@ -36,6 +36,24 @@
     width: 2.8rem;
   }
 
+  // Poussé à droite du titre par margin-left: auto.
+  &__channel-link {
+    align-items: center;
+    color: $color-text;
+    display: flex;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    gap: 0.4rem;
+    margin-left: auto;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: $color-orange;
+    }
+  }
+
   &__content {
     display: grid;
     gap: 16px;
