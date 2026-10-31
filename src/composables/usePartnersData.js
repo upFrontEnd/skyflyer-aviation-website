@@ -58,5 +58,5 @@ export function usePartnersData() {
     await fetchPartners()
   }
 
-  return { partners, loading, error, addPartner, updatePartner, deletePartner, refresh: fetchPartners }
+  return { partners, loading, error, addPartner, updatePartner, deletePartner }
 }

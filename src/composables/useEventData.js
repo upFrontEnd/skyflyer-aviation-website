@@ -53,5 +53,5 @@ export function useEventData() {
     return data
   }
 
-  return { event, loading, error, updateEvent, refresh: fetchEvent }
+  return { event, loading, error, updateEvent }
 }

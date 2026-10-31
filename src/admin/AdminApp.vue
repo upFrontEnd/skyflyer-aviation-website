@@ -6,7 +6,6 @@ import EventForm from './components/EventForm.vue'
 import PartnersManager from './components/PartnersManager.vue'
 import SetupManager from './components/SetupManager.vue'
 import LegalNoticeForm from './components/LegalNoticeForm.vue'
-import NewsManager from './components/NewsManager.vue'
 import SiteSettingsForm from './components/SiteSettingsForm.vue'
 
 const { user, loading, init, logout } = useAdminAuth()
@@ -40,7 +39,6 @@ onMounted(init)
       <div class="container">
         <SetupManager />
       </div>
-        <NewsManager />
         <PartnersManager />
       
 

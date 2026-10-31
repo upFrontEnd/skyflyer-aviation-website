@@ -69,16 +69,9 @@ Le formulaire de la section Contact (`src/components/Contact.vue`) envoie les me
 
 Cette clé est publique par nature (Web3Forms est conçu pour qu'elle soit visible côté client, comme le Client ID Twitch) — elle permet uniquement d'envoyer des messages vers l'adresse configurée, rien d'autre. Sans `.env` renseigné, le formulaire affiche un message d'erreur clair au lieu d'échouer silencieusement.
 
-### Anti-spam (reCAPTCHA)
+### Anti-spam
 
-Le formulaire inclut un piège à bots (champ caché) et, si configuré, un contrôle [Google reCAPTCHA v2](https://www.google.com/recaptcha/about/) — utile car la clé Web3Forms ci-dessus, visible dans le code du site, pourrait en théorie être utilisée directement par quelqu'un pour spammer l'adresse configurée en contournant le site. La configuration se fait en deux endroits distincts, à ne pas confondre :
-
-1. Sur [google.com/recaptcha/admin](https://www.google.com/recaptcha/admin), créer un site de type **reCAPTCHA v2 ("Je ne suis pas un robot")** avec le domaine du site. Deux clés sont générées :
-   - la **clé de site** (publique) → à mettre dans `.env` : `VITE_RECAPTCHA_SITE_KEY=ta_clé`.
-   - la **clé secrète** → **ne jamais** la mettre dans `.env` ni dans le code (même règle que le Client Secret Twitch).
-2. La clé secrète se configure côté Web3Forms, dans les paramètres du formulaire sur leur tableau de bord, pour qu'ils vérifient chaque soumission auprès de Google avant de transmettre l'e-mail.
-
-Sans `VITE_RECAPTCHA_SITE_KEY`, le formulaire reste fonctionnel (piège à bots seul) — le widget ne s'affiche simplement pas.
+Le formulaire inclut un piège à bots : un champ caché, invisible pour un humain, que les robots remplissent. Si ce champ est rempli, le message n'est pas envoyé.
 
 ## Espace admin (Supabase)
 
@@ -182,7 +175,7 @@ src/
   main.js               # point d'entrée du site public, monte l'app Vue sur #app
   admin/                 # mini-app d'administration séparée, jamais livrée au site public
                          #   (voir vite.config.js : deux points d'entrée = deux bundles distincts)
-  components/           # une SFC .vue par section de page (Header, Gallery, Shop, Contact...)
+  components/           # une SFC .vue par section de page (Header, Shop, Contact...)
   composables/          # état réactif partagé entre plusieurs composants (voir plus bas)
   lib/                   # clients de services externes partagés (ex. supabase.js)
   data/                 # données statiques ou pré-générées, importées par les composants
@@ -191,7 +184,7 @@ src/
   assets/                # images/animations importées directement par un composant précis
   logo/                  # logos des partenaires/plateformes (Displate, MSFS, X-Plane...)
   fonts/                 # polices auto-hébergées (.woff2), déclarées dans styles/base/_fonts.scss
-  screenshots/           # captures de vol affichées dans la galerie et en fond de header
+  screenshots/           # captures de vol (fond de header)
 ```
 
 **`src/composables/`** — chacun expose un état réactif *partagé* (le même pour tout le monde qui l'importe, pas une nouvelle instance à chaque appel), pour éviter de faire remonter un état entre composants sans lien parent/enfant direct (props/emit) :
@@ -201,7 +194,7 @@ src/
 - `useEventData.js`, `usePartnersData.js`, `useLegalNoticeData.js` — lecture (site public) et écriture (admin) des données Supabase.
 
 **`src/data/`** — deux types de fichiers à ne pas confondre :
-- Données écrites à la main (`navigation.js`, `news.js`, `social.js`, `shop.js`, `xplane-contributions.js`) : à modifier directement pour changer le contenu du site.
+- Données écrites à la main (`navigation.js`, `shop.js`, `xplane-contributions.js`) : à modifier directement pour changer le contenu du site.
 - `flightsim-contributions.json` : généré automatiquement par `scripts/fetch-contributions.js` — ne pas éditer à la main, il sera écrasé au prochain build.
 - `behance-contributions.json` : généré automatiquement par `scripts/fetch-behance.js` — même règle, ne pas éditer à la main.
 

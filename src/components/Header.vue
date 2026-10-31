@@ -7,7 +7,6 @@ import { useLocale } from '../composables/useLocale.js'
 import { useScrollSpy } from '../composables/useScrollSpy.js'
 import { useTwitchStream } from '../composables/useTwitchStream.js'
 import { useEventData } from '../composables/useEventData.js'
-import { useNewsData } from '../composables/useNewsData.js'
 import { useSiteSettings } from '../composables/useSiteSettings.js'
 import logoUrl from '../assets/logo.webp'
 import waveUrl from '../assets/bg-header.webp'
@@ -27,21 +26,15 @@ const { locale } = useLocale()
 // qui pilote la pastille rouge à côté de l'item "Live" du menu.
 const { stream } = useTwitchStream()
 const { event } = useEventData()
-const { news } = useNewsData()
 const { settings } = useSiteSettings()
 const visibleNavigation = computed(() =>
   navigation.filter(item => {
     if (item.href === '#event') return event.value?.active
-    if (item.href === '#actu')  return news.value.some(n => n.active)
     if (item.href === '#video') return !!settings.value.youtube_video_id?.trim()
     return true
   })
 )
 const { activeHref } = useScrollSpy()
-
-// Une capture au hasard parmi celles marquées "_head" (voir data/screenshots.js),
-// tirée une seule fois au chargement de la page (pas une ref : elle n'a pas
-// besoin de changer après).
 
 // ref() crée une valeur "réactive" : Vue surveille les changements de
 // isNavOpen.value et re-render automatiquement le template concerné dès

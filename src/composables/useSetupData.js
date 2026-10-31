@@ -58,5 +58,5 @@ export function useSetupData() {
     await fetchItems()
   }
 
-  return { items, loading, error, addItem, updateItem, deleteItem, refresh: fetchItems }
+  return { items, loading, error, addItem, updateItem, deleteItem }
 }

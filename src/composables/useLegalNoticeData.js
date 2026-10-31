@@ -47,5 +47,5 @@ export function useLegalNoticeData() {
     content.value = html
   }
 
-  return { content, loading, error, updateLegalNotice, refresh: fetchLegalNotice }
+  return { content, loading, error, updateLegalNotice }
 }

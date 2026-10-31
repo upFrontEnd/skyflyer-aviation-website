@@ -10,7 +10,7 @@ const hostname = window.location.hostname
 const twitchEmbedUrl = computed(() => `https://player.twitch.tv/?channel=${twitchChannel.value}&parent=${hostname}&muted=true`)
 const twitchChatUrl = computed(() => `https://www.twitch.tv/embed/${twitchChannel.value}/chat?parent=${hostname}&darkpopout`)
 
-const { stream, loading, error } = useTwitchStream()
+const { stream, loading } = useTwitchStream()
 const { locale } = useLocale()
 
 const t = computed(() => locale.value === 'fr' ? {

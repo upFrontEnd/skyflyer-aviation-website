@@ -4,7 +4,6 @@ import { defineAsyncComponent } from 'vue'
 import Header from './components/Header.vue'
 import LiveStream from './components/LiveStream.vue'
 import UpcomingEvent from './components/UpcomingEvent.vue'
-import Gallery from './components/Gallery.vue'
 import LatestVideo from './components/LatestVideo.vue'
 import Footer from './components/Footer.vue'
 import AboutMe from './components/AboutMe.vue'
@@ -17,7 +16,6 @@ import Setup from './components/Setup.vue'
 // — au lieu d'alourdir le bundle initial avec du code pas encore utile.
 const Partners = defineAsyncComponent(() => import('./components/Partners.vue'))
 const Contributions = defineAsyncComponent(() => import('./components/Contributions.vue'))
-const NewsList = defineAsyncComponent(() => import('./components/NewsList.vue'))
 const Shop = defineAsyncComponent(() => import('./components/Shop.vue'))
 const Contact = defineAsyncComponent(() => import('./components/Contact.vue'))
 const LegalNotice = defineAsyncComponent(() => import('./components/LegalNotice.vue'))
@@ -31,10 +29,8 @@ const LegalNotice = defineAsyncComponent(() => import('./components/LegalNotice.
     <AboutMe />
     <Setup />
     <Contributions />
-    <NewsList />
     <Shop />
     <LatestVideo />
-    <!-- <Gallery /> -->
     <Partners />
   </main>
   <Footer />
