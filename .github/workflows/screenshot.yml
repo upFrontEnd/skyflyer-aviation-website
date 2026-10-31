@@ -20,8 +20,16 @@ jobs:
       - name: Installer les dépendances
         run: bun install
 
+      # Mêmes secrets que deploy.yml : sans eux, tout ce qui vient de Supabase
+      # (Setup, Événement, Partenaires, Dernière vidéo) manque sur la capture.
       - name: Build du site (déclenche aussi le prebuild flightsim.to)
         run: bun run build
+        env:
+          VITE_TWITCH_CLIENT_ID: ${{ secrets.VITE_TWITCH_CLIENT_ID }}
+          VITE_TWITCH_ACCESS_TOKEN: ${{ secrets.VITE_TWITCH_ACCESS_TOKEN }}
+          VITE_WEB3FORMS_ACCESS_KEY: ${{ secrets.VITE_WEB3FORMS_ACCESS_KEY }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
       - name: Installer le navigateur Playwright
         run: bunx playwright install --with-deps chromium

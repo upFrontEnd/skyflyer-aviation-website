@@ -10,9 +10,10 @@ mkdirSync('docs', { recursive: true })
 
 const browser = await chromium.launch()
 const page = await browser.newPage({ viewport: { width: 1280, height: 800 } })
-await page.goto(URL, { waitUntil: 'load', timeout: 30000 })
-// Laisse le temps au hero (image aléatoire) et au lecteur Twitch de s'afficher
-// avant la capture, plutôt qu'une page à moitié chargée.
+// networkidle : attend que les données Supabase et les images (logos
+// partenaires, etc.) aient fini d'arriver, plutôt qu'un délai fixe.
+await page.goto(URL, { waitUntil: 'networkidle', timeout: 30000 })
+// Petite marge pour les sections chargées à la demande et leurs images.
 await page.waitForTimeout(2000)
 await page.screenshot({ path: 'docs/preview.png', fullPage: true })
 await browser.close()
