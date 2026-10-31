@@ -50,7 +50,7 @@ async function onSubmit() {
               id="settings-twitch"
               v-model="twitchChannel"
               type="text"
-              placeholder="ex : bigmoussegaming"
+              placeholder="ex : skyflyeraviation"
               required
             />
           </div>

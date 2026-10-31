@@ -13,7 +13,7 @@ const TWITCH_CLIENT_ID = import.meta.env.VITE_TWITCH_CLIENT_ID
 const TWITCH_ACCESS_TOKEN = import.meta.env.VITE_TWITCH_ACCESS_TOKEN
 
 const { settings } = useSiteSettings()
-export const twitchChannel = computed(() => settings.value.twitch_channel || 'bigmoussegaming')
+export const twitchChannel = computed(() => settings.value.twitch_channel || 'skyflyeraviation')
 
 // Re-fetch dès que la chaîne est connue depuis Supabase (les settings arrivent
 // après le premier onMounted, donc le premier fetch part avec le fallback).
