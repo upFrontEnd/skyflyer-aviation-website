@@ -27,7 +27,9 @@ const a320Caption = computed(() =>
             <br> <br>
             À travers mes vols sur <strong>IVAO</strong> et <strong>VATSIM</strong>, j’essaie de recréer une expérience aussi réaliste et immersive que possible, tout en gardant à l’esprit l’essentiel : au-delà du réalisme, je souhaite avant tout proposer un environnement où l’on se retrouve entre passionnés pour échanger, apprendre, découvrir et surtout passer un excellent moment ensemble.
             <br> <br>
-            Que vous soyez pilote <strong>réel</strong> ou <strong>virtuel</strong>, débutant dans la simulation ou simplement curieux de découvrir cet univers, n’hésitez pas à nous rejoindre sur <a href="https://discord.com/invite/7b8kKh55sG" about="_blank">Discord</a>. Vous pouvez également me contacter via le formulaire de contact.
+            En parallèle, je crée et partage des add-ons pour <strong>Microsoft Flight Simulator</strong> et <strong>X-Plane</strong> (checklists, livrées, packs sonores…), ainsi que des créations graphiques. Vous les retrouverez dans la section <a href="#contributions">Réalisations</a>.
+            <br> <br>
+            Que vous soyez pilote <strong>réel</strong> ou <strong>virtuel</strong>, débutant dans la simulation ou simplement curieux de découvrir cet univers, n’hésitez pas à nous rejoindre sur <a href="https://discord.com/invite/7b8kKh55sG" target="_blank" rel="noopener">Discord</a>. Vous pouvez également me contacter via le formulaire de contact.
             <br> <br>
             <strong>Portez-vous bien et faites de bons vols </strong>
           </p>
@@ -36,7 +38,9 @@ const a320Caption = computed(() =>
             <br> <br>
             Through my flights on <strong>IVAO</strong> and <strong>VATSIM</strong>, I try to recreate an experience that's as realistic and immersive as possible, while keeping the essential in mind: beyond realism, my main goal is to offer a place where enthusiasts can meet, share, learn, discover and above all have a great time together.
             <br> <br>
-            Whether you're a <strong>real</strong> or <strong>virtual</strong> pilot, a beginner in simulation or simply curious to discover this world, feel free to join us on <a href="https://discord.com/invite/7b8kKh55sG" about="_blank">Discord</a>. You can also reach me through the contact form.
+            Alongside this, I create and share add-ons for <strong>Microsoft Flight Simulator</strong> and <strong>X-Plane</strong> (checklists, liveries, sound packs…), as well as graphic designs. You'll find them in the <a href="#contributions">Work</a> section.
+            <br> <br>
+            Whether you're a <strong>real</strong> or <strong>virtual</strong> pilot, a beginner in simulation or simply curious to discover this world, feel free to join us on <a href="https://discord.com/invite/7b8kKh55sG" target="_blank" rel="noopener">Discord</a>. You can also reach me through the contact form.
             <br> <br>
             <strong>Take care and have great flights!</strong>
           </p>
