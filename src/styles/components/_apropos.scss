@@ -70,16 +70,21 @@
     }
   }
 
+  // Mobile/tablette : les 3 photos côte à côte. Desktop : colonne à droite du texte.
   &__photos {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    min-height: auto;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(3, 1fr);
     position: relative;
 
+    @media (min-width: $bp-tablet) {
+      gap: 1rem;
+    }
+
     @media (min-width: 970px) {
-      display: block;
-      min-height: 24rem;
+      align-content: start;
+      flex-shrink: 0;
+      grid-template-columns: 1fr;
     }
   }
 
@@ -98,12 +103,9 @@
     img {
       outline: 1px solid rgba(255, 255, 255, .14);
       border-radius: 1rem;
-    }
-  }
-
-  .photo-01 {
-    @media (min-width: 970px) {
-      margin-bottom: 1rem;
+      display: block;
+      height: auto;
+      width: 100%;
     }
   }
 

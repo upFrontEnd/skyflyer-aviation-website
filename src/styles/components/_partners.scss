@@ -11,11 +11,7 @@
   }
 
   &__item {
-    flex: 0 0 100%;
-
-    @media (min-width: $bp-mobile) {
-      flex: 0 0 calc(50% - 0.5rem);
-    }
+    flex: 0 0 calc(50% - 0.5rem);
 
     @media (min-width: $bp-tablet) {
       flex: 0 0 calc(33.333% - 0.667rem);

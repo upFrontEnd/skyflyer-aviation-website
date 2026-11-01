@@ -6,7 +6,7 @@ import { trackEvent } from '../composables/useAnalytics.js'
 import { useLocale } from '../composables/useLocale.js'
 
 const { locale } = useLocale()
-const ctaLabel = computed(() => locale.value === 'fr' ? 'Voir toute la collection' : 'View the full collection')
+const ctaLabel = computed(() => locale.value === 'fr' ? 'Voir toute la collection Pégase' : 'View the full collection Pegase')
 
 const COLLECTION_URL = 'https://displate.com/artist/skyflyer/pegase'
 const FEATURED_COUNT = 15

@@ -1,14 +1,56 @@
 @use '../base/variables' as *;
 
 .setup {
-  padding-block: 2.5rem;
+  padding-block: 2rem;
+
+  &__toggle {
+    align-items: center;
+    background: linear-gradient(120deg, rgba(251, 234, 137, 0.2), rgba(42, 40, 41, .96) 58%);
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-left: 4px solid #e3a812;
+    border-radius: 10px;
+    color: $color-text;
+    cursor: pointer;
+    display: flex;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    justify-content: space-between;
+    letter-spacing: 0.05em;
+    min-height: 48px;
+    padding: 1.5rem 0.875rem;
+    text-transform: uppercase;
+    width: 100%;
+
+    &[aria-expanded='true'] {
+      margin-bottom: 0.75rem;
+
+      .setup__toggle-chevron {
+        transform: rotate(180deg);
+      }
+    }
+
+    @media (min-width: $bp-tablet) {
+      display: none;
+    }
+  }
+
+  &__toggle-chevron {
+    color: #e3a812;
+    transition: transform 0.2s ease;
+  }
 
   &__layout {
-    display: grid;
+    display: none;
     gap: 1.25rem;
     grid-template-columns: 1fr;
 
+    &--open {
+      display: grid;
+    }
+
     @media (min-width: $bp-tablet) {
+      display: grid;
       align-items: center;
       gap: 2rem;
       grid-template-columns: 1fr 1fr;

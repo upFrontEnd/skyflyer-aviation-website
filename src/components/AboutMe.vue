@@ -25,9 +25,11 @@ const a320Caption = computed(() =>
           <p v-if="locale === 'fr'" class="apropos__speach">
             Passionné par l’aviation et la simulation de vol sur PC depuis mon enfance, j’ai créé cet espace pour partager avec vous une passion qui m’accompagne depuis toujours.
             <br> <br>
-            À travers mes vols sur <strong>IVAO</strong> et <strong>VATSIM</strong>, j’essaie de recréer une expérience aussi réaliste et immersive que possible, tout en gardant à l’esprit l’essentiel : au-delà du réalisme, je souhaite avant tout proposer un environnement où l’on se retrouve entre passionnés pour échanger, apprendre, découvrir et surtout passer un excellent moment ensemble.
+            À travers mes vols sur <a href="https://ivao.aero" target="_blank" rel="noopener"><strong>IVAO</strong></a> et <a href="https://vatsim.net" target="_blank" rel="noopener"><strong>VATSIM</strong></a>, j’essaie de recréer une expérience aussi réaliste et immersive que possible, tout en gardant à l’esprit l’essentiel : au-delà du réalisme, je souhaite avant tout proposer un environnement où l’on se retrouve entre passionnés pour échanger, apprendre, découvrir et surtout passer un excellent moment ensemble.
             <br> <br>
-            En parallèle, je crée et partage des add-ons pour <strong>Microsoft Flight Simulator</strong> et <strong>X-Plane</strong> (checklists, livrées, packs sonores…), ainsi que des créations graphiques. Vous les retrouverez dans la section <a href="#contributions">Réalisations</a>.
+            Retrouvez une sélection d’outils pour <strong>MSFS</strong> et <strong>X-Plane</strong> ainsi que des créations graphiques pour des streamers et youtubeurs, à découvrir dans la section <a href="#contributions">Réalisations</a>.
+            <br> <br>
+            Découvrez également mes photos sur le thème de l’aviation sur <a href="#shop">Displate</a>.
             <br> <br>
             Que vous soyez pilote <strong>réel</strong> ou <strong>virtuel</strong>, débutant dans la simulation ou simplement curieux de découvrir cet univers, n’hésitez pas à nous rejoindre sur <a href="https://discord.com/invite/7b8kKh55sG" target="_blank" rel="noopener">Discord</a>. Vous pouvez également me contacter via le formulaire de contact.
             <br> <br>
@@ -36,9 +38,11 @@ const a320Caption = computed(() =>
           <p v-else class="apropos__speach">
             Passionate about aviation and PC flight simulation since childhood, I created this space to share with you a passion that has stayed with me all my life.
             <br> <br>
-            Through my flights on <strong>IVAO</strong> and <strong>VATSIM</strong>, I try to recreate an experience that's as realistic and immersive as possible, while keeping the essential in mind: beyond realism, my main goal is to offer a place where enthusiasts can meet, share, learn, discover and above all have a great time together.
+            Through my flights on <a href="https://ivao.aero" target="_blank" rel="noopener"><strong>IVAO</strong></a> and <a href="https://vatsim.net" target="_blank" rel="noopener"><strong>VATSIM</strong></a>, I try to recreate an experience that's as realistic and immersive as possible, while keeping the essential in mind: beyond realism, my main goal is to offer a place where enthusiasts can meet, share, learn, discover and above all have a great time together.
             <br> <br>
-            Alongside this, I create and share add-ons for <strong>Microsoft Flight Simulator</strong> and <strong>X-Plane</strong> (checklists, liveries, sound packs…), as well as graphic designs. You'll find them in the <a href="#contributions">Work</a> section.
+            Find a selection of tools for <strong>MSFS</strong> and <strong>X-Plane</strong>, as well as graphic designs for streamers and YouTubers, in the <a href="#contributions">Work</a> section.
+            <br> <br>
+            Also discover my aviation-themed photos on <a href="#shop">Displate</a>.
             <br> <br>
             Whether you're a <strong>real</strong> or <strong>virtual</strong> pilot, a beginner in simulation or simply curious to discover this world, feel free to join us on <a href="https://discord.com/invite/7b8kKh55sG" target="_blank" rel="noopener">Discord</a>. You can also reach me through the contact form.
             <br> <br>
@@ -54,6 +58,11 @@ const a320Caption = computed(() =>
             <figure class="apropos__photos--photo photo-02">
               <img src="../assets/a320.webp" width="640" height="427" :alt="a320Alt">
               <figcaption>{{ a320Caption }}</figcaption>
+            </figure>
+
+            <figure class="apropos__photos--photo photo-03">
+              <img src="../assets/b737.webp" width="640" height="427" loading="lazy" :alt="locale === 'fr' ? 'Aux commandes d’un simulateur Boeing 737' : 'At the controls of a Boeing 737 simulator'">
+              <figcaption>{{ locale === 'fr' ? 'Aux commandes d’un simulateur Boeing 737' : 'At the controls of a Boeing 737 simulator' }}</figcaption>
             </figure>
 
           </div>
