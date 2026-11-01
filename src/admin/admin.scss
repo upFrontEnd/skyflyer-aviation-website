@@ -6,7 +6,7 @@
 
 /** SCROLLBARS **/
 :root {
-  --scrollbar-width: 6px;
+  --scrollbar-width: 0.375rem;
   --scrollbar-track: rgba(255, 255, 255, .06);
   --scrollbar-thumb: rgba(245, 124, 32, .55);
   --scrollbar-thumb-hover: #f57c20;
@@ -18,8 +18,8 @@
 }
 
 *::-webkit-scrollbar { width: var(--scrollbar-width); height: var(--scrollbar-width); }
-*::-webkit-scrollbar-track { background: var(--scrollbar-track); border-radius: 99px; }
-*::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 99px; }
+*::-webkit-scrollbar-track { background: var(--scrollbar-track); border-radius: 6.1875rem; }
+*::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 6.1875rem; }
 *::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
 
 .admin {
@@ -115,10 +115,10 @@ h1 {
 /** EVENT **/
 .event, .legal-notice, .twitch {
   border: 1px solid rgba(255, 255, 255, .14);
-  border-left: 4px solid #f57c20;
-  border-radius: 12px;
+  border-left: 0.25rem solid #f57c20;
+  border-radius: 0.75rem;
   background: linear-gradient(120deg, rgba(242, 165, 88, 0.2), rgba(42, 40, 41, .96) 58%);
-  box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
+  box-shadow: 0 1.125rem 2.625rem rgba(0, 0, 0, .22);
   padding: 1.5rem;
   width: 50%;
 }
@@ -133,9 +133,9 @@ h1 {
 /** SETUP **/
 .setup {
   border: 1px solid rgba(255, 255, 255, .14);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   background: linear-gradient(120deg, rgba(251, 234, 137, 0.2), rgba(42, 40, 41, .96) 58%);
-  border-left: 4px solid #e3a812;
+  border-left: 0.25rem solid #e3a812;
   width: 100%;
 }
 
@@ -149,8 +149,8 @@ h1 {
 .admin-login__form {
   background: linear-gradient(120deg, rgba(245, 124, 32, 0.1), rgba(42, 40, 41, .96) 58%);
   border: 1px solid rgba(255, 255, 255, .14);
-  border-left: 4px solid $color-orange;
-  border-radius: 12px;
+  border-left: 0.25rem solid $color-orange;
+  border-radius: 0.75rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -245,10 +245,10 @@ h1 {
 /** PARTNERS **/
 .admin-partners {
   border: 1px solid rgba(255, 255, 255, .14);
-  border-left: 4px solid #29B473;
-  border-radius: 12px;
+  border-left: 0.25rem solid #29B473;
+  border-radius: 0.75rem;
   background: linear-gradient(120deg, rgba(41, 180, 115, 0.18), rgba(42, 40, 41, .96) 58%);
-  box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
+  box-shadow: 0 1.125rem 2.625rem rgba(0, 0, 0, .22);
   margin: 0 6rem;
   padding: 1.5rem 2rem;
 }

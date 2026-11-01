@@ -20,21 +20,21 @@
   scrollbar-width: thin;
   scrollbar-color: $color-orange rgba(255, 255, 255, .06);
 
-  &::-webkit-scrollbar { width: 5px; }
+  &::-webkit-scrollbar { width: 0.3125rem; }
   &::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, .06);
   }
   &::-webkit-scrollbar-thumb {
     background: $color-orange;
-    border-radius: 3px;
+    border-radius: 0.1875rem;
   }
 
   &__panel {
     background: linear-gradient(120deg, rgba(245, 124, 32, 0.15), rgba(42, 40, 41, .96) 58%);
     border: 1px solid rgba(255, 255, 255, .14);
-    border-left: 4px solid $color-orange;
-    border-radius: 12px;
-    box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
+    border-left: 0.25rem solid $color-orange;
+    border-radius: 0.75rem;
+    box-shadow: 0 1.125rem 2.625rem rgba(0, 0, 0, .22);
     margin: auto;
     max-width: 32rem;
     padding: 1.5rem;

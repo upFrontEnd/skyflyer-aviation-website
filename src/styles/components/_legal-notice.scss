@@ -8,14 +8,14 @@
   scrollbar-width: thin;
   scrollbar-color: $color-orange rgba(255, 255, 255, .06);
 
-  &::-webkit-scrollbar { width: 5px; }
+  &::-webkit-scrollbar { width: 0.3125rem; }
   &::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, .06);
-    border-radius: 0 12px 12px 0;
+    border-radius: 0 0.75rem 0.75rem 0;
   }
   &::-webkit-scrollbar-thumb {
     background: $color-orange;
-    border-radius: 3px;
+    border-radius: 0.1875rem;
   }
 
   &__body {
@@ -48,7 +48,7 @@
   }
 
   &__todo {
-    border-left: 3px solid $color-orange;
+    border-left: 0.1875rem solid $color-orange;
     padding-left: 0.75rem;
     font-style: italic;
   }

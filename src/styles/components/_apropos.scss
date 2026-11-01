@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(10px, 3vw, 32px);
+    gap: clamp(0.625rem, 3vw, 2rem);
     margin-bottom: 3rem;
     font-weight: 400;
     line-height: 1.2;
@@ -23,10 +23,10 @@
 
   &__wing {
     display: flex;
-    flex: 0 1 clamp(30px, 10vw, 112px);
-    min-width: 18px;
+    flex: 0 1 clamp(1.875rem, 10vw, 7rem);
+    min-width: 1.125rem;
     flex-direction: column;
-    gap: clamp(4px, .7vw, 8px);
+    gap: clamp(0.25rem, .7vw, 0.5rem);
   }
 
   &__wing i {
@@ -34,8 +34,8 @@
     background: -webkit-linear-gradient(180deg, #d19e1d 0%, #ffd86e 50%, #e3a812 100%);
     background: linear-gradient(180deg, #d19e1d 0%, #ffd86e 50%, #e3a812 100%);
     display: block;
-    height: clamp(2px, .35vw, 4px);
-    border-radius: 10px;
+    height: clamp(0.125rem, .35vw, 0.25rem);
+    border-radius: 0.625rem;
   }
 
   &__wing i:nth-child(1) { width: 100%; }
@@ -90,7 +90,7 @@
 
   &__photos--photo {
     background: linear-gradient(120deg, rgba(88, 101, 242, .2), rgba(42, 40, 41, .96) 58%);
-    box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
+    box-shadow: 0 1.125rem 2.625rem rgba(0, 0, 0, .22);
     flex: 1;
     margin: 0 auto;
     width: auto;

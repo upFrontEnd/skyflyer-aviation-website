@@ -7,8 +7,8 @@
     align-items: center;
     background: linear-gradient(120deg, rgba(251, 234, 137, 0.2), rgba(42, 40, 41, .96) 58%);
     border: 1px solid rgba(255, 255, 255, .14);
-    border-left: 4px solid #e3a812;
-    border-radius: 10px;
+    border-left: 0.25rem solid #e3a812;
+    border-radius: 0.625rem;
     color: $color-text;
     cursor: pointer;
     display: flex;
@@ -17,7 +17,7 @@
     font-weight: 600;
     justify-content: space-between;
     letter-spacing: 0.05em;
-    min-height: 48px;
+    min-height: 3rem;
     padding: 1.5rem 0.875rem;
     text-transform: uppercase;
     width: 100%;
@@ -70,10 +70,10 @@
   &__card {
     align-items: center;
     border: 1px solid rgba(255, 255, 255, .14);
-    border-radius: 12px;
+    border-radius: 0.75rem;
     background: linear-gradient(120deg, rgba(251, 234, 137, 0.2), rgba(42, 40, 41, .96) 58%);
-    border-left: 4px solid #e3a812;
-    border-radius: 10px;
+    border-left: 0.25rem solid #e3a812;
+    border-radius: 0.625rem;
     display: flex;
     gap: 0.75rem;
     padding: 0.75rem 0.875rem;
@@ -81,7 +81,7 @@
 
     &:hover {
       background: linear-gradient(120deg, rgba(255, 217, 0, 0.2), rgba(42, 40, 41, .96) 58%);
-      transform: translateY(-2px);
+      transform: translateY(-0.125rem);
     }
   }
 

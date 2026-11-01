@@ -19,7 +19,7 @@
   &__panel {
     border: 1px solid rgba(255, 255, 255, .14);
     border-radius: .7rem;
-    box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
+    box-shadow: 0 1.125rem 2.625rem rgba(0, 0, 0, .22);
     overflow: hidden;
     padding: 1.5rem;
     position: relative;
@@ -37,7 +37,7 @@
   }
 
   .msfs {
-    border-left: 4px solid #009fe3;
+    border-left: 0.25rem solid #009fe3;
     background: linear-gradient(120deg, rgba(88, 152, 242, 0.2), rgba(42, 40, 41, .96) 58%);
     .btn {
       background-color: #009fe3;
@@ -45,7 +45,7 @@
   }
 
    .xplane {
-    border-left: 4px solid #0fb5e8;
+    border-left: 0.25rem solid #0fb5e8;
     background: linear-gradient(120deg, rgba(102, 199, 247, 0.2), rgba(42, 40, 41, .96) 58%);
     .btn {
       background-color: #0fb5e8;
@@ -73,7 +73,7 @@
   }
 
   .behance {
-    border-left: 4px solid #009fe3;
+    border-left: 0.25rem solid #009fe3;
     background: linear-gradient(120deg, rgba(88, 152, 242, 0.2), rgba(42, 40, 41, .96) 58%);
     margin-top: 2rem;
 
@@ -101,15 +101,15 @@
   transition: transform 0.15s ease;
 
   &:hover {
-    transform: translateY(-2px);
+    transform: translateY(-0.125rem);
   }
 
   &__thumb {
     aspect-ratio: 4 / 3;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     flex-shrink: 0;
     object-fit: cover;
-    width: 96px;
+    width: 6rem;
 
     // Miniatures X-Plane.org indisponibles (403 Cloudflare, voir
     // xplane-contributions.js) : logo de remplacement centré plutôt qu'une
@@ -131,7 +131,7 @@
   &__body {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 0.375rem;
     justify-content: center;
     min-width: 0;
   }
