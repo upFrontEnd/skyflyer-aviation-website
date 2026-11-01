@@ -6,20 +6,12 @@ import { xplaneContributions } from '../data/xplane-contributions.js'
 import msfsLogo from '../logo/msfs.webp'
 import xplaneLogo from '../logo/xplane.webp'
 import { useLocale } from '../composables/useLocale.js'
-import { useContactModal } from '../composables/useContactModal.js'
 
 const { locale } = useLocale()
-const { open: openContact } = useContactModal()
 const t = computed(() => locale.value === 'fr' ? {
-  title:   'Réalisations',
-  ctaText:   "Besoin d'une créa ?",
-  ctaButton: 'Contactez-moi',
-  behanceLink: 'Voir le profil Behance',
+  title: 'Réalisations',
 } : {
-  title:   'Work',
-  ctaText:   'Need a design?',
-  ctaButton: 'Get in touch',
-  behanceLink: 'See the Behance profile',
+  title: 'Work',
 })
 </script>
 
@@ -101,11 +93,6 @@ const t = computed(() => locale.value === 'fr' ? {
           </a>
         </div>
       </div>
-       <p class="contributions__cta">
-          {{ t.ctaText }}
-          <!-- Le contact est une popup (useContactModal), pas une section : un bouton plutôt qu'un lien #contact -->
-          <button type="button" class="contributions__cta-link" @click="openContact()">{{ t.ctaButton }}</button>
-        </p>
     </div>
   </section>
 </template>

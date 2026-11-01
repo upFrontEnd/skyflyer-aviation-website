@@ -90,25 +90,6 @@
     }
   }
 
-  &__cta {
-    color: $color-speach;
-    font-size: 0.85rem;
-    margin-top: 1rem;
-    text-align: center;
-  }
-
-  &__cta-link {
-    background: none;
-    border: 0;
-    color: $color-orange;
-    cursor: pointer;
-    font: inherit;
-    padding: 0;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 }
 
 .contribution-card {
