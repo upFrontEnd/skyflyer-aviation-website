@@ -70,6 +70,7 @@
   &__logo {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
   }
 
   &__svgContainer {
@@ -144,6 +145,26 @@
     }
   }
 
+  // Sur mobile, les icônes de la barre sont remplacées par celles du menu (&__nav-social).
+  &__social-link--bar {
+    display: none;
+
+    @media (min-width: $bp-desktop) {
+      display: flex;
+    }
+  }
+
+  &__nav-social {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    padding: 1rem $gutter 0.5rem;
+
+    @media (min-width: $bp-desktop) {
+      display: none;
+    }
+  }
+
   &__zulu {
     color: $color-text;
     font-family: monospace;
@@ -211,7 +232,7 @@
   }
 
   &__nav--open {
-    max-height: 24rem;
+    max-height: 32rem;
   }
 
   &__list {
