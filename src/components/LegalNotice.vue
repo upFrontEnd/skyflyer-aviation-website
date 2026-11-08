@@ -12,7 +12,7 @@ const t = computed(() => locale.value === 'fr'
   : { title: 'Legal notice',     close: 'Close'  }
 )
 
-// Même pattern que Contact.vue/Lightbox.vue pour la fermeture au clavier.
+// Même pattern que Contact.vue pour la fermeture au clavier.
 function onKeydown(e) {
   if (e.key === 'Escape') close()
 }

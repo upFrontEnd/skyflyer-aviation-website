@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-// Même principe que useTheme.js : la ref vit au niveau du module (pas à
+// Même principe que useLegalModal.js : la ref vit au niveau du module (pas à
 // l'intérieur de useContactModal), donc Header.vue (qui ouvre la popup) et
 // Contact.vue (qui l'affiche) partagent le même isOpen, sans passer par un
 // props/emit entre composants qui ne sont pas parent/enfant.

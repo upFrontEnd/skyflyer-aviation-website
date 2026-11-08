@@ -10,6 +10,8 @@ const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
 const CONTACT_EMAIL = 'adelkamel1982@gmail.com'
 
 const form = ref({ name: '', email: '', message: '' })
+// Case piège (honeypot) : invisible pour un humain, cochée par un bot.
+const botcheck = ref(false)
 const status = ref('idle')
 
 async function handleSubmit() {
@@ -27,6 +29,9 @@ async function handleSubmit() {
     formData.append('name', form.value.name)
     formData.append('email', form.value.email)
     formData.append('message', form.value.message)
+    // Le FormData est construit à la main : sans cette ligne, Web3Forms ne
+    // recevrait jamais la case piège et ne pourrait pas rejeter les bots.
+    if (botcheck.value) formData.append('botcheck', 'on')
 
     const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
@@ -46,9 +51,8 @@ async function handleSubmit() {
   } 
 }
 
-// Même pattern que Lightbox.vue : écouteur sur `window`, attaché/retiré au
-// fil de isOpen, pour qu'Échap ferme la popup dès qu'elle est ouverte, sans
-// dépendre du focus DOM.
+// Écouteur sur `window`, attaché/retiré au fil de isOpen, pour qu'Échap
+// ferme la popup dès qu'elle est ouverte, sans dépendre du focus DOM.
 function onKeydown(e) {
   if (e.key === 'Escape') close()
 }
@@ -91,10 +95,10 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
             <!--
               Piège à bots recommandé par Web3Forms : une checkbox cachée
               qu'un humain ne peut pas voir/cocher, mais qu'un bot qui remplit
-              tous les champs automatiquement cochera — Web3Forms rejette
+              tous les champs automatiquement cochera. Web3Forms rejette
               alors silencieusement l'envoi.
             -->
-            <input type="checkbox" name="botcheck" class="contact__honeypot" tabindex="-1" autocomplete="off" />
+            <input v-model="botcheck" type="checkbox" name="botcheck" class="contact__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
             <button class="btn btn--success" type="submit" :disabled="status === 'sending'">
               {{ status === 'sending' ? (locale === 'fr' ? 'Envoi…' : 'Sending…') : (locale === 'fr' ? 'Envoyer' : 'Send') }}

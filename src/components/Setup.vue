@@ -15,7 +15,8 @@ const toggleLabel = computed(() => locale.value === 'fr' ? 'Setup matériel' : '
 </script>
 
 <template>
-  <section class="setup" id="setup">
+  <!-- Pas de titre visible : aria-label nomme la section pour les lecteurs d'écran. -->
+  <section class="setup" id="setup" :aria-label="toggleLabel">
     <div class="container">
       <button
         type="button"

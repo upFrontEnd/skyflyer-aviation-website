@@ -50,8 +50,8 @@ const { event } = useEventData()
                 width/height retombent sur 1100x619 (le ratio de la photo
                 d'origine) tant que event.image_width/height n'est pas encore
                 connu, pour ne jamais laisser le navigateur sans indication de
-                ratio — voir le bug de déformation d'image corrigé plus tôt
-                cette session (img sans height: auto dans le reset global).
+                ratio. Sans ça, l'image se déformait (img sans height: auto
+                dans le reset global).
               -->
               <img
                 :src="getPublicImageUrl(event.image_path)"
