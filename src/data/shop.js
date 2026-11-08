@@ -1,5 +1,5 @@
 // Tous les designs de la collection "Pégase" (https://displate.com/artist/skyflyer/pegase).
-// Shop.vue n'en affiche que 6, tirés au sort à chaque chargement de page.
+// Shop.vue en affiche 15, tirés au sort à chaque chargement de page (6 seulement sur mobile).
 export const shopItems = [
   { id: 7877474, title: 'United Airlines Boeing 737', thumbnail: 'https://cdn.displate.com/artwork/380x270/2025-01-12/b5ce798d-ed67-47cd-8e36-39425d2dae37.jpg', link: 'https://displate.com/displate/7877474' },
   { id: 10289536, title: 'Airplane Wing Over Sunrise Clouds', thumbnail: 'https://cdn.displate.com/artwork/380x270/2026-05-31/4836ac76-e554-4a3c-ae04-6559112c0234.jpg', link: 'https://displate.com/displate/10289536' },
