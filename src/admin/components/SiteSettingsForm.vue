@@ -1,10 +1,10 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useSiteSettings } from '../../composables/useSiteSettings.js'
-import { useCollapsible } from '../useCollapsible.js'
+import AdminIcon from './AdminIcon.vue'
+import FormStatus from './FormStatus.vue'
 
 const { settings, loading, updateSetting } = useSiteSettings()
-const { isOpen, toggle } = useCollapsible('site-settings')
 
 const twitchChannel = ref('')
 const youtubeVideoId = ref('')
@@ -19,6 +19,18 @@ watch(settings, (val) => {
     initialized = true
   }
 }, { immediate: true })
+
+// Miniature publique de YouTube : permet de vérifier d'un coup d'œil que
+// l'identifiant saisi correspond bien à la bonne vidéo.
+const youtubeThumb = computed(() => {
+  const id = youtubeVideoId.value.trim()
+  return id ? `https://i.ytimg.com/vi/${encodeURIComponent(id)}/hqdefault.jpg` : null
+})
+
+const feedback = computed(() => ({
+  saved: { tone: 'success', message: 'Enregistré.' },
+  error: { tone: 'error', message: 'Une erreur est survenue.' }
+}[status.value] ?? { message: '' }))
 
 async function onSubmit() {
   status.value = 'saving'
@@ -35,43 +47,59 @@ async function onSubmit() {
 </script>
 
 <template>
-  <section class="admin-section twitch" :class="{ 'admin-panel-closed': !isOpen }">
-    <h2 class="admin-panel__title" @click="toggle">
-      Chaine Twitch / Youtube
-      <svg class="admin-panel__arrow" :class="{ 'admin-panel__arrow--open': isOpen }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-    </h2>
-    <div class="admin-collapse" :class="{ 'admin-collapse--closed': !isOpen }">
-      <div class="admin-collapse__inner">
-        <p v-if="loading">Chargement…</p>
-        <form v-else class="admin-form" @submit.prevent="onSubmit">
-          <div class="admin-field">
-            <label for="settings-twitch">Chaîne Twitch</label>
-            <input
-              id="settings-twitch"
-              v-model="twitchChannel"
-              type="text"
-              placeholder="ex : skyflyeraviation"
-              required
-            />
+  <p v-if="loading" class="muted">Chargement…</p>
+  <form v-else class="form-layout" @submit.prevent="onSubmit">
+    <div class="form-layout__main">
+      <section class="card">
+        <div class="card__header">
+          <div>
+            <h2 class="card__title">Twitch</h2>
+            <p class="card__subtitle">Chaîne utilisée pour détecter un live en cours et l'afficher sur le site</p>
           </div>
-          <div class="admin-field">
-            <label for="settings-youtube">ID vidéo YouTube</label>
-            <input
-              id="settings-youtube"
-              v-model="youtubeVideoId"
-              type="text"
-              placeholder="ex : T1nTBUwFDo8"
-            />
+        </div>
+        <div class="field">
+          <label class="field__label" for="settings-twitch">Nom de la chaîne</label>
+          <div class="input-group">
+            <span class="input-group__prefix">twitch.tv/</span>
+            <input id="settings-twitch" v-model="twitchChannel" class="input" type="text" placeholder="skyflyeraviation" required />
           </div>
-          <div class="admin-display-on-site">
-            <button class="btn btn--success" type="submit" :disabled="status === 'saving'">
-              {{ status === 'saving' ? 'Enregistrement…' : 'Enregistrer' }}
-            </button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card__header">
+          <div>
+            <h2 class="card__title">YouTube</h2>
+            <p class="card__subtitle">Vidéo mise en avant dans la section « Dernière vidéo »</p>
           </div>
-          <p v-if="status === 'saved'" class="admin-feedback admin-feedback--success">Enregistré.</p>
-          <p v-if="status === 'error'" class="admin-feedback admin-feedback--error">Une erreur est survenue.</p>
-        </form>
-      </div>
+        </div>
+        <div class="field">
+          <label class="field__label" for="settings-youtube">Identifiant de la vidéo</label>
+          <div class="input-group">
+            <span class="input-group__prefix">youtube.com/watch?v=</span>
+            <input id="settings-youtube" v-model="youtubeVideoId" class="input" type="text" placeholder="T1nTBUwFDo8" />
+          </div>
+        </div>
+        <img v-if="youtubeThumb" :src="youtubeThumb" class="yt-thumb" alt="Miniature de la vidéo" />
+      </section>
     </div>
-  </section>
+
+    <aside class="form-layout__aside">
+      <section class="card">
+        <div class="card__header">
+          <div>
+            <h2 class="card__title">Publication</h2>
+            <p class="card__subtitle">Les changements sont visibles immédiatement</p>
+          </div>
+        </div>
+        <div class="card__actions">
+          <button class="btn btn--primary btn--block" type="submit" :disabled="status === 'saving'">
+            <AdminIcon name="save" :size="18" />
+            {{ status === 'saving' ? 'Enregistrement…' : 'Enregistrer' }}
+          </button>
+          <FormStatus :tone="feedback.tone" :message="feedback.message" />
+        </div>
+      </section>
+    </aside>
+  </form>
 </template>

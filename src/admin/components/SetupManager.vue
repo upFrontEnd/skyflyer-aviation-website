@@ -1,10 +1,10 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useSetupData } from '../../composables/useSetupData.js'
-import { useCollapsible } from '../useCollapsible.js'
+import AdminIcon from './AdminIcon.vue'
+import FormStatus from './FormStatus.vue'
 
 const { items, loading, addItem, updateItem, deleteItem } = useSetupData()
-const { isOpen, toggle } = useCollapsible('setup')
 
 const blank = () => ({
   side: 'left',
@@ -14,14 +14,20 @@ const blank = () => ({
   name: '',
   specs: '',
   icon_svg: '',
-  href: '',
+  href: ''
 })
 
-const newItem   = ref(blank())
+const tab = ref('list')
+const newItem = ref(blank())
 const addStatus = ref('idle')
 const editingId = ref(null)
 
-// Sauvegarde inline d'un champ au blur (même pattern que PartnersManager)
+const feedback = computed(() => ({
+  saved: { tone: 'success', message: 'Élément ajouté.' },
+  error: { tone: 'error', message: 'Erreur lors de l\'ajout.' }
+}[addStatus.value] ?? { message: '' }))
+
+// Sauvegarde inline d'un champ au blur (même principe que PartnersManager).
 async function onEditField(item, field, value) {
   await updateItem(item.id, { [field]: value })
 }
@@ -34,6 +40,7 @@ async function onAdd() {
     await addItem(payload)
     newItem.value = blank()
     addStatus.value = 'saved'
+    tab.value = 'list'
   } catch (e) {
     console.error(e)
     addStatus.value = 'error'
@@ -44,184 +51,140 @@ async function onDelete(item) {
   if (!confirm(`Supprimer « ${item.name} » ?`)) return
   await deleteItem(item.id)
 }
-
-const sideLabel = (s) => s === 'left' ? 'Gauche' : 'Droite'
 </script>
 
 <template>
-  <section class="admin-section setup" :class="{ 'admin-panel-closed': !isOpen }">
-    <h2 class="admin-panel__title" @click="toggle">
-      Setup — Matériel
-      <svg class="admin-panel__arrow" :class="{ 'admin-panel__arrow--open': isOpen }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-    </h2>
-    <div class="admin-collapse" :class="{ 'admin-collapse--closed': !isOpen }">
-      <div class="admin-collapse__inner">
-    <p v-if="loading">Chargement…</p>
+  <p v-if="loading" class="muted">Chargement…</p>
+  <section v-else class="card">
+    <div class="card__header card__header--tabs">
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" class="tabs__tab" :class="{ 'tabs__tab--active': tab === 'list' }" :aria-selected="tab === 'list'" @click="tab = 'list'">
+          Éléments <span class="tabs__count">{{ items.length }}</span>
+        </button>
+        <button type="button" role="tab" class="tabs__tab" :class="{ 'tabs__tab--active': tab === 'add' }" :aria-selected="tab === 'add'" @click="tab = 'add'">
+          Ajouter
+        </button>
+      </div>
+      <FormStatus :tone="feedback.tone" :message="feedback.message" />
+    </div>
 
-    <table v-else class="admin-setup-table">
-      <thead>
-        <tr>
-          <th>Colonne</th>
-          <th>Ordre</th>
-          <th>Catégorie (fr / en)</th>
-          <th>Nom</th>
-          <th>Specs</th>
-          <th>Lien</th>
-          <th>SVG</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in items" :key="item.id">
-          <!-- Colonne -->
-          <td>
-            <select
-              :value="item.side"
-              @change="onEditField(item, 'side', $event.target.value)"
-            >
-              <option value="left">Gauche</option>
-              <option value="right">Droite</option>
-            </select>
-          </td>
-          <!-- Ordre -->
-          <td>
-            <input
-              type="number"
-              :value="item.display_order"
-              min="0"
-              style="width:4rem"
-              @change="onEditField(item, 'display_order', Number($event.target.value))"
-            />
-          </td>
-          <!-- Catégorie fr / en -->
-          <td>
-            <input
-              type="text"
-              :value="item.category_fr"
-              placeholder="🇫🇷"
-              @change="onEditField(item, 'category_fr', $event.target.value)"
-            />
-            <input
-              type="text"
-              :value="item.category_en"
-              placeholder="🇬🇧"
-              @change="onEditField(item, 'category_en', $event.target.value)"
-            />
-          </td>
-          <!-- Nom -->
-          <td>
-            <input
-              type="text"
-              :value="item.name"
-              @change="onEditField(item, 'name', $event.target.value)"
-            />
-          </td>
-          <!-- Specs -->
-          <td>
-            <input
-              type="text"
-              :value="item.specs"
-              @change="onEditField(item, 'specs', $event.target.value)"
-            />
-          </td>
-          <!-- Lien -->
-          <td>
-            <input
-              type="url"
-              :value="item.href ?? ''"
-              placeholder="https://…"
-              @change="onEditField(item, 'href', $event.target.value || null)"
-            />
-          </td>
-          <!-- SVG -->
-          <td>
-            <div class="admin-setup-svg-cell">
-              <!-- Aperçu -->
-              <span class="admin-setup-svg-preview" v-html="item.icon_svg"></span>
-              <button
-                type="button"
-                class="btn"
-                style="font-size:.7rem;padding:.25rem .5rem"
-                @click="editingId = editingId === item.id ? null : item.id"
-              >
-                {{ editingId === item.id ? 'Fermer' : 'Éditer SVG' }}
-              </button>
-              <textarea
-                v-if="editingId === item.id"
-                :value="item.icon_svg"
-                rows="4"
-                placeholder="<svg …>…</svg>"
-                @change="onEditField(item, 'icon_svg', $event.target.value)"
-              ></textarea>
-            </div>
-          </td>
-          <!-- Supprimer -->
-          <td>
-            <button type="button" class="btn admin-partners-list__delete" @click="onDelete(item)">
-                X
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div v-if="tab === 'list'" class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="table__icon">Icône</th>
+            <th>Colonne</th>
+            <th>Ordre</th>
+            <th>Catégorie (fr / en)</th>
+            <th>Nom</th>
+            <th>Specs</th>
+            <th>Lien</th>
+            <th><span class="visually-hidden">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <template v-for="item in items" :key="item.id">
+            <tr>
+              <td class="table__icon">
+                <button
+                  type="button"
+                  class="svg-chip"
+                  :class="{ 'svg-chip--active': editingId === item.id }"
+                  :title="editingId === item.id ? 'Fermer' : 'Modifier le SVG'"
+                  @click="editingId = editingId === item.id ? null : item.id"
+                >
+                  <!-- eslint-disable-next-line vue/no-v-html : SVG saisi par l'admin -->
+                  <span v-html="item.icon_svg"></span>
+                </button>
+              </td>
+              <td>
+                <select class="input input--sm" :value="item.side" @change="onEditField(item, 'side', $event.target.value)">
+                  <option value="left">Gauche</option>
+                  <option value="right">Droite</option>
+                </select>
+              </td>
+              <td>
+                <input class="input input--sm input--num" type="number" :value="item.display_order" min="0" @change="onEditField(item, 'display_order', Number($event.target.value))" />
+              </td>
+              <td>
+                <div class="stack">
+                  <input class="input input--sm" type="text" :value="item.category_fr" placeholder="🇫🇷" @change="onEditField(item, 'category_fr', $event.target.value)" />
+                  <input class="input input--sm" type="text" :value="item.category_en" placeholder="🇬🇧" @change="onEditField(item, 'category_en', $event.target.value)" />
+                </div>
+              </td>
+              <td><input class="input input--sm" type="text" :value="item.name" @change="onEditField(item, 'name', $event.target.value)" /></td>
+              <td><input class="input input--sm" type="text" :value="item.specs" @change="onEditField(item, 'specs', $event.target.value)" /></td>
+              <td><input class="input input--sm" type="url" :value="item.href ?? ''" placeholder="https://..." @change="onEditField(item, 'href', $event.target.value || null)" /></td>
+              <td>
+                <button type="button" class="icon-btn icon-btn--danger" :aria-label="`Supprimer ${item.name}`" title="Supprimer" @click="onDelete(item)">
+                  <AdminIcon name="trash" :size="18" />
+                </button>
+              </td>
+            </tr>
+            <tr v-if="editingId === item.id" class="table__editor">
+              <td colspan="8">
+                <label class="field__label" :for="`svg-${item.id}`">Code SVG de l'icône</label>
+                <textarea :id="`svg-${item.id}`" class="input input--code" :value="item.icon_svg" rows="4" placeholder="<svg ...>...</svg>" @change="onEditField(item, 'icon_svg', $event.target.value)"></textarea>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+      <p class="hint">Chaque champ est enregistré dès que tu le quittes. Clique sur une icône pour modifier son SVG.</p>
+    </div>
 
-    <!-- Formulaire d'ajout -->
-    <form class="admin-form" @submit.prevent="onAdd">
-      <h3>Ajouter un item</h3>
-
-      <div class="admin-form__row">
-        <div class="admin-field">
-          <label>Colonne</label>
-          <select v-model="newItem.side">
+    <form v-else class="fields setup-add" @submit.prevent="onAdd">
+      <div class="field-row">
+        <div class="field">
+          <label class="field__label" for="new-side">Colonne</label>
+          <select id="new-side" v-model="newItem.side" class="input">
             <option value="left">Gauche</option>
             <option value="right">Droite</option>
           </select>
         </div>
-        <div class="admin-field">
-          <label>Ordre</label>
-          <input v-model.number="newItem.display_order" type="number" min="0" style="width:5rem" />
+        <div class="field">
+          <label class="field__label" for="new-order">Ordre</label>
+          <input id="new-order" v-model.number="newItem.display_order" class="input" type="number" min="0" />
         </div>
       </div>
-
-      <div class="admin-form__row">
-        <div class="admin-field">
-          <label>🇫🇷 Catégorie</label>
-          <input v-model="newItem.category_fr" type="text" required />
+      <div class="field-row">
+        <div class="field">
+          <label class="field__label" for="new-cat-fr">🇫🇷 Catégorie</label>
+          <input id="new-cat-fr" v-model="newItem.category_fr" class="input" type="text" required />
         </div>
-        <div class="admin-field">
-          <label>🇬🇧 Catégorie</label>
-          <input v-model="newItem.category_en" type="text" required />
-        </div>
-      </div>
-
-      <div class="admin-form__row">
-        <div class="admin-field">
-          <label>Nom</label>
-          <input v-model="newItem.name" type="text" required />
-        </div>
-        <div class="admin-field">
-          <label>Specs</label>
-          <input v-model="newItem.specs" type="text" />
+        <div class="field">
+          <label class="field__label" for="new-cat-en">🇬🇧 Catégorie</label>
+          <input id="new-cat-en" v-model="newItem.category_en" class="input" type="text" required />
         </div>
       </div>
-
-      <div class="admin-field">
-        <label>Lien (optionnel)</label>
-        <input v-model="newItem.href" type="url" placeholder="https://…" />
+      <div class="field-row">
+        <div class="field">
+          <label class="field__label" for="new-name">Nom</label>
+          <input id="new-name" v-model="newItem.name" class="input" type="text" required />
+        </div>
+        <div class="field">
+          <label class="field__label" for="new-specs">Specs</label>
+          <input id="new-specs" v-model="newItem.specs" class="input" type="text" />
+        </div>
       </div>
-
-      <div class="admin-field">
-        <label>Icône SVG</label>
-        <textarea v-model="newItem.icon_svg" rows="4" placeholder="<svg width=&quot;22&quot; height=&quot;22&quot; viewBox=&quot;0 0 24 24&quot; …>…</svg>" required></textarea>
-        <div v-if="newItem.icon_svg" class="admin-setup-svg-preview" v-html="newItem.icon_svg"></div>
+      <div class="field">
+        <label class="field__label" for="new-href">Lien <span class="field__optional">optionnel</span></label>
+        <input id="new-href" v-model="newItem.href" class="input" type="url" placeholder="https://..." />
       </div>
-
-      <button class="btn" type="submit" :disabled="addStatus === 'saving'">
-        {{ addStatus === 'saving' ? 'Ajout…' : 'Ajouter' }}
-      </button>
-      <span v-if="addStatus === 'error'" style="color:red;margin-left:.5rem">Erreur lors de l'ajout</span>
+      <div class="field">
+        <label class="field__label" for="new-svg">Icône SVG</label>
+        <div class="svg-field">
+          <textarea id="new-svg" v-model="newItem.icon_svg" class="input input--code" rows="4" placeholder="<svg width=&quot;22&quot; height=&quot;22&quot; viewBox=&quot;0 0 24 24&quot; ...>...</svg>" required></textarea>
+          <!-- eslint-disable-next-line vue/no-v-html : SVG saisi par l'admin -->
+          <span class="svg-chip svg-chip--lg" aria-hidden="true" v-html="newItem.icon_svg"></span>
+        </div>
+      </div>
+      <div>
+        <button class="btn btn--primary" type="submit" :disabled="addStatus === 'saving'">
+          <AdminIcon name="plus" :size="18" />
+          {{ addStatus === 'saving' ? 'Ajout…' : 'Ajouter l\'élément' }}
+        </button>
+      </div>
     </form>
-      </div>
-    </div>
   </section>
 </template>
