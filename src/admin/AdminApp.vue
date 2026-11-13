@@ -2,7 +2,7 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { useAdminAuth } from './useAdminAuth.js'
 import { useAdminNav } from './useAdminNav.js'
-import { ADMIN_PAGES } from './navigation.js'
+import { ADMIN_PAGES, EXTERNAL_TOOLS } from './navigation.js'
 import { usePartnersData } from '../composables/usePartnersData.js'
 import { useSetupData } from '../composables/useSetupData.js'
 import LoginForm from './components/LoginForm.vue'
@@ -85,6 +85,20 @@ watch(page, (p) => {
               <AdminIcon :name="p.icon" class="sidebar__icon" />
               <span>{{ p.label }}</span>
               <span v-if="counts[p.key]" class="sidebar__count">{{ counts[p.key] }}</span>
+            </a>
+          </div>
+
+          <div class="sidebar__group">
+            <p class="sidebar__group-title">Outils de stream</p>
+            <a
+              v-for="tool in EXTERNAL_TOOLS"
+              :key="tool.key"
+              :href="tool.href"
+              class="sidebar__link"
+              :class="`tone-${tool.tone}`"
+            >
+              <AdminIcon :name="tool.icon" class="sidebar__icon" />
+              <span>{{ tool.label }}</span>
             </a>
           </div>
         </nav>

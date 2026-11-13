@@ -73,3 +73,23 @@ export const ADMIN_PAGES = [
     component: markRaw(DiscordAnnounceForm)
   }
 ]
+
+// Admins des outils de stream, hébergés dans d'autres projets. En dev
+// (bun run dev), on pointe sur leurs serveurs Vite locaux, sinon sur
+// GitHub Pages. Les ports sont ceux fixés dans leurs vite.config.js
+// (stream-checklist : 5190, stream-command : 5183). Les onglets du
+// dashboard stream-command s'ouvrent via l'ancre (#vol, #sons, #annonces).
+const CHECKLIST_URL = import.meta.env.DEV
+  ? 'http://localhost:5190/admin.html'
+  : 'https://upfrontend.github.io/stream-inflight-checklist/admin.html'
+
+const COMMAND_URL = import.meta.env.DEV
+  ? 'http://localhost:5183/'
+  : 'https://upfrontend.github.io/stream-inflight-command/'
+
+export const EXTERNAL_TOOLS = [
+  { key: 'checklists', label: 'Checklists', icon: 'checklist', tone: 'teal', href: CHECKLIST_URL },
+  { key: 'vol', label: 'Commandes de vol', icon: 'plane', tone: 'sky', href: `${COMMAND_URL}#vol` },
+  { key: 'sons', label: 'Sons', icon: 'volume', tone: 'pink', href: `${COMMAND_URL}#sons` },
+  { key: 'annonces', label: 'Annonces', icon: 'message', tone: 'lime', href: `${COMMAND_URL}#annonces` }
+]
