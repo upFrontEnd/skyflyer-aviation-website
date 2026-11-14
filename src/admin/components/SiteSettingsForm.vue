@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { useSiteSettings } from '../../composables/useSiteSettings.js'
 import AdminIcon from './AdminIcon.vue'
+import BrandLogo from './BrandLogo.vue'
 import FormStatus from './FormStatus.vue'
 
 const { settings, loading, updateSetting } = useSiteSettings()
@@ -53,7 +54,7 @@ async function onSubmit() {
       <section class="card">
         <div class="card__header">
           <div>
-            <h2 class="card__title">Twitch</h2>
+            <h2 class="card__title"><BrandLogo brand="twitch" /></h2>
             <p class="card__subtitle">Chaîne utilisée pour détecter un live en cours et l'afficher sur le site</p>
           </div>
         </div>
@@ -69,7 +70,7 @@ async function onSubmit() {
       <section class="card">
         <div class="card__header">
           <div>
-            <h2 class="card__title">YouTube</h2>
+            <h2 class="card__title"><BrandLogo brand="youtube" /></h2>
             <p class="card__subtitle">Vidéo mise en avant dans la section « Dernière vidéo »</p>
           </div>
         </div>

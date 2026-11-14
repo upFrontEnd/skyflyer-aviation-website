@@ -18,7 +18,8 @@ export function emptyDiscordDraft() {
     intro: '',
     ...Object.fromEntries(DISCORD_DETAILS.map(d => [d.key, ''])),
     link: '',
-    mentionEveryone: true
+    mentionEveryone: true,
+    linkPreview: false
   }
 }
 
@@ -77,11 +78,12 @@ export async function preparePhoto(file) {
   return new File([blob], name, { type: 'image/jpeg' })
 }
 
-export async function sendDiscordMessage(content, mentionEveryone, photo = null) {
+export async function sendDiscordMessage(content, { mentionEveryone, linkPreview }, photo = null) {
   if (!supabase) throw new Error('Supabase non configuré')
   const body = new FormData()
   body.append('content', content)
   body.append('mentionEveryone', String(mentionEveryone))
+  body.append('linkPreview', String(linkPreview))
   if (photo) body.append('file', await preparePhoto(photo))
 
   // functions.invoke ajoute automatiquement le jeton de session de l'admin

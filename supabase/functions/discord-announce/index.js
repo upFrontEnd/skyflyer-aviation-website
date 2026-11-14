@@ -12,6 +12,9 @@ import { createClient } from 'npm:@supabase/supabase-js@2'
 const DISCORD_MAX_LENGTH = 2000
 // Limite d'upload d'un webhook sur un serveur sans boost.
 const DISCORD_MAX_FILE_SIZE = 10 * 1024 * 1024
+// Flag Discord SUPPRESS_EMBEDS (1 << 2) : pas d'aperçu pour les liens du
+// message. La photo jointe reste affichée (pièce jointe, pas un embed).
+const SUPPRESS_EMBEDS = 1 << 2
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -19,7 +22,7 @@ const corsHeaders = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS'
 }
 
-function json(body: unknown, status = 200) {
+function json(body, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
     headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -36,8 +39,8 @@ Deno.serve(async (req) => {
   // (même règle que les policies RLS des tables).
   const authHeader = req.headers.get('Authorization') ?? ''
   const supabase = createClient(
-    Deno.env.get('SUPABASE_URL')!,
-    Deno.env.get('SUPABASE_ANON_KEY')!,
+    Deno.env.get('SUPABASE_URL'),
+    Deno.env.get('SUPABASE_ANON_KEY'),
     { global: { headers: { Authorization: authHeader } } }
   )
   const { data: { user }, error: authError } = await supabase.auth.getUser()
@@ -46,9 +49,10 @@ Deno.serve(async (req) => {
   const webhookUrl = Deno.env.get('DISCORD_WEBHOOK_URL')
   if (!webhookUrl) return json({ error: 'DISCORD_WEBHOOK_URL non configuré' }, 500)
 
-  // multipart/form-data : champs "content", "mentionEveryone" ("true" ou
-  // "false") et, en option, "file" (la photo jointe au message).
-  let form: FormData
+  // multipart/form-data : champs "content", "mentionEveryone" et
+  // "linkPreview" ("true" ou "false") et, en option, "file" (la photo jointe
+  // au message).
+  let form
   try {
     form = await req.formData()
   } catch {
@@ -75,7 +79,9 @@ Deno.serve(async (req) => {
   // demandé (case cochée), même si le texte le contient par ailleurs.
   const payloadJson = {
     content,
-    allowed_mentions: { parse: form.get('mentionEveryone') === 'true' ? ['everyone'] : [] }
+    allowed_mentions: { parse: form.get('mentionEveryone') === 'true' ? ['everyone'] : [] },
+    // Aperçus de liens masqués sauf si l'admin les a demandés
+    ...(form.get('linkPreview') === 'true' ? {} : { flags: SUPPRESS_EMBEDS })
   }
 
   // Format attendu par Discord pour un message avec pièce jointe : le JSON

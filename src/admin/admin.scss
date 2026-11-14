@@ -1304,3 +1304,23 @@ select.input {
   font-size: .95rem;
   margin-top: .3rem;
 }
+
+.lang-input {
+  align-items: center;
+  display: flex;
+  gap: .45rem;
+
+  .input { flex: 1; min-width: 0; }
+}
+
+.input-with-action {
+  align-items: center;
+  display: flex;
+  gap: .4rem;
+
+  .input { flex: 1; min-width: 0; }
+}
+
+.switch + .switch {
+  margin-top: .6rem;
+}

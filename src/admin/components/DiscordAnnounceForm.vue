@@ -96,7 +96,7 @@ async function onSend() {
 
   status.value = 'sending'
   try {
-    await sendDiscordMessage(message.value, draft.value.mentionEveryone, photo.value)
+    await sendDiscordMessage(message.value, draft.value, photo.value)
     status.value = 'sent'
     // Le brouillon envoyé sert de base au prochain message : on le garde.
     saveDraft().catch(() => {})
@@ -222,6 +222,15 @@ function onReset() {
           <span class="switch__label">
             Mentionner @everyone
             <small>{{ draft.mentionEveryone ? 'Tout le serveur sera notifié' : 'Aucune notification de masse' }}</small>
+          </span>
+        </label>
+
+        <label class="switch" for="discord-link-preview">
+          <input id="discord-link-preview" v-model="draft.linkPreview" type="checkbox" />
+          <span class="switch__track" aria-hidden="true"></span>
+          <span class="switch__label">
+            Aperçu des liens
+            <small>{{ draft.linkPreview ? 'Discord affichera une carte sous chaque lien' : "Liens affichés sans carte d'aperçu" }}</small>
           </span>
         </label>
 

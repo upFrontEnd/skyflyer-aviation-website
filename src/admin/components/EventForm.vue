@@ -4,6 +4,8 @@ import { useEventData } from '../../composables/useEventData.js'
 import { getPublicImageUrl } from '../../lib/supabase.js'
 import ImageUploader from './ImageUploader.vue'
 import AdminIcon from './AdminIcon.vue'
+import LangFlag from './LangFlag.vue'
+import DateTimePicker from './DateTimePicker.vue'
 import FormStatus from './FormStatus.vue'
 
 const { event, loading, updateEvent } = useEventData()
@@ -36,6 +38,41 @@ watch(
   },
   { immediate: true }
 )
+
+// Dates choisies au calendrier : servent seulement à générer le texte des
+// champs date_fr / date_en (qui restent modifiables à la main) et à rouvrir
+// le calendrier sur le dernier choix. Rien de tout ça n'est enregistré.
+const pickedLocal = ref(null)
+const pickedZulu = ref(null)
+
+const capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1)
+const pad = (n) => String(n).padStart(2, '0')
+
+// "Samedi 21 novembre 2026 à 21h00", dans le fuseau du navigateur
+function formatLocalFr(date) {
+  const day = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(date)
+  return `${capitalize(day)} à ${pad(date.getHours())}h${pad(date.getMinutes())}`
+}
+
+// "Saturday, November 21, 2026 at 20:00Z"
+function formatZuluEn(date) {
+  const day = new Intl.DateTimeFormat('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(date)
+  return `${day} at ${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())}Z`
+}
+
+// Choisir l'heure locale remplit aussi la version Zulu (même instant),
+// ajustable ensuite avec son propre calendrier.
+function onPickLocal(date) {
+  pickedLocal.value = date
+  pickedZulu.value = date
+  form.value.date_fr = formatLocalFr(date)
+  form.value.date_en = formatZuluEn(date)
+}
+
+function onPickZulu(date) {
+  pickedZulu.value = date
+  form.value.date_en = formatZuluEn(date)
+}
 
 const status = ref('idle')
 const feedback = computed(() => ({
@@ -77,11 +114,11 @@ async function onSubmit() {
             <input id="event-title" v-model="form.title" class="input" type="text" required />
           </div>
           <div class="field">
-            <label class="field__label" for="event-desc-fr">🇫🇷 Description</label>
+            <label class="field__label" for="event-desc-fr"><LangFlag lang="fr" /> Description</label>
             <textarea id="event-desc-fr" v-model="form.description_fr" class="input" rows="4" required></textarea>
           </div>
           <div class="field">
-            <label class="field__label" for="event-desc-en">🇬🇧 Description</label>
+            <label class="field__label" for="event-desc-en"><LangFlag lang="en" /> Description</label>
             <textarea id="event-desc-en" v-model="form.description_en" class="input" rows="4" required></textarea>
           </div>
           <div class="field">
@@ -101,12 +138,18 @@ async function onSubmit() {
         <div class="fields">
           <div class="field-row">
             <div class="field">
-              <label class="field__label" for="event-date-fr">🇫🇷 Date</label>
-              <input id="event-date-fr" v-model="form.date_fr" class="input" type="text" required />
+              <label class="field__label" for="event-date-fr"><LangFlag lang="fr" /> Date <span class="field__optional">heure locale</span></label>
+              <div class="input-with-action">
+                <input id="event-date-fr" v-model="form.date_fr" class="input" type="text" required />
+                <DateTimePicker :value="pickedLocal" label="Choisir la date et l'heure locale" @pick="onPickLocal" />
+              </div>
             </div>
             <div class="field">
-              <label class="field__label" for="event-date-en">🇬🇧 Date</label>
-              <input id="event-date-en" v-model="form.date_en" class="input" type="text" required />
+              <label class="field__label" for="event-date-en"><LangFlag lang="en" /> Date <span class="field__optional">heure Zulu</span></label>
+              <div class="input-with-action">
+                <input id="event-date-en" v-model="form.date_en" class="input" type="text" required />
+                <DateTimePicker :value="pickedZulu" utc label="Choisir la date et l'heure Zulu (UTC)" @pick="onPickZulu" />
+              </div>
             </div>
           </div>
           <div class="field">

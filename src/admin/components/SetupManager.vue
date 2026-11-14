@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { useSetupData } from '../../composables/useSetupData.js'
 import AdminIcon from './AdminIcon.vue'
+import LangFlag from './LangFlag.vue'
 import FormStatus from './FormStatus.vue'
 
 const { items, loading, addItem, updateItem, deleteItem } = useSetupData()
@@ -108,8 +109,8 @@ async function onDelete(item) {
               </td>
               <td>
                 <div class="stack">
-                  <input class="input input--sm" type="text" :value="item.category_fr" placeholder="🇫🇷" @change="onEditField(item, 'category_fr', $event.target.value)" />
-                  <input class="input input--sm" type="text" :value="item.category_en" placeholder="🇬🇧" @change="onEditField(item, 'category_en', $event.target.value)" />
+                  <div class="lang-input"><LangFlag lang="fr" /><input class="input input--sm" type="text" :value="item.category_fr" aria-label="Catégorie en français" @change="onEditField(item, 'category_fr', $event.target.value)" /></div>
+                  <div class="lang-input"><LangFlag lang="en" /><input class="input input--sm" type="text" :value="item.category_en" aria-label="Catégorie en anglais" @change="onEditField(item, 'category_en', $event.target.value)" /></div>
                 </div>
               </td>
               <td><input class="input input--sm" type="text" :value="item.name" @change="onEditField(item, 'name', $event.target.value)" /></td>
@@ -149,11 +150,11 @@ async function onDelete(item) {
       </div>
       <div class="field-row">
         <div class="field">
-          <label class="field__label" for="new-cat-fr">🇫🇷 Catégorie</label>
+          <label class="field__label" for="new-cat-fr"><LangFlag lang="fr" /> Catégorie</label>
           <input id="new-cat-fr" v-model="newItem.category_fr" class="input" type="text" required />
         </div>
         <div class="field">
-          <label class="field__label" for="new-cat-en">🇬🇧 Catégorie</label>
+          <label class="field__label" for="new-cat-en"><LangFlag lang="en" /> Catégorie</label>
           <input id="new-cat-en" v-model="newItem.category_en" class="input" type="text" required />
         </div>
       </div>

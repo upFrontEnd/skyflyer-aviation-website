@@ -20,19 +20,15 @@ const today = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric'
   .replace(/^./, c => c.toUpperCase())
 
 const eventImage = computed(() => getPublicImageUrl(event.value?.image_path))
-const setupLeft = computed(() => setupItems.value.filter(i => i.side === 'left').length)
 const discordDraft = computed(() => parseDiscordDraft(settings.value.discord_draft))
 
 // Phrase de résumé sous la date, comme un point de situation rapide.
 const summary = computed(() => {
   if (eventLoading.value) return 'Chargement du contenu du site…'
   const e = event.value
-  const parts = []
-  parts.push(e?.active
-    ? `L'événement « ${e.title} » est affiché sur le site`
-    : 'Aucun événement n\'est affiché sur le site')
-  parts.push(`${partners.value.length} partenaires et ${setupItems.value.length} éléments de setup en ligne`)
-  return parts.join(', ') + '.'
+  return e?.active
+    ? `L'événement « ${e.title} » est affiché sur le site.`
+    : 'Aucun événement n\'est affiché sur le site.'
 })
 
 const stats = computed(() => [
@@ -46,14 +42,12 @@ const stats = computed(() => [
   {
     key: 'partners',
     label: 'Partenaires',
-    value: partners.value.length,
-    hint: 'logos sur le site'
+    value: partners.value.length
   },
   {
     key: 'setup',
     label: 'Setup',
-    value: setupItems.value.length,
-    hint: `${setupLeft.value} à gauche · ${setupItems.value.length - setupLeft.value} à droite`
+    value: setupItems.value.length
   },
   {
     key: 'channels',
@@ -90,7 +84,7 @@ const shortcuts = computed(() => [
         <span class="stat__value" :class="{ 'stat__value--small': s.small || typeof s.value === 'string' }">{{ s.value }}</span>
         <span class="stat__foot">
           <span v-if="s.badge" class="badge" :class="`badge--${s.badge.tone}`">{{ s.badge.text }}</span>
-          <span class="stat__hint">{{ s.hint }}</span>
+          <span v-if="s.hint" class="stat__hint">{{ s.hint }}</span>
         </span>
       </button>
     </div>
