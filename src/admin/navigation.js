@@ -89,7 +89,7 @@ const COMMAND_URL = import.meta.env.DEV
 
 export const EXTERNAL_TOOLS = [
   { key: 'checklists', label: 'Checklists', icon: 'checklist', tone: 'teal', href: CHECKLIST_URL },
-  { key: 'vol', label: 'Commandes de vol', icon: 'plane', tone: 'sky', href: `${COMMAND_URL}#vol` },
+  { key: 'vol', label: 'Commandes', icon: 'plane', tone: 'sky', href: `${COMMAND_URL}#vol` },
   { key: 'sons', label: 'Sons', icon: 'volume', tone: 'pink', href: `${COMMAND_URL}#sons` },
   { key: 'annonces', label: 'Annonces', icon: 'message', tone: 'lime', href: `${COMMAND_URL}#annonces` }
 ]
