@@ -1,6 +1,7 @@
 // Tous les designs de la collection "Pégase" (https://displate.com/artist/skyflyer/pegase).
 // Shop.vue en affiche 15, tirés au sort à chaque chargement de page (6 seulement sur mobile).
 export const shopItems = [
+  { id: 11428702, title: 'Commercial Airplane Parked at Airport Terminal', thumbnail: 'https://cdn.displate.com/artwork/380x270/2026-11-23/509ee394-9cea-4ba6-a23d-53891a26c57b.jpg', link: 'https://displate.com/displate/11428702' },
   { id: 11400610, title: 'Air Algerie Airbus A330-900neo', thumbnail: 'https://cdn.displate.com/artwork/380x270/2026-11-20/81a95679-c781-4222-b79c-1554a52e4858.jpg', link: 'https://displate.com/displate/11400610' },
   { id: 7877474, title: 'United Airlines Boeing 737', thumbnail: 'https://cdn.displate.com/artwork/380x270/2025-01-12/b5ce798d-ed67-47cd-8e36-39425d2dae37.jpg', link: 'https://displate.com/displate/7877474' },
   { id: 10289536, title: 'Airplane Wing Over Sunrise Clouds', thumbnail: 'https://cdn.displate.com/artwork/380x270/2026-05-31/4836ac76-e554-4a3c-ae04-6559112c0234.jpg', link: 'https://displate.com/displate/10289536' },
